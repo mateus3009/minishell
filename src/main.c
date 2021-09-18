@@ -6,38 +6,83 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/16 22:11:57 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/18 14:57:43 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char *const argv[], char *const env[])
+void	test_list_children(t_token_definition **tokens, unsigned int children)
 {
-    char    *line;
-	//t_penv	*penv;
+	int	index;
 
-	// if (argc && argv)
-	// {
-	// 	penv = parse_env(env);
-	// 	display_env(penv);
-	// 	printf("\n\n");
-	// 	printf("->PATH: %s\n", find_env(penv, "PATH"));
-	// 	free_env(penv);
-	// 	execve("/usr/bin/echo", argv, env);
-	// }
+	index = 0;
+	while (tokens[index])
+	{
+		if (tokens[index]->id & children)
+			printf("id: %d, open: %s\n",
+				tokens[index]->id , tokens[index]->open);
+		index++;
+	}
+}
+
+void	testa_token(t_token_definition *token, char *str, int *index)
+{
+	// verificar se encontrou o token ' ' ' ola'
+	if (strncmp(token->open, str + *index, token->open_size) != 0)
+		return ;
+	if (token->id == TD_SPACE)
+		while (ft_isspace(str + *index))
+			*index++;
+
+}
+{
+	type = $
+	value =
+}
+ec$cho "ho")
+/** token atual, str, index
+ * para cada letra do string
+ * > procura o backslash
+ * >> se encontrar -> avanca duas posicoes
+ * > procura o fim do token atual
+ * >> se não encontrar -> adiciona letra no value do token atual
+ * > procura por um token
+ * >> se encontrar um token -> adiciona um filho na arvoe -> break
+ * > ...
+work -> quote
+*/
+void	tokenizer(char *str)
+{
+	int		index;
+	t_dlist	*token;
+
+	index = 0
+	token = NULL; // TODO colocar uma word
+	while (str[index])
+	{
+
+	}
+}
+int main()
+{
+	t_token_definition	**token_types;
+	char				*line;
 
 	line = NULL;
-    while (true && argc)
-    {
-        line = readline(NULL);
-        if (!line)
-            break ;
-		printf("O que você escreveu: %s\n", line);
-		run_system_cmd(line, argv, env);
-		add_history(line);
-		free(line);
-    }
-	rl_clear_history();
-    return (0);
+	token_types = init_all_token_definition();
+	test_list_children(token_types, TD_ALL ^ TD_AND);
+	return (0);
+	// while (1)
+	// {
+	// 	line = readline(NULL);
+	// 	if (!line || line == "\n")
+	// 		break ;
+	// 	test_here_file(token_types, line);
+	// 	add_history(line);
+	// }
+	// clear_history();
+
+	line = "ec\"ho \" \"nome\" nome && echo $nome 'nome' \"$nome\" | grep nome > file.txt |";
+	return (0);
 }
