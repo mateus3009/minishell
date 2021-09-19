@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/18 12:46:25 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/19 06:55:21 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "./../libs/libft/srcs/includes/libft.h"
-# include "tokens.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -48,7 +47,5 @@ void			run_system_cmd(
 					char *const argv[],
 					char *const env[]);
 
-
-void	teste_td(void);
 
 #endif
