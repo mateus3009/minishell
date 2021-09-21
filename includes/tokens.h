@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/19 18:20:20 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/20 20:30:40 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOKENS_H
 # define TOKENS_H
 
-# include "minishell.h"
+# include "./../libs/libft/srcs/includes/libft.h"
 
 # define TD_WORD			0
 # define TD_HERE_FILE		1
@@ -31,21 +31,21 @@
 
 typedef struct s_token_definition
 {
-	short id;
-	char *value;
-	size_t length;
+	short	id;
+	char	*value;
+	size_t	length;
 }				t_token_definition;
 
 typedef struct s_token_builder
 {
-	short id;
-	t_str_builder *builder;
+	short			id;
+	t_str_builder	*builder;
 }				t_token_builder;
 
 typedef struct s_token
 {
-	short id;
-	char *value;
+	short	id;
+	char	*value;
 }				t_token;
 
 t_token_builder	*token_builder_init(int id);

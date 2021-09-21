@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   styles.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:03:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/19 16:03:52 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/20 20:30:00 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@
 # define ESC_BOLD_WHITE "\001\033[1;37m\002"
 # define ESC_RESET_COLOR "\001\033[0m\002"
 
-char	*create_prompt();
-void	read_input(char **input);
+char	*create_prompt(void);
+void	read_input_and_save_history(char **input);
 
 #endif

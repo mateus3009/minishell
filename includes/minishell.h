@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/19 18:27:34 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/20 20:52:27 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./../libs/libft/srcs/includes/libft.h"
 # include "styles.h"
 # include "tokens.h"
+# include "parser.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -23,6 +24,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <signal.h>
 
 typedef struct s_penv
 {
@@ -57,5 +59,9 @@ void			run_system_cmd(
 					char *const argv[],
 					char *const env[]);
 
+/*
+*	SIGNALS
+*/
+void			set_input_signals(void);
 
 #endif

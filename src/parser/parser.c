@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/20 21:03:53 by lniehues         ###   ########.fr       */
+/*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
+/*   Updated: 2021/09/20 21:03:02 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	parse(t_dlist *tokens)
 {
-	char	*line;
-	t_dlist	*tokens;
+	t_token	*token;
+	char	*new;
 
-	g_minishell.error_status = 0;
-	if (argc && argv)
-		g_minishell.penv = parse_env(env);
-	while (1)
+	while (tokens)
 	{
-		read_input_and_save_history(&line);
-		if (!line)
-			break ;
-		tokens = NULL;
-		token_recognition(&tokens, line);
-		parse(tokens);
-		free(line);
-		ft_dlstclear(&tokens, token_free);
+		token = (t_token *)tokens->content;
+		if (token->id == TD_WORD || token->id == TD_DOUBLE_QUOTE)
+		{
+			new = expand_variable(token->value);
+			free(token->value);
+			token->value = new;
+		}
+		printf("<%d, %s>\n", token->id, token->value);
+		tokens = tokens->next;
 	}
-	rl_clear_history();
-	return (0);
 }
