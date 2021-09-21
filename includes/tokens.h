@@ -6,7 +6,7 @@
 /*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/20 20:30:40 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/20 21:25:38 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int				find_end_of_token(
 					t_token_builder *token);
 void			add_token_to_result(
 					t_dlist **tokens,
-					int	id,
+					int id,
 					char *str);
 void			add_the_curent_token_id_to_the_result(
 					t_dlist **tokens, int id);
