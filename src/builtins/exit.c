@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/21 21:27:25 by msales-a         ###   ########.fr       */
+/*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
+/*   Updated: 2021/09/21 21:39:10 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse(t_dlist *tokens)
+void	exit_minishell(void)
 {
-	t_token	*token;
-	char	*new;
-
-	while (tokens)
-	{
-		token = (t_token *)tokens->content;
-		if (token->id == TD_WORD || token->id == TD_DOUBLE_QUOTE)
-		{
-			new = expand_variable(token->value);
-			free(token->value);
-			token->value = new;
-		}
-		printf("<%d, %s>\n", token->id, token->value);
-		tokens = tokens->next;
-	}
+	free_env(g_minishell.penv);
+	exit(g_minishell.error_status);
 }
+
+/*
+void	exit_builtin(char **argv)
+{
+	int argc;
+	argc = get_argc(argv);
+	if (argc > 1)
+	{
+		prompt_error_msg(cmd, msg, fd);
+		return ;
+	}
+	ft_putstr_fd("exit\n", 1);
+	exit_minishell();
+}
+*/

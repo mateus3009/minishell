@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/20 20:53:51 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/21 21:27:57 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@ char	*create_prompt(void)
 	return (prompt);
 }
 
+static void	check_eof(char *line)
+{
+	if (line)
+		return ;
+	ft_putstr_fd("exit\n", 1);
+	exit_minishell();
+}
+
 void	read_input_and_save_history(char **input)
 {
 	char	*prompt;
@@ -54,4 +62,5 @@ void	read_input_and_save_history(char **input)
 	*input = readline(prompt);
 	free(prompt);
 	save_history(*input);
+	check_eof(*input);
 }

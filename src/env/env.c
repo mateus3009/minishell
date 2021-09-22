@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:26:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/16 21:45:04 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/21 20:47:40 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	display_env(t_penv *penv)
 
 char	*find_env(t_penv *penv, char *key)
 {
+	if (*key == '?')
+		return (ft_itoa(g_minishell.error_status));
 	while (penv->key)
 	{
 		if (ft_strcmp(penv->key, key) == 0)

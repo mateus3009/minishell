@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/19 18:20:15 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/21 20:47:40 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 char	*find_variable(char *str, int *len)
 {
+	int	i;
+
 	*len = 0;
-	while (str[*len] && str[*len] != '$')
-		(*len)++;
-	if (!str[*len] || !str[*len + 1] || !ft_isalnum(str[*len + 1])
-		|| (*len && str[*len - 1] == '\\'))
+	i = 0;
+	while (str[i] && str[i] != '$')
+		i++;
+	if (!str[i] || !str[i + 1] || (i && str[i - 1] == '\\')
+		|| (!ft_isalnum(str[i + 1]) && str[i + 1] != '?'))
 		return (NULL);
 	*len = 1;
-	if (ft_isdigit(*++str))
-		return (str);
+	if (str[i + 1] == '?' || ft_isdigit(str[i + 1]))
+		return (str + i + 1);
 	*len = 0;
-	while (ft_isalnum(*(str + *len)))
+	while (ft_isalnum((str + i + 1)[*len]))
 		(*len)++;
-	return (str);
+	return (str + i + 1);
 }
 
 char	*expand_variable(char *str)

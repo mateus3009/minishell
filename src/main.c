@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/20 21:03:53 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/21 21:28:10 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ int	main(int argc, char **argv, char **env)
 		g_minishell.penv = parse_env(env);
 	while (1)
 	{
-		read_input_and_save_history(&line);
-		if (!line)
-			break ;
 		tokens = NULL;
+		read_input_and_save_history(&line);
 		token_recognition(&tokens, line);
 		parse(tokens);
 		free(line);

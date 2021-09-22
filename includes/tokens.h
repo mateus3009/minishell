@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/20 21:25:38 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/21 21:18:37 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@
 # define TD_AND				2
 # define TD_OR				3
 # define TD_APPEND_MODE		4
-# define TD_EXIT_STATUS		5
-# define TD_SPACE			6
-# define TD_SINGLE_QUOTE	7
-# define TD_DOUBLE_QUOTE	8
-# define TD_PIPE			9
-# define TD_INPUT			10
-# define TD_OUTPUT			11
-# define TD_VARIABLE		12
+# define TD_SPACE			5
+# define TD_SINGLE_QUOTE	6
+# define TD_DOUBLE_QUOTE	7
+# define TD_PIPE			8
+# define TD_INPUT			9
+# define TD_OUTPUT			10
+# define TD_VARIABLE		11
 
 typedef struct s_token_definition
 {
