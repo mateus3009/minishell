@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/21 21:42:52 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/22 21:38:509 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ t_penv			*parse_env(char *const env[]);
 void			display_env(t_penv *penv);
 char			*find_env(t_penv *penv, char *key);
 void			free_env(t_penv *penv);
+char			**tpenv_to_array(t_penv	*env);
 
 /*
 *	SYSTEM CALLS
@@ -68,5 +69,10 @@ void			set_input_signals(void);
 *	BUILTINS
 */
 void			exit_minishell(void);
+
+/**
+ *	UTIL
+ */
+char			*ft_strrstr(char const *big, const char *little);
 
 #endif
