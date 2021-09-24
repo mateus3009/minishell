@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:42:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/21 21:42:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/23 21:27:57 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,28 @@ static void	handle_prompt_redisplay(int signal)
 	rl_redisplay();
 }
 
+static void	handle_interrupt_process(int signal)
+{
+	(void)signal;
+	g_minishell.error_status = 130;
+	ft_putstr_fd("\n", 1);
+}
+
+static void	handle_quit_process(int signal)
+{
+	(void)signal;
+	g_minishell.error_status = 131;
+	ft_putstr_fd("Quit (core dumped)\n", 1);
+}
+
 void	set_input_signals(void)
 {
 	signal(SIGINT, handle_prompt_redisplay);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	set_exec_signals(void)
+{
+	signal(SIGINT, handle_interrupt_process);
+	signal(SIGQUIT, handle_quit_process);
 }

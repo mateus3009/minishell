@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/22 21:43:28 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/23 21:46:32 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* TODO
+*	- separate expand_variable from parse function
+*	- create commands array
+*	- check if it's builtin
+*	- if not, pass it to execve with cmd path, cmd+arguments and env
+*/
 
 static size_t	env_length(t_penv *env)
 {
@@ -57,27 +64,20 @@ char	**tpenv_to_array(t_penv	*env)
 
 void	parse(t_dlist *tokens)
 {
+	char	**cmd;
+	char	**env;
 	t_token	*token;
-	char	*new;
+	t_dlist	*current;
 
-	while (tokens)
+	current = tokens;
+	while (current)
 	{
-		token = (t_token *)tokens->content;
-		if (token->id == TD_WORD || token->id == TD_DOUBLE_QUOTE)
-		{
-			new = expand_variable(token->value);
-			free(token->value);
-			token->value = new;
-		}
+		token = (t_token *)current->content;
+		expand_token_variables(token);
 		printf("<%d, %s>\n", token->id, token->value);
-		tokens = tokens->next;
+		current = current->next;
 	}
+	cmd = create_command(tokens);
+	env = tpenv_to_array(g_minishell.penv);
+	run_system_cmd(cmd[0], cmd, env);
 }
-
-/* TODO
-*	- separate expand_variable from parse function
-*	- create commands array
-*	- check if it's builtin
-*	- if not, pass it to execve with cmd path, cmd+arguments and env
-*/
-
