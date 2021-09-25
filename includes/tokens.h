@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/23 07:44:28 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 10:49:59 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,5 @@ void			add_token_to_result(
 void			add_the_curent_token_id_to_the_result(
 					t_dlist **tokens, int id);
 void			token_recognition(t_dlist **tokens, char *str);
-
-/*
-*	VARIABLES:
-*/
-
-char			*expand_variable(char *str);
-char			*find_variable(char *str, int *len);
 
 #endif
