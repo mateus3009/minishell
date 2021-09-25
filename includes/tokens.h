@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/21 21:18:37 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/23 07:44:28 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "./../libs/libft/srcs/includes/libft.h"
 
 # define TD_WORD			0
-# define TD_HERE_FILE		1
+# define TD_HERE_DOCUMENT	1
 # define TD_AND				2
 # define TD_OR				3
 # define TD_APPEND_MODE		4

@@ -6,7 +6,7 @@
 /*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/23 21:47:33 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/25 16:42:45 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	main(int argc, char **argv, char **env)
 		tokens = NULL;
 		read_input_and_save_history(&line);
 		token_recognition(&tokens, line);
-		parse(tokens);
-		free(line);
+		parse(&tokens);
 		ft_dlstclear(&tokens, token_free);
+		free(line);
 	}
 	rl_clear_history();
 	return (0);

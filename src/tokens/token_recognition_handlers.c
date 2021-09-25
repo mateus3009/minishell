@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/21 20:58:30 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/23 07:44:16 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	find_token(char *str, int *index)
 	t_token_definition	*tokens;
 
 	tokens = (t_token_definition[]){
-	{.id = TD_HERE_FILE, .value = "<<", .length = 2},
+	{.id = TD_HERE_DOCUMENT, .value = "<<", .length = 2},
 	{.id = TD_AND, .value = "&&", .length = 2},
 	{.id = TD_OR, .value = "||", .length = 2},
 	{.id = TD_APPEND_MODE, .value = ">>", .length = 2},
