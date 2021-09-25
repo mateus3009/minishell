@@ -6,13 +6,13 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/21 20:47:40 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 11:31:57 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_variable(char *str, int *len)
+static char	*find_variable(char *str, int *len)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ char	*find_variable(char *str, int *len)
 	return (str + i + 1);
 }
 
-char	*expand_variable(char *str)
+static char	*expand_variable(char *str)
 {
 	int				len;
 	char			*var;
@@ -57,4 +57,41 @@ char	*expand_variable(char *str)
 	value = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (value);
+}
+
+char	*expand_all_variables(char *str)
+{
+	int		len;
+	char	*temp;
+	char	*new;
+
+	temp = ft_strdup(str);
+	new = temp;
+	while (find_variable(str, &len))
+	{
+		new = expand_variable(temp);
+		free(temp);
+		temp = new;
+	}
+	return (new);
+}
+
+void	parse_expand_all_variables(t_dlist **ptr_tokens)
+{
+	t_dlist	*tokens;
+	t_token	*token;
+	char	*new;
+
+	tokens = *ptr_tokens;
+	while (tokens)
+	{
+		token = (t_token *)tokens->content;
+		if (token->id == TD_WORD || token->id == TD_DOUBLE_QUOTE)
+		{
+			new = expand_all_variables(token->value);
+			free(token->value);
+			token->value = new;
+		}
+		tokens = tokens->next;
+	}
 }

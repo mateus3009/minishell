@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:25:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/23 08:43:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 16:14:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,10 @@
 # include "./../libs/libft/srcs/includes/libft.h"
 
 void	parse(t_dlist **ptr_tokens);
+char	*expand_all_variables(char *str);
+void	parse_expand_all_variables(t_dlist **ptr_tokens);
+void	join_word(t_dlist **ptr_tokens);
+void	show_tokens(t_dlist **ptr_tokens);
+void	parse_here_document(t_dlist **ptr_tokens);
 
 #endif
