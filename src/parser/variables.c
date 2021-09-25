@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variables.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 16:45:48 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:32:48 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*expand_all_variables(char *str)
 
 	temp = ft_strdup(str);
 	new = temp;
-	while (find_variable(str, &len))
+	while (find_variable(temp, &len))
 	{
 		new = expand_variable(temp);
 		free(temp);

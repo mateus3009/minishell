@@ -6,11 +6,28 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:42:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 10:42:37 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 18:18:24 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	add_new_token(
+	t_dlist **tokens,
+	int id,
+	char *str)
+{
+	t_token	*token;
+	t_dlist	*node;
+
+	if (id == TD_WORD && !str)
+		return ;
+	token = token_init(id, str);
+	node = ft_dlstnew(token);
+	if (!token || !node)
+		exit(EXIT_FAILURE);
+	ft_dlstadd_back(tokens, node);
+}
 
 static void	join_word_node(
 	t_dlist **tokens,
@@ -27,11 +44,11 @@ static void	join_word_node(
 	}
 	if (*builder)
 	{
-		add_token_to_result(tokens, TD_WORD, (*builder)->str);
+		add_new_token(tokens, TD_WORD, (*builder)->str);
 		str_builder_destroy(*builder);
 		*builder = NULL;
 	}
-	add_token_to_result(tokens, token->id, token->value);
+	add_new_token(tokens, token->id, token->value);
 }
 
 void	join_word(t_dlist **ptr_tokens)
@@ -50,7 +67,7 @@ void	join_word(t_dlist **ptr_tokens)
 	}
 	if (builder)
 	{
-		add_token_to_result(&new_tokens, TD_WORD, builder->str);
+		add_new_token(&new_tokens, TD_WORD, builder->str);
 		str_builder_destroy(builder);
 	}
 	ft_dlstclear(ptr_tokens, token_free);

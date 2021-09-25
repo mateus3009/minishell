@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:43:42 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 10:43:57 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 17:35:20 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	show_tokens(t_dlist **ptr_tokens)
 		while (token->id && def[index].id && token->id != def[index].id)
 			index++;
 		printf("<%d, ", token->id);
-		if (token->id)
+		if (token->id != TD_WORD)
 			printf("%s>\n", def[index].value);
 		else
 			printf("%s>\n", token->value);

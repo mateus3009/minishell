@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_command.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/23 21:44:05 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/23 21:45:26 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/25 19:13:32 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	get_command_length(t_dlist *current)
 	while (current)
 	{
 		token = (t_token *)current->content;
-		if (token->id == TD_WORD || token->id == TD_DOUBLE_QUOTE)
+		if (token->id == TD_WORD)
 			i++;
 		current = current->next;
 	}

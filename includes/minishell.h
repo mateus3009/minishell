@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/23 21:45:54 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/25 19:13:29 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,13 @@ void			display_env(t_penv *penv);
 char			*find_env(t_penv *penv, char *key);
 void			free_env(t_penv *penv);
 char			**tpenv_to_array(t_penv	*env);
+void			free_penv_array(char **env_array);
 
 /*
 *	SYSTEM CALLS
 */
 
-void			run_system_cmd(
-					char *cmd_path,
-					char *const argv[],
-					char *const env[]);
+void			run_system_cmd(char **cmd_array);
 
 /*
 *	SIGNALS

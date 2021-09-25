@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:26:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 10:49:26 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 19:13:29 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,45 +70,45 @@ void	free_env(t_penv *penv)
 	free(penv);
 }
 
-static size_t	env_length(t_penv *env)
+char	*ft_strstr(char const *haystack, const char *needle) // TODO mover para libft
 {
-	size_t	len;
+	size_t	needle_size;
+	size_t	haystack_size;
 
-	len = 0;
-	while (env[len].key)
-		len++;
-	return (len);
+	if (!*needle || !haystack)
+		return ((char *)haystack);
+	needle_size = ft_strlen(needle);
+	haystack_size = ft_strlen(haystack);
+	while (*haystack && needle_size <= haystack_size)
+	{
+		if (ft_strncmp(haystack, needle, needle_size) == 0)
+			return ((char *)haystack);
+		haystack++;
+		haystack_size--;
+	}
+	return (NULL);
 }
 
-static char	*parse_penv_to_char(t_penv *env)
+char	*find_command_path(char *path, char *command)
 {
-	size_t	key;
-	size_t	value;
-	char	*result;
+	char	*finded;
+	size_t	size;
 
-	key = ft_strlen(env->key);
-	value = ft_strlen(env->value);
-	result = malloc(sizeof(char) * (key + value + 2));
-	if (!result)
+	if (!path || !command)
 		return (NULL);
-	result[key] = '=';
-	result[key + value + 1] = '\0';
-	ft_memmove(result, env->key, key);
-	ft_memmove(result + key + 1, env->value, value);
-	return (result);
-}
-
-char	**tpenv_to_array(t_penv	*env)
-{
-	char	**env_array;
-	int		len;
-	int		i;
-
-	len = env_length(env);
-	env_array = malloc(sizeof(char *) * (len + 1));
-	env_array[len] = NULL;
-	i = -1;
-	while (env[++i].key)
-		env_array[i] = parse_penv_to_char(&env[i]);
-	return (env_array);
+	finded = path;
+	size = ft_strlen(command);
+	while (true)
+	{
+		finded = strstr(finded, command);
+		if (!finded)
+			return (NULL);
+		if (finded[size] == ':' || finded[size] == '\0')
+			break ;
+		finded++;
+	}
+	while (finded != path && *finded != ':')
+		finded--;
+	size = ft_strchr(finded, ':') - finded;
+	return (ft_strndup(finded, size));
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork.c                                             :+:      :+:    :+:   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/22 20:56:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/25 19:13:32 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,29 +41,26 @@ int main(void)
 }
 */
 
-void	run_system_cmd(char *cmd_path, char *const argv[], char *const env[])
+void run_system_cmd(char **cmd_array)
 {
-	int		status;
-	pid_t	child_pid;
+	int status;
+	pid_t child_pid;
+	char **env_array;
 
+	if (!cmd_array[0])
+		return ;
 	child_pid = fork();
-	if (child_pid < 0)
+	set_exec_signals();
+	if (child_pid == 0)
 	{
-		printf("%s", strerror(11));
-		exit(11);
+		env_array = tpenv_to_array(g_minishell.penv);
+		execve(cmd_array[0], cmd_array, env_array);
+		free_penv_array(env_array);
 	}
-	else if (child_pid == 0)
+	waitpid(child_pid, &status, 0);
+	if (WIFEXITED(status))
 	{
-		if (execve(cmd_path, argv, env) < 0)
-		{
-			printf("minishell : %s : %s\n", strerror(errno), cmd_path);
-			exit(EXIT_SUCCESS);
-		}
-	}
-	else
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-			printf("Exit status: %d\n", WEXITSTATUS(status));
+		printf("Exit status: %d\n", WEXITSTATUS(status));
+		g_minishell.error_status = WEXITSTATUS(status);
 	}
 }
