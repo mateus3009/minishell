@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 18:41:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/25 18:54:36 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:41:33 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,4 @@ char	**tpenv_to_array(t_penv	*env)
 	while (env[++i].key)
 		env_array[i] = parse_penv_to_char(&env[i]);
 	return (env_array);
-}
-
-void	free_penv_array(char **env_array)
-{
-	int	index;
-
-	index = -1;
-	while (env_array[++index])
-		free(env_array[index]);
-	free(env_array);
 }

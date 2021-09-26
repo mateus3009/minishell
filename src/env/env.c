@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
+/*   Updated: 2021/09/26 18:28:19 by msales-a         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:26:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 19:13:29 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 14:25:104 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +99,4 @@ char	*ft_strstr(char const *haystack, const char *needle) // TODO mover para lib
 		haystack_size--;
 	}
 	return (NULL);
-}
-
-char	*find_command_path(char *path, char *command)
-{
-	char	*finded;
-	size_t	size;
-
-	if (!path || !command)
-		return (NULL);
-	finded = path;
-	size = ft_strlen(command);
-	while (true)
-	{
-		finded = strstr(finded, command);
-		if (!finded)
-			return (NULL);
-		if (finded[size] == ':' || finded[size] == '\0')
-			break ;
-		finded++;
-	}
-	while (finded != path && *finded != ':')
-		finded--;
-	size = ft_strchr(finded, ':') - finded;
-	return (ft_strndup(finded, size));
 }

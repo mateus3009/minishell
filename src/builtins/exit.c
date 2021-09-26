@@ -6,11 +6,21 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/21 21:39:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 18:05:19 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+*	RULES:
+*	- without args -> $? = 0
+*	- with args -> only one integer arg between
+*	- check $? examples
+	exit -1 => 255
+	exit 23333 => 45
+	exit asd => 2 =>
+*/
 
 void	exit_minishell(void)
 {

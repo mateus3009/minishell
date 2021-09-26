@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 19:13:29 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 18:28:19 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 # include "styles.h"
 # include "tokens.h"
 # include "parser.h"
+# include "error.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <signal.h>
 
@@ -50,7 +52,6 @@ void			display_env(t_penv *penv);
 char			*find_env(t_penv *penv, char *key);
 void			free_env(t_penv *penv);
 char			**tpenv_to_array(t_penv	*env);
-void			free_penv_array(char **env_array);
 
 /*
 *	SYSTEM CALLS
@@ -70,8 +71,9 @@ void			set_exec_signals(void);
 void			exit_minishell(void);
 
 /**
- *	UTIL
+ *	UTILS
  */
 char			*ft_strrstr(char const *big, const char *little);
+void			free_str_array(char **str_array);
 
 #endif

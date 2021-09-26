@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 19:13:32 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 16:12:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,20 @@ void run_system_cmd(char **cmd_array)
 	if (child_pid == 0)
 	{
 		env_array = tpenv_to_array(g_minishell.penv);
-		execve(cmd_array[0], cmd_array, env_array);
-		free_penv_array(env_array);
+		if (execve(cmd_array[0], cmd_array, env_array) < 0)
+        {
+		    free_str_array(env_array);
+            printf("minishell : %s : %s\n", cmd_array[0], strerror(errno));
+            exit(errno);
+        }
+		free_str_array(env_array);
 	}
-	waitpid(child_pid, &status, 0);
-	if (WIFEXITED(status))
-	{
-		printf("Exit status: %d\n", WEXITSTATUS(status));
-		g_minishell.error_status = WEXITSTATUS(status);
+	else {
+		waitpid(child_pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			printf("Exhhhit status: %d\n", WEXITSTATUS(status));
+			g_minishell.error_status = WEXITSTATUS(status);
+		}
 	}
 }
