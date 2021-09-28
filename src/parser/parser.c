@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/26 18:28:16 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/27 21:42:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,3 @@ void	parse(t_dlist **ptr_tokens)
 	}
 	free_str_array(cmd);
 }
-echo | alguma << coisa | alguma outra coisa > teste
-
-[<'<', 2, teste>, <0, echo>]

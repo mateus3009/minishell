@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/23 09:01:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/27 21:17:17 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_token	*token_init(int id, char *str_to_copy)
 {
 	t_token	*token;
 
-	token = malloc(sizeof(token));
+	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
 	token->id = id;

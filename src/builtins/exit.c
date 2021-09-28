@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/26 18:05:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/27 20:53:58 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 void	exit_minishell(void)
 {
+	rl_clear_history();
 	free_env(g_minishell.penv);
 	exit(g_minishell.error_status);
 }

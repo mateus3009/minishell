@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/21 21:27:57 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/27 20:55:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	check_eof(char *line)
 {
 	if (line)
 		return ;
+	free(line);
 	ft_putstr_fd("exit\n", 1);
 	exit_minishell();
 }

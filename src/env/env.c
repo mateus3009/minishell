@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/26 18:28:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/26 19:25:05 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,4 @@ void	free_env(t_penv *penv)
 	while (penv[++index].key)
 		free(penv[index].key);
 	free(penv);
-}
-
-char	*ft_strstr(char const *haystack, const char *needle) // TODO mover para libft
-{
-	size_t	needle_size;
-	size_t	haystack_size;
-
-	if (!*needle || !haystack)
-		return ((char *)haystack);
-	needle_size = ft_strlen(needle);
-	haystack_size = ft_strlen(haystack);
-	while (*haystack && needle_size <= haystack_size)
-	{
-		if (ft_strncmp(haystack, needle, needle_size) == 0)
-			return ((char *)haystack);
-		haystack++;
-		haystack_size--;
-	}
-	return (NULL);
 }
