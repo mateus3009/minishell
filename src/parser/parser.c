@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/27 21:42:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/28 21:52:39 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,16 @@ void	parse(t_dlist **ptr_tokens)
 	join_word(ptr_tokens);
 	parse_here_document(ptr_tokens);
 	show_tokens(ptr_tokens);
-	cmd = create_command(*ptr_tokens);
+	cmd = create_command(*ptr_tokens, NULL);
 	path = find_env(g_minishell.penv, "PATH");
 	path = find_command_path(path, cmd[0]);
-	if (path)
+	if (is_builtin_cmd(cmd[0]))
+		excute_command(cmd);
+	else if (path)
 	{
 		free(cmd[0]);
 		cmd[0] = path;
-		run_system_cmd(cmd);
+		excute_command(cmd);
 	}
 	else
 	{

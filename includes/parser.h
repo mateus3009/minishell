@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:25:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/25 18:50:40 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/28 20:58:20 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	parse(t_dlist **ptr_tokens);
 void	expand_token_variables(t_token *token);
-char	**create_command(t_dlist *tokens);
+char	**create_command(t_dlist *head, t_dlist *end_or_pipe);
 char	*expand_all_variables(char *str);
 void	parse_expand_all_variables(t_dlist **ptr_tokens);
 void	join_word(t_dlist **ptr_tokens);
