@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/26 18:28:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/28 21:51:59 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ char			**tpenv_to_array(t_penv	*env);
 */
 
 void			run_system_cmd(char **cmd_array);
+void			excute_command(char **cmd_array);
 
 /*
 *	SIGNALS
@@ -68,7 +69,9 @@ void			set_exec_signals(void);
 /*
 *	BUILTINS
 */
+bool			is_builtin_cmd(char *value);
 void			exit_minishell(void);
+void			exit_builtin(char **argv);
 
 /**
  *	UTILS

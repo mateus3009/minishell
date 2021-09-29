@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/26 16:12:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/28 22:15:03 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ int main(void)
 }
 */
 
-void run_system_cmd(char **cmd_array)
+void	run_system_cmd(char **cmd_array)
 {
-	int status;
-	pid_t child_pid;
-	char **env_array;
+	int		status;
+	pid_t	child_pid;
+	char	**env_array;
 
 	if (!cmd_array[0])
 		return ;
@@ -55,11 +55,11 @@ void run_system_cmd(char **cmd_array)
 	{
 		env_array = tpenv_to_array(g_minishell.penv);
 		if (execve(cmd_array[0], cmd_array, env_array) < 0)
-        {
-		    free_str_array(env_array);
-            printf("minishell : %s : %s\n", cmd_array[0], strerror(errno));
-            exit(errno);
-        }
+		{
+			free_str_array(env_array);
+			printf("minishell : %s : %s\n", cmd_array[0], strerror(errno));
+			exit(errno);
+		}
 		free_str_array(env_array);
 	}
 	else {
@@ -70,4 +70,30 @@ void run_system_cmd(char **cmd_array)
 			g_minishell.error_status = WEXITSTATUS(status);
 		}
 	}
+}
+
+static void	execute_builtin_cmd(char **cmd_array)
+{
+	if (ft_strcmp(cmd_array[0], "exit") == 0)
+		exit_builtin(cmd_array);
+}
+
+bool	is_builtin_cmd(char *value)
+{
+	if (!value)
+		return (false);
+	if (ft_strcmp(value, "echo\0") == 0 || ft_strcmp(value, "cd\0") == 0
+		|| ft_strcmp(value, "pwd") == 0 || ft_strcmp(value, "export") == 0
+		|| ft_strcmp(value, "unset") == 0 || ft_strcmp(value, "env") == 0
+		|| ft_strcmp(value, "exit") == 0)
+		return (true);
+	return (false);
+}
+
+void	excute_command(char **cmd_array)
+{
+	if (is_builtin_cmd(cmd_array[0]))
+		execute_builtin_cmd(cmd_array);
+	else
+		run_system_cmd(cmd_array);
 }
