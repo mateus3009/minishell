@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/29 19:36:48 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 07:21:47 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	parse(t_dlist **ptr_tokens)
 	parse_expand_all_variables(ptr_tokens);
 	join_word(ptr_tokens);
 	parse_here_document(ptr_tokens);
-	show_tokens(ptr_tokens);
+	//show_tokens(ptr_tokens);
 	return ;
 	cmd = create_command(*ptr_tokens, NULL);
 	path = find_env(g_minishell.penv, "PATH");
