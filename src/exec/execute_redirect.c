@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   execute_redirect.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 17:27:41 by msales-a         ###   ########.fr       */
+/*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
+/*   Updated: 2021/09/30 19:16:22 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	execute_redirect(t_redirect redirect)
 {
-	char	*line;
-	t_dlist	*tokens;
-
-	if (argc && argv)
-		g_minishell.penv = parse_env(env);
-	while (1)
-	{
-		tokens = NULL;
-		read_input_and_save_history(&line);
-		token_recognition(&tokens, line);
-		parse(&tokens);
-		create_and_run_pipeline(tokens);
-		ft_dlstclear(&tokens, token_free);
-		free(line);
-	}
-	rl_clear_history();
-	free_env(g_minishell.penv);
-	return (0);
+	if (redirect.type == TD_INPUT)
+		input_redirect(redirect.value);
+	if (redirect.type == TD_HERE_DOCUMENT)
+		here_document_redirect(redirect.value);
+	if (redirect.type == TD_OUTPUT)
+		output_redirect(redirect.value);
+	if (redirect.type == TD_APPEND_MODE)
+		append_mode_redirect(redirect.value);
+	exit_minishell();
 }

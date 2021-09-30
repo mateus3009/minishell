@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 07:43:18 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 19:16:06 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # include "parser.h"
 # include "error.h"
 # include "pipeline.h"
+# include "builtins.h"
+# include "redirects.h"
+# include "exec.h"
 
 typedef struct s_penv
 {
@@ -69,17 +72,12 @@ void			excute_command(char **cmd_array);
 void			set_input_signals(void);
 void			set_exec_signals(void);
 
-/*
-*	BUILTINS
-*/
-bool			is_builtin_cmd(char *value);
-void			exit_minishell(void);
-void			exit_builtin(char **argv);
-
 /**
  *	UTILS
  */
 char			*ft_strrstr(char const *big, const char *little);
 void			free_str_array(char **str_array);
+void			exit_minishell(void);
+char			**compile_argv(t_dlist *args);
 
 #endif

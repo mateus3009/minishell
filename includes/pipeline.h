@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:37:29 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 07:54:17 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:48:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct s_call
 {
 	char	*path;
 	t_dlist	*argv;
-	char	**env;
 }	t_call;
 
 typedef struct s_redirect

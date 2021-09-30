@@ -5,6 +5,7 @@
         "type_traits": "c",
         "wait.h": "c",
         "pipeline.h": "c",
-        "error.h": "c"
+        "error.h": "c",
+        "exec.h": "c"
     }
 }

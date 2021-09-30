@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   compile_argv.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 17:27:41 by msales-a         ###   ########.fr       */
+/*   Created: 2021/09/30 18:42:57 by msales-a          #+#    #+#             */
+/*   Updated: 2021/09/30 18:43:05 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+char	**compile_argv(t_dlist *args)
 {
-	char	*line;
-	t_dlist	*tokens;
+	size_t	len;
+	char	**result;
+	size_t	index;
 
-	if (argc && argv)
-		g_minishell.penv = parse_env(env);
-	while (1)
+	len = ft_dlstsize(args);
+	result = malloc(sizeof(char *) * (len + 1));
+	result[len] = NULL;
+	index = 0;
+	while (args)
 	{
-		tokens = NULL;
-		read_input_and_save_history(&line);
-		token_recognition(&tokens, line);
-		parse(&tokens);
-		create_and_run_pipeline(tokens);
-		ft_dlstclear(&tokens, token_free);
-		free(line);
+		result[index] = ft_strdup(args->content);
+		index++;
+		args = args->next;
 	}
-	rl_clear_history();
-	free_env(g_minishell.penv);
-	return (0);
+	return (result);
 }

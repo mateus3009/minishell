@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/28 22:09:23 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/30 19:39:38 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@
 *	- more than one arg -> doesn't exits -> $? == 1
 *	- one or more non-num args -> exits -> $? == 2
 */
+
+void	error_handler(char *cmd, char *err_msg, int err_number)
+{
+	t_str_builder	*builder;
+	char			*prompt_error;
+
+	builder = str_builder_init();
+	str_builder_add_str(builder, "minishell : ");
+	str_builder_add_str(builder, cmd);
+	str_builder_add_str(builder, " : ");
+	str_builder_add_str(builder, err_msg);
+	prompt_error = ft_strdup(builder->str);
+	str_builder_destroy(builder);
+	ft_putendl_fd(prompt_error, 2);
+	free(prompt_error);
+	g_minishell.error_status = err_number;
+}
 
 void	exit_minishell(void)
 {
@@ -79,5 +96,5 @@ void	exit_builtin(char **argv)
 		error_handler("exit", TOO_MANY_ARGS, 1);
 		return ;
 	}
-	exit_minishell();
+	exit_minishell(); // TODO o exit está matando o processo filho e não o minishell
 }

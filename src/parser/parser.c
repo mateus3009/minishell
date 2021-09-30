@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/30 07:21:47 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 19:22:08 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 *	- check if it's builtin
 *	- if not, pass it to execve with cmd path, cmd+arguments and env
 */
-
+/*
 void	error_handler(char *cmd, char *err_msg, int err_number)
 {
 	t_str_builder	*builder;
@@ -45,22 +45,19 @@ static int	cmd_errno(char *cmd_path)
 	if (buffer.st_mode & __S_IFMT & __S_IFDIR)
 		return (126);
 	return (0);
-}
+}*/
 
 void	parse(t_dlist **ptr_tokens)
 {
-	char	**cmd;
-	char	*path;
-
 	parse_expand_all_variables(ptr_tokens);
 	join_word(ptr_tokens);
 	parse_here_document(ptr_tokens);
 	//show_tokens(ptr_tokens);
-	return ;
+	/*return ;
 	cmd = create_command(*ptr_tokens, NULL);
 	path = find_env(g_minishell.penv, "PATH");
 	path = find_command_path(path, cmd[0]);
-	if (is_builtin_cmd(cmd[0]))
+	if (is_cmd_builtin(cmd[0]))
 		excute_command(cmd);
 	else if (path)
 	{
@@ -76,5 +73,5 @@ void	parse(t_dlist **ptr_tokens)
 		else if (err == 126)
 			error_handler(cmd[0], ERR_IS_DIR,err);
 	}
-	free_str_array(cmd);
+	free_str_array(cmd);*/
 }

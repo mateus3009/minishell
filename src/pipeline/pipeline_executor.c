@@ -6,42 +6,17 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:49:12 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 07:56:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 18:42:41 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**compile_argv(t_dlist *args)
-{
-	size_t	len;
-	char	**result;
-	size_t	index;
-
-	len = ft_dlstsize(args);
-	result = malloc(sizeof(char *) * (len + 1));
-	result[len] = NULL;
-	index = 0;
-	while (args)
-	{
-		result[index] = ft_strdup(args->content);
-		index++;
-		args = args->next;
-	}
-	return (result);
-}
-
 static void	run_command(int *in, int *out, t_command *command)
 {
-	char	**argv;
-	char	**env;
-
 	configure_reader_pipe_and_free(in);
 	configure_writer_pipe_and_free(out);
-	argv = compile_argv(command->call.argv);
-	env = tpenv_to_array(g_minishell.penv);
-	if (execve(command->call.path, argv, env) == -1)
-		exit_minishell();
+	execute_command(command);
 }
 
 static int	prepare_command(int *in, t_list *commands, t_list *operators);

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:44:33 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 08:01:52 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 17:52:58 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	free_command(void *command)
 	c = command;
 	free(c->call.path);
 	free(c->call.argv);
-	free(c->call.env);
 	free(c->redirect.value);
 	free(c);
 }
