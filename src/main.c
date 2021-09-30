@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 07:30:29 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 07:36:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,6 @@ bool	create_command_head(
 	t_token		*token;
 	t_command	*command;
 	t_list		*node;
-	char		*value;
 
 	if (!tokens)
 		return (false);
@@ -184,8 +183,7 @@ bool	create_command_head(
 	command = ft_calloc(1, sizeof(t_command));
 	command->call.path = find_command_path(
 		find_env(g_minishell.penv, "PATH"), token->value);
-	value = ft_strdup(token->value);
-	command->call.argv = ft_dlstnew(value);
+	command->call.argv = ft_dlstnew(ft_strdup(token->value));
 	node = ft_lstnew(command);
 	if (!node)
 		exit_minishell();
