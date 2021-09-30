@@ -3,21 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/28 21:51:59 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/09/30 07:43:18 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./../libs/libft/srcs/includes/libft.h"
-# include "styles.h"
-# include "tokens.h"
-# include "parser.h"
-# include "error.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -27,6 +22,14 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <signal.h>
+
+# include "./../libs/libft/srcs/includes/libft.h"
+
+# include "styles.h"
+# include "tokens.h"
+# include "parser.h"
+# include "error.h"
+# include "pipeline.h"
 
 typedef struct s_penv
 {

@@ -3,6 +3,8 @@
         "minishell.h": "c",
         "libft.h": "c",
         "type_traits": "c",
-        "wait.h": "c"
+        "wait.h": "c",
+        "pipeline.h": "c",
+        "error.h": "c"
     }
 }
