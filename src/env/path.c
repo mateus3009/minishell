@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:41 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/26 16:30:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/29 19:27:11 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,7 @@ char	*find_command_path(char *path, char *command)
 	if (!path || !command)
 		return (NULL);
 	if (ft_strchr(command, '/'))
-	{
-		if (cmd_is_executable(command))
-			return (ft_strdup(command));
-		return (NULL);
-	}
+		return (ft_strdup(command));
 	i = -1;
 	paths = ft_split(path, ':');
 	while (paths[++i])
@@ -63,5 +59,5 @@ char	*find_command_path(char *path, char *command)
 		free(temp);
 	}
 	free_str_array(paths);
-	return (NULL);
+	return (ft_strdup(command));
 }

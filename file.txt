@@ -1,4 +1,2 @@
-testes
-minishell
-42 escola
-github
+42 alguma coisa
+teste do minishell

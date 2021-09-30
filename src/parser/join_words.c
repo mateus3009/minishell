@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:42:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 18:18:24 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/29 20:07:43 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	join_word_node(
 		str_builder_destroy(*builder);
 		*builder = NULL;
 	}
-	add_new_token(tokens, token->id, token->value);
+	if (token->id != TD_SPACE)
+		add_new_token(tokens, token->id, token->value);
 }
 
 void	join_word(t_dlist **ptr_tokens)

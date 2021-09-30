@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/29 11:29:27 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/29 21:53:52 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 typedef struct s_call
 {
 	char	*path;
-	char	**argv;
+	t_dlist	*argv;
 	char	**env;
 }	t_call;
 
@@ -69,9 +69,15 @@ void	configure_writer_pipe_and_free(int *fd)
 
 void	run_command(int *in, int *out, t_command *command)
 {
+	char	**argv;
+
 	configure_reader_pipe_and_free(in);
 	configure_writer_pipe_and_free(out);
-	if (execve(command->call.path, command->call.argv, command->call.env) == -1)
+	argv = ft_dlsttarray(command->call.argv, sizeof(char *));
+	if (!argv)
+		exit_minishell();
+	printf("esdfds fd%s\n", argv[0]);
+	if (execve(command->call.path, argv, command->call.env) == -1)
 		exit_minishell();
 }
 
@@ -122,6 +128,137 @@ int	run_pipeline(t_list *commands, t_list *operators)
 	return (prepare_command(NULL, commands, operators));
 }
 
+bool	create_command_head(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators);
+
+bool	create_command_arg(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators);
+
+bool	create_redirect(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators);
+
+bool	create_operator(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators);
+
+bool	create_command_head(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators)
+{
+	t_token		*token;
+	t_command	*command;
+	t_list		*node;
+
+	if (!tokens)
+		return (false);
+	token = tokens->content;
+	if (token->id != TD_WORD)
+		return (false);
+	command = ft_calloc(1, sizeof(t_command));
+	command->call.path = find_command_path(
+		find_env(g_minishell.penv, "PATH"), token->value);
+	command->call.argv = ft_dlstnew(ft_strdup(token->value));
+	node = ft_lstnew(command);
+	if (!node)
+		exit_minishell();
+	ft_lstadd_front(commands, node);
+	return (create_command_arg(tokens->next, commands, operators)
+		|| create_redirect(tokens->next, commands, operators)
+		|| create_operator(tokens->next, commands, operators));
+}
+
+bool	create_command_arg(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators)
+{
+	t_token		*token;
+	t_command	*command;
+	t_dlist		*node;
+
+	if (!tokens)
+		return (true);
+	token = tokens->content;
+	if (token->id != TD_WORD)
+		return (false);
+	command = ft_lstlast(*commands)->content;
+	node = ft_dlstnew(ft_strdup(token->value));
+	if (!node)
+		exit_minishell();
+	ft_dlstadd_back(&(command->call.argv), node);
+	return (create_command_arg(tokens->next, commands, operators)
+		|| create_redirect(tokens->next, commands, operators)
+		|| create_operator(tokens->next, commands, operators));
+}
+
+bool	create_redirect(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators)
+{
+	t_token		*token;
+	t_command	*command;
+
+	if (!tokens)
+		return (true);
+	token = tokens->content;
+	if (token->id != TD_INPUT && token->id != TD_OUTPUT
+		&& token->id != TD_APPEND_MODE && token->id != TD_HERE_DOCUMENT)
+		return (false);
+	command = ft_lstlast(*commands)->content;
+	command->redirect.type = token->id;
+	command->redirect.value = ft_strdup(token->value);
+	return (create_operator(tokens->next, commands, operators));
+}
+
+bool	create_operator(
+	t_dlist *tokens,
+	t_list **commands,
+	t_list **operators)
+{
+	t_token	*token;
+	int		*number;
+	t_list	*node;
+
+	if (!tokens)
+		return (true);
+	token = tokens->content;
+	if (token->id != TD_PIPE && token->id != TD_AND	&& token->id != TD_OR)
+		return (false);
+	number = malloc(sizeof(int));
+	if (!number)
+		exit_minishell();
+	*number = token->id;
+	node = ft_lstnew(number);
+	if (!number)
+		exit_minishell();
+	ft_lstadd_back(operators, node);
+	return (create_command_head(tokens->next, commands, operators));
+}
+
+void	create_and_run_pipeline(t_dlist *tokens)
+{
+	t_list	*commands;
+	t_list	*operators;
+
+	commands = NULL;
+	operators = NULL;
+	if (!create_command_head(tokens, &commands, &operators))
+		exit_minishell();
+	g_minishell.error_status = run_pipeline(commands, operators);
+	printf("exit code: %d\n", g_minishell.error_status);
+	ft_lstclear(&commands, free); // TODO criar uma funcao de free
+	ft_lstclear(&operators, free);
+}
+
 void	testinho(void)
 {
 	int			operator;
@@ -135,14 +272,14 @@ void	testinho(void)
 	ft_lstadd_back(&operators, ft_lstnew(&operator));
 	a = (t_command){
 		.call = (t_call){
-			.path = "/bin/cat",
-			.argv = (char *[]){"cat", "file.txt", NULL},
+			.path = "/bin/echo",
+			.argv = ft_dlstparray((char *[]){"echo", "teste\n42 bola\ncasa", NULL}, sizeof(char *), 3),
 			.env = (char *[]){NULL}},
 		.redirect = {0}};
 	b = (t_command){
 		.call = (t_call){
 			.path = "/bin/grep",
-			.argv = (char *[]){"grep", "42", NULL},
+			.argv = ft_dlstparray((char *[]){"grep", "42", NULL}, sizeof(char *), 3),
 			.env = (char *[]){NULL}},
 		.redirect = {0}};
 	commands = NULL;
@@ -158,8 +295,15 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_dlist	*tokens;
 
-	testinho();
-	exit(0);
+	tokens = NULL;
+	/*ft_dlstadd_front(&tokens, ft_dlstnew(ft_strdup("c")));
+	ft_dlstadd_front(&tokens, ft_dlstnew(ft_strdup("bb")));
+	ft_dlstadd_front(&tokens, ft_dlstnew(ft_strdup("aaa")));
+	void	*result = ft_dlsttarray(tokens, sizeof(char *));
+	printf("%s\n", result[1]);
+	exit(0);*/
+	//testinho();
+	//exit(1);
 	if (argc && argv)
 		g_minishell.penv = parse_env(env);
 	while (1)
@@ -168,6 +312,7 @@ int	main(int argc, char **argv, char **env)
 		read_input_and_save_history(&line);
 		token_recognition(&tokens, line);
 		parse(&tokens);
+		create_and_run_pipeline(tokens);
 		ft_dlstclear(&tokens, token_free);
 		free(line);
 	}
