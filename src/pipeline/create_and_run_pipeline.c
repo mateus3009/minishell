@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:44:33 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 22:26:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/01 06:50:34 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	create_and_run_pipeline(t_dlist *tokens)
 
 	commands = NULL;
 	operators = NULL;
-	open_std_fd();
 	if (!create_pipeline(tokens, &commands, &operators))
 		exit_minishell();
 	g_minishell.error_status = run_pipeline(commands, operators);

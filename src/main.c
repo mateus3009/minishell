@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 21:37:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/01 06:53:12 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc && argv)
 		g_minishell.penv = parse_env(env);
+	open_std_fd();
 	while (1)
 	{
 		tokens = NULL;
@@ -31,5 +32,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	rl_clear_history();
 	free_env(g_minishell.penv);
+	close_std_fd();
 	return (0);
 }

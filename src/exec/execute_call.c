@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 22:07:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/01 07:37:28 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,25 +31,17 @@ static bool	execute_cmd_builtin(char **argv)
 	return (false);
 }
 
-pid_t	execute_call(t_call	call)
+void	execute_call(t_call	call)
 {
 	char	**argv;
 	char	**env;
-	pid_t	pid;
 
 	argv = str_list_array(call.argv);
+	env	= tpenv_to_array(g_minishell.penv);
 	if (execute_cmd_builtin(argv))
-		return (0);
+		return ;
 	if (!call.path)
 		exit_minishell();
-	env	= tpenv_to_array(g_minishell.penv);
-	pid = fork();
-	if (pid == -1)
+	if (execve(call.path, argv, env) == -1)
 		exit_minishell();
-	if (pid == 0)
-	{
-		if (execve(call.path, argv, env) == -1)
-			exit_minishell();
-	}
-	return (pid);
 }

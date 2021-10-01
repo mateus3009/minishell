@@ -12,14 +12,33 @@
 
 #include "minishell.h"
 
+static bool	is_a_builtin(char *argv)
+{
+	return (ft_strcmp(argv, "echo") == 0 || ft_strcmp(argv, "cd") == 0
+		|| ft_strcmp(argv, "pwd") == 0 || ft_strcmp(argv, "export") == 0
+		|| ft_strcmp(argv, "unset") == 0 || ft_strcmp(argv, "env") == 0
+		|| ft_strcmp(argv, "exit") == 0);
+}
+
 static pid_t	run_command(int *in, int *out, t_command *command)
 {
-	(void)in;
-	(void)out;
+	pid_t	pid;
+
+	pid = 0;
 	restore_std_fd();
-	//configure_reader_pipe_and_free(in);
-	//configure_writer_pipe_and_free(out);
-	return (execute_command(command));
+	if (!is_a_builtin(command->call.argv->content))
+	{
+		pid = fork();
+		if (pid == -1)
+			exit_minishell();
+	}
+	if (pid == 0)
+	{
+		configure_reader_pipe_and_free(in);
+		configure_writer_pipe_and_free(out);
+		execute_command(command);
+	}
+	return (pid);
 }
 
 static int	prepare_command(int *in, t_list *commands, t_list *operators);
@@ -66,5 +85,9 @@ static int	prepare_command(int *in, t_list *commands, t_list *operators)
 
 int	run_pipeline(t_list *commands, t_list *operators)
 {
-	return (prepare_command(NULL, commands, operators));
+	int	exit_code;
+
+	exit_code = prepare_command(NULL, commands, operators);
+	restore_std_fd();
+	return (exit_code);
 }
