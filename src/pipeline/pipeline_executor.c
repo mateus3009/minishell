@@ -6,17 +6,20 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:49:12 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 18:42:41 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 22:28:554 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	run_command(int *in, int *out, t_command *command)
+static pid_t	run_command(int *in, int *out, t_command *command)
 {
-	configure_reader_pipe_and_free(in);
-	configure_writer_pipe_and_free(out);
-	execute_command(command);
+	(void)in;
+	(void)out;
+	restore_std_fd();
+	//configure_reader_pipe_and_free(in);
+	//configure_writer_pipe_and_free(out);
+	return (execute_command(command));
 }
 
 static int	prepare_command(int *in, t_list *commands, t_list *operators);
@@ -36,8 +39,12 @@ static int	prepare_next_command(
 	if (!commands->next && in)
 		free_pipe(in);
 	exit_code = 0;
-	if (operator == TD_AND || operator == TD_OR || !commands->next)
+	if (pid && (operator == TD_AND || operator == TD_OR || !commands->next))
+	{
 		waitpid(pid, &exit_code, 0);
+		if (WIFEXITED(exit_code))
+			g_minishell.error_status = WEXITSTATUS(exit_code);
+	}
 	if ((operator == TD_OR && !exit_code)
 		|| (operator == TD_AND && exit_code) || !commands->next)
 		return (exit_code);
@@ -52,11 +59,7 @@ static int	prepare_command(int *in, t_list *commands, t_list *operators)
 	out = NULL;
 	if (operators && *(int *)operators->content == TD_PIPE)
 		create_pipe(&out);
-	pid = fork();
-	if (pid == -1)
-		exit_minishell();
-	if (pid == 0)
-		run_command(in, out, commands->content);
+	pid = run_command(in, out, commands->content);
 	free_pipe(in);
 	return (prepare_next_command(pid, out, commands, operators));
 }

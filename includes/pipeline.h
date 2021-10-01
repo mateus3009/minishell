@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:37:29 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 18:48:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:50:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,8 @@ bool	create_pipeline(
 			t_list **commands,
 			t_list **operators);
 void	create_and_run_pipeline(t_dlist *tokens);
+
+void	open_std_fd(void);
+void	restore_std_fd(void);
 
 #endif

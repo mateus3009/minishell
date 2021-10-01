@@ -6,40 +6,50 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:28:47 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 22:07:45 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	execute_cmd_builtin(char **argv)
+static bool	execute_cmd_builtin(char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
-		echo_builtin();
+		return ((echo_builtin(), true));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		cd_builtin();
+		return ((cd_builtin(), true));
 	if (ft_strcmp(argv[0], "pwd") == 0)
-		pwd_builtin();
+		return ((pwd_builtin(), true));
 	if (ft_strcmp(argv[0], "export") == 0)
-		export_builtin();
+		return ((export_builtin(), true));
 	if (ft_strcmp(argv[0], "unset") == 0)
-		unset_builtin();
+		return ((unset_builtin(), true));
 	if (ft_strcmp(argv[0], "env") == 0)
-		env_builtin();
+		return ((env_builtin(), true));
 	if (ft_strcmp(argv[0], "exit") == 0)
-		exit_builtin(argv);
+		return ((exit_builtin(argv), true));
+	return (false);
 }
 
-void	execute_call(t_call	call)
+pid_t	execute_call(t_call	call)
 {
 	char	**argv;
 	char	**env;
+	pid_t	pid;
 
-	argv = compile_argv(call.argv);
-	execute_cmd_builtin(argv);
+	argv = str_list_array(call.argv);
+	if (execute_cmd_builtin(argv))
+		return (0);
 	if (!call.path)
 		exit_minishell();
 	env	= tpenv_to_array(g_minishell.penv);
-	if (execve(call.path, argv, env) == -1)
+	pid = fork();
+	if (pid == -1)
 		exit_minishell();
+	if (pid == 0)
+	{
+		if (execve(call.path, argv, env) == -1)
+			exit_minishell();
+	}
+	return (pid);
 }

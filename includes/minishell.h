@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:16:06 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 21:38:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct s_minishell
 {
 	t_penv	*penv;
 	int		error_status;
+	pid_t	fd_in;
+	pid_t	fd_out;
+	pid_t	fd_err;
 }				t_minishell;
 
 /* GLOBAL VARIABLE */
@@ -78,6 +81,6 @@ void			set_exec_signals(void);
 char			*ft_strrstr(char const *big, const char *little);
 void			free_str_array(char **str_array);
 void			exit_minishell(void);
-char			**compile_argv(t_dlist *args);
+char			**str_list_array(t_dlist *args);
 
 #endif

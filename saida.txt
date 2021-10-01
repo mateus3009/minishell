@@ -1,0 +1,2 @@
+42 alguma coisa
+teste do minishell

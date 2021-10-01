@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:30:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 22:21:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	export_builtin(void)
 {
-	printf("Not implemented!\n");
-	exit(EXIT_FAILURE);
+	printf("Not implemented EXPORT!\n");
 }

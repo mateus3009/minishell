@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compile_argv.c                                     :+:      :+:    :+:   */
+/*   pipe_minishell.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 18:42:57 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 18:43:05 by msales-a         ###   ########.fr       */
+/*   Created: 2021/09/30 21:39:34 by msales-a          #+#    #+#             */
+/*   Updated: 2021/09/30 21:50:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**compile_argv(t_dlist *args)
+void	open_std_fd(void)
 {
-	size_t	len;
-	char	**result;
-	size_t	index;
+	g_minishell.fd_in = dup(STDIN_FILENO);
+	g_minishell.fd_out = dup(STDOUT_FILENO);
+}
 
-	len = ft_dlstsize(args);
-	result = malloc(sizeof(char *) * (len + 1));
-	result[len] = NULL;
-	index = 0;
-	while (args)
-	{
-		result[index] = ft_strdup(args->content);
-		index++;
-		args = args->next;
-	}
-	return (result);
+void	restore_std_fd(void)
+{
+	dup2(g_minishell.fd_in, STDIN_FILENO);
+	close(g_minishell.fd_in);
+	dup2(g_minishell.fd_out, STDOUT_FILENO);
+	close(g_minishell.fd_out);
 }

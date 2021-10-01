@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:02 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:31:01 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/09/30 22:22:02 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	unset_builtin(void)
 {
-	printf("Not implemented!\n");
-	exit(EXIT_FAILURE);
+	printf("Not implemented UNSET!\n");
 }
