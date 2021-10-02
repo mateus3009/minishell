@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   styles.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:03:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/20 20:30:00 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/02 10:46:47 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define STYLES_H
 
 # include "./../libs/libft/srcs/includes/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
 
 # define BLACK "\033[0;30m"
 # define BOLD_BLACK "\033[1;30m"

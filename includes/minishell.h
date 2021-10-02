@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 21:38:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 10:47:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <signal.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # include "./../libs/libft/srcs/includes/libft.h"
 

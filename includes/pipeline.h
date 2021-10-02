@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:37:29 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/01 06:52:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:54:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_command
 
 void	create_pipe(int	**fd);
 void	free_pipe(int *fd);
-void	configure_reader_pipe_and_free(int *fd);
-void	configure_writer_pipe_and_free(int *fd);
+void	configure_reader_pipe(int *fd);
+void	configure_writer_pipe(int *fd);
 
 int		run_pipeline(t_list *commands, t_list *operators);
 bool	create_pipeline(

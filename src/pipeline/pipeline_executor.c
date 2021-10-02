@@ -24,7 +24,7 @@ static pid_t	run_command(int *in, int *out, t_command *command)
 {
 	pid_t	pid;
 
-	pid = 0;
+	pid = -1;
 	restore_std_fd();
 	if (!is_a_builtin(command->call.argv->content))
 	{
@@ -32,13 +32,15 @@ static pid_t	run_command(int *in, int *out, t_command *command)
 		if (pid == -1)
 			exit_minishell();
 	}
-	if (pid == 0)
+	if (pid == 0 || pid == -1)
 	{
-		configure_reader_pipe_and_free(in);
-		configure_writer_pipe_and_free(out);
+		configure_reader_pipe(in);
+		configure_writer_pipe(out);
+		if (pid == 0)
+			(free_pipe(in), free_pipe(out));
 		execute_command(command);
 	}
-	return (pid);
+	return (pid + (pid == -1));
 }
 
 static int	prepare_command(int *in, t_list *commands, t_list *operators);
@@ -67,7 +69,9 @@ static int	prepare_next_command(
 	if ((operator == TD_OR && !exit_code)
 		|| (operator == TD_AND && exit_code) || !commands->next)
 		return (exit_code);
-	return (prepare_command(in, commands->next, operators->next));
+	if (operators)
+		return (prepare_command(in, commands->next, operators->next));
+	return (prepare_command(in, commands->next, operators));
 }
 
 static int	prepare_command(int *in, t_list *commands, t_list *operators)

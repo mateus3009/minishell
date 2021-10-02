@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 17:28:08 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/01 07:36:03 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:56:24 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 {
 	if (command->redirect.type == TD_INPUT
 		|| command->redirect.type == TD_HERE_DOCUMENT)
-		configure_writer_pipe_and_free(p);
+		configure_writer_pipe(p);
 	else
-		configure_reader_pipe_and_free(p);
+		configure_reader_pipe(p);
+	free_pipe(p);
 	execute_redirect(command->redirect);
 }*/
 
@@ -26,9 +27,10 @@ static void	configure_and_run_call(int *p, t_command *command)
 {
 	if (command->redirect.type == TD_INPUT
 		|| command->redirect.type == TD_HERE_DOCUMENT)
-		configure_reader_pipe_and_free(p);
+		configure_reader_pipe(p);
 	else
-		configure_writer_pipe_and_free(p);
+		configure_writer_pipe(p);
+	free_pipe(p);
 	execute_call(command->call);
 }
 

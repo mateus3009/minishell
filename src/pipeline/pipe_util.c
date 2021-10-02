@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:43:57 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 07:44:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 13:54:58 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,18 @@ void	free_pipe(int *fd)
 	free(fd);
 }
 
-void	configure_reader_pipe_and_free(int *fd)
+void	configure_reader_pipe(int *fd)
 {
 	if (!fd)
 		return ;
-	dup2(fd[0], STDIN_FILENO);
-	free_pipe(fd);
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		exit_minishell();
 }
 
-void	configure_writer_pipe_and_free(int *fd)
+void	configure_writer_pipe(int *fd)
 {
 	if (!fd)
 		return ;
-	dup2(fd[1], STDOUT_FILENO);
-	free_pipe(fd);
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+		exit_minishell();
 }

@@ -17,6 +17,11 @@
             "MIMode": "gdb",
             "setupCommands": [
 				{
+					"description": "recompile",
+					"text": "make",
+					"ignoreFailures": true
+				},
+				{
 					"description": "Enable funcy printing to gdb",
 					"text": "-enable-pretty-printing",
 					"ignoreFailures": false

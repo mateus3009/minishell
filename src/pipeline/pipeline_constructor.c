@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:46:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 08:01:34 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/01 07:47:45 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,9 @@ static bool	create_redirect(
 		return (false);
 	command = ft_lstlast(*commands)->content;
 	command->redirect.type = token->id;
-	command->redirect.value = ft_strdup(token->value);
-	return (create_operator(tokens->next, commands, operators));
+	if (token->value)
+		command->redirect.value = ft_strdup(token->value);
+	return (create_command_head(tokens->next, commands, operators));
 }
 
 static bool	create_operator(
