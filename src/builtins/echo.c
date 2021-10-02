@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 16:23:27 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 17:27:26 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ void	echo_builtin(char **argv)
 	}
 	if (new_line)
 		printf("\n");
+	g_minishell.error_status = 0;
 }

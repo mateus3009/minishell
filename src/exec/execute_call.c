@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 16:19:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 18:25:32 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	execute_cmd_builtin(char **argv)
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return ((echo_builtin(argv), true));
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return ((cd_builtin(), true));
+		return ((cd_builtin(argv), true));
 	if (ft_strcmp(argv[0], "pwd") == 0)
 		return ((pwd_builtin(), true));
 	if (ft_strcmp(argv[0], "export") == 0)
