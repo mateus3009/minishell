@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 14:00:48 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/02 16:19:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	execute_cmd_builtin(char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
-		return ((echo_builtin(), true));
+		return ((echo_builtin(argv), true));
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return ((cd_builtin(), true));
 	if (ft_strcmp(argv[0], "pwd") == 0)
@@ -38,10 +38,13 @@ void	execute_call(t_call	call)
 
 	argv = str_list_array(call.argv);
 	env	= tpenv_to_array(g_minishell.penv);
-	if (execute_cmd_builtin(argv))
-		return ;
-	if (!call.path)
-		exit_minishell();
-	if (execve(call.path, argv, env) == -1)
-		exit_minishell();
+	if (!execute_cmd_builtin(argv))
+	{
+		if (!call.path)
+			exit_minishell();
+		if (execve(call.path, argv, env) == -1)
+			exit_minishell();
+	}
+	free_str_array(argv);
+	free_str_array(env);
 }
