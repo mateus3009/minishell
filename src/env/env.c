@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/02 16:13:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/03 18:51:27 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,27 @@ void	free_env(t_penv *penv)
 	while (penv[++index].key)
 		free(penv[index].key);
 	free(penv);
+}
+
+t_hashmap	*env_to_hashmap(char *const env[])
+{
+	int			i;
+	t_hashmap	*parsed_env;
+	char		*equal;
+	char		*tmp;
+
+	i = 0;
+	while (env[i])
+		i++;
+	parsed_env = create_hashmap_bucket(i + 20);
+	i = -1;
+	while (env[++i])
+	{
+		tmp = ft_strdup(env[i]);
+		equal = ft_strchr(tmp, '=');
+		tmp[equal - tmp] = '\0';
+		insert_on_hashmap(tmp, equal + 1, parsed_env);
+		free(tmp);
+	}
+	return (parsed_env);
 }

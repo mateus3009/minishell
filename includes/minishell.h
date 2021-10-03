@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 10:47:00 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/03 18:55:26 by lniehues         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "builtins.h"
 # include "redirects.h"
 # include "exec.h"
+# include "hashmap.h"
 
 typedef struct s_penv
 {
@@ -63,6 +64,7 @@ void			display_env(t_penv *penv);
 char			*find_env(t_penv *penv, char *key);
 void			free_env(t_penv *penv);
 char			**tpenv_to_array(t_penv	*env);
+t_hashmap		*env_to_hashmap(char *const env[]);
 
 /*
 *	SYSTEM CALLS
