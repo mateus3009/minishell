@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:37:29 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 13:54:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/04 18:38:28 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,10 @@ typedef struct s_call
 	t_dlist	*argv;
 }	t_call;
 
-typedef struct s_redirect
-{
-	int		type;
-	char	*value;
-}	t_redirect;
-
 typedef struct s_command
 {
-	t_call		call;
-	t_redirect	redirect;
+	t_call	call;
+	t_dlist	*redirects;
 }	t_command;
 
 void	create_pipe(int	**fd);

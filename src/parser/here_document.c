@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 16:22:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/05 09:07:28 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*here_document(char *value)
 		if (ft_strcmp(value, line) == 0)
 			break ;
 		str_builder_add_str(builder, line);
+		str_builder_add_char(builder, '\n');
 		free(line);
 	}
 	line = ft_strdup(builder->str);

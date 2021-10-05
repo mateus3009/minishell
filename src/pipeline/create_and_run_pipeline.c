@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:44:33 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 14:47:18 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:52:30 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	free_command(void *command)
 	c = command;
 	free(c->call.path);
 	ft_dlstclear(&c->call.argv, free);
-	free(c->redirect.value);
+	ft_dlstclear(&c->redirects, token_free);
 	free(c);
 }
 

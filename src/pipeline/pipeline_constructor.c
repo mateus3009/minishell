@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:46:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/01 07:47:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/04 18:42:44 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static bool	create_command_head(
 			find_env(g_minishell.penv, "PATH"), token->value);
 	command->call.argv = ft_dlstnew(ft_strdup(token->value));
 	node = ft_lstnew(command);
-	if (!node)
+	if (!node || !node->content)
 		exit_minishell();
 	ft_lstadd_back(commands, node);
 	return (create_command_arg(tokens->next, commands, operators)
@@ -75,7 +75,7 @@ static bool	create_command_arg(
 		return (false);
 	command = ft_lstlast(*commands)->content;
 	node = ft_dlstnew(ft_strdup(token->value));
-	if (!node)
+	if (!node || !node->content)
 		exit_minishell();
 	ft_dlstadd_back(&(command->call.argv), node);
 	return (create_command_arg(tokens->next, commands, operators)
@@ -90,6 +90,7 @@ static bool	create_redirect(
 {
 	t_token		*token;
 	t_command	*command;
+	t_dlist		*node;
 
 	if (!tokens)
 		return (true);
@@ -98,10 +99,12 @@ static bool	create_redirect(
 		&& token->id != TD_APPEND_MODE && token->id != TD_HERE_DOCUMENT)
 		return (false);
 	command = ft_lstlast(*commands)->content;
-	command->redirect.type = token->id;
-	if (token->value)
-		command->redirect.value = ft_strdup(token->value);
-	return (create_command_head(tokens->next, commands, operators));
+	node = ft_dlstnew(token_init(token->id, token->value));
+	if (!node || !node->content)
+		exit_minishell();
+	ft_dlstadd_back(&(command->redirects), node);
+	return (create_redirect(tokens->next, commands, operators)
+		|| create_operator(tokens->next, commands, operators));
 }
 
 static bool	create_operator(
@@ -123,7 +126,7 @@ static bool	create_operator(
 		exit_minishell();
 	*number = token->id;
 	node = ft_lstnew(number);
-	if (!number)
+	if (!node)
 		exit_minishell();
 	ft_lstadd_back(operators, node);
 	return (create_command_head(tokens->next, commands, operators));

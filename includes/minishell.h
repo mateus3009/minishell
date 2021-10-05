@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 10:47:00 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:48:12 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
 # include "./../libs/libft/srcs/includes/libft.h"
 
@@ -84,5 +85,6 @@ char			*ft_strrstr(char const *big, const char *little);
 void			free_str_array(char **str_array);
 void			exit_minishell(void);
 char			**str_list_array(t_dlist *args);
+void			copy_buffer(int from_fd, int to_fd);
 
 #endif
