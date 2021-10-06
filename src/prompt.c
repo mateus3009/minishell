@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/27 20:55:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/05 22:02:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static void	save_history(char *input)
 {
-	if (input && *input)
+	if (input && *input && !ft_isspace(input[0]))
 		add_history(input);
 }
 

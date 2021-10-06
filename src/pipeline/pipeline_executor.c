@@ -29,6 +29,7 @@ static pid_t	run_command(int *in, int *out, t_command *command)
 	if (!is_a_builtin(command->call.argv->content))
 	{
 		pid = fork();
+		set_exec_signals();
 		if (pid == -1)
 			exit_minishell();
 	}
