@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 13:59:29 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/08 17:55:38 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		tokens = NULL;
 		read_input_and_save_history(&line);
-		token_recognition(&tokens, line);
-		parse(&tokens);
-		create_and_run_pipeline(tokens);
+		//token_recognition(&tokens, line);
+		//parse(&tokens);
+		//create_and_run_pipeline(tokens);
 		ft_dlstclear(&tokens, token_free);
 		free(line);
 	}

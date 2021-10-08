@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/03 17:48:12 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/07 21:30:49 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include "tokens.h"
 # include "parser.h"
 # include "error.h"
-# include "pipeline.h"
+# include "constructor.h"
 # include "builtins.h"
 # include "redirects.h"
 # include "exec.h"
@@ -64,6 +64,7 @@ void			display_env(t_penv *penv);
 char			*find_env(t_penv *penv, char *key);
 void			free_env(t_penv *penv);
 char			**tpenv_to_array(t_penv	*env);
+char			*find_command_path(char *path, char *command);
 
 /*
 *	SYSTEM CALLS

@@ -6,12 +6,12 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/06 23:37:09 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:39:45 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 static char	*find_variable(char *str, int *len)
 {
 	int	i;
@@ -87,6 +87,6 @@ bool	expand_variables_parser(t_dlist **new, t_dlist **tokens)
 		return (false);
 	value = expand_all_variables(token->value);
 	ft_dlstadd_back(new, ft_dlstnew(token_init(TD_WORD, value)));
-	return (false);
+	*tokens = (*tokens)->next;
+	return (true);
 }
-*/

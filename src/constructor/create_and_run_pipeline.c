@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 07:44:33 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/04 19:52:30 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/07 22:48:43 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	create_and_run_pipeline(t_dlist *tokens)
 
 	commands = NULL;
 	operators = NULL;
-	if (!create_pipeline(tokens, &commands, &operators))
-		exit_minishell();
+	if (!tokens)
+		return ;
+	//if (!create_pipeline(tokens, &commands, &operators))
+	//	exit_minishell();
 	g_minishell.error_status = run_pipeline(commands, operators);
 	ft_lstclear(&commands, free_command);
 	ft_lstclear(&operators, free);

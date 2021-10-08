@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:43:42 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/25 17:35:20 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:32:25 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,27 @@
 
 void	show_tokens(t_dlist **ptr_tokens)
 {
-	t_dlist				*tokens;
-	t_token				*token;
-	t_token_definition	*def;
-	int					index;
+	t_dlist		*tokens;
+	t_token		*token;
+	char		*names[15];
 
-	def = (t_token_definition[]){
-	{.id = TD_HERE_DOCUMENT, .value = "<<"}, {.id = TD_AND, .value = "&&"},
-	{.id = TD_OR, .value = "||"}, {.id = TD_APPEND_MODE, .value = ">>"},
-	{.id = TD_PIPE, .value = "|"}, {.id = TD_INPUT, .value = ">"},
-	{.id = TD_OUTPUT, .value = "<"}, {.id = TD_DOUBLE_QUOTE, .value = "\""},
-	{.id = TD_SINGLE_QUOTE, .value = "'"}, {.id = TD_SPACE, .value = " "},
-	{.id = 0, .value = NULL}};
 	tokens = *ptr_tokens;
+	names[TD_WORD] = "WORD";
+	names[TD_HERE_DOCUMENT] = "HERE_DOCUMENT";
+	names[TD_AND] = "AND";
+	names[TD_OR] = "OR";
+	names[TD_APPEND_MODE] = "APPEND_MODE";
+	names[TD_SPACE] = "SPACE";
+	names[TD_SINGLE_QUOTE] = "SINGLE_QUOTE";
+	names[TD_DOUBLE_QUOTE] = "DOUBLE_QUOTE";
+	names[TD_PIPE] = "PIPE";
+	names[TD_INPUT] = "INPUT";
+	names[TD_OUTPUT] = "OUTPUT";
+	names[TD_VARIABLE] = "VARIABLE";
 	while (tokens)
 	{
-		index = 0;
 		token = (t_token *)tokens->content;
-		while (token->id && def[index].id && token->id != def[index].id)
-			index++;
-		printf("<%d, ", token->id);
-		if (token->id != TD_WORD)
-			printf("%s>\n", def[index].value);
-		else
-			printf("%s>\n", token->value);
+		printf("<%s, %s>\n", names[token->id], token->value);
 		tokens = tokens->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/23 07:44:16 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/07 13:51:38 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	find_token(char *str, int *index)
 	{.id = TD_OR, .value = "||", .length = 2},
 	{.id = TD_APPEND_MODE, .value = ">>", .length = 2},
 	{.id = TD_PIPE, .value = "|", .length = 1},
-	{.id = TD_INPUT, .value = ">", .length = 1},
-	{.id = TD_OUTPUT, .value = "<", .length = 1},
+	{.id = TD_OUTPUT, .value = ">", .length = 1},
+	{.id = TD_INPUT, .value = "<", .length = 1},
 	{.id = TD_DOUBLE_QUOTE, .value = "\"", .length = 1},
 	{.id = TD_SINGLE_QUOTE, .value = "'", .length = 1},
 	{.id = TD_SPACE, .value = " ", .length = 1},
