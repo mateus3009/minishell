@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/08 23:30:51 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:22:22 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@
 
 # include "./../libs/libft/srcs/includes/libft.h"
 
-# include "styles.h"
 # include "tokens.h"
 # include "parser.h"
+# include "here_document.h"
+# include "styles.h"
 # include "error.h"
 # include "constructor.h"
 # include "builtins.h"

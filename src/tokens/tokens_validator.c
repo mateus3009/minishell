@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 19:45:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/08 22:46:51 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 11:59:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,8 @@ static bool	operator_validator(
 		return (true);
 	if (!next)
 		return ((syntax_error(NULL), false));
-	if (next->id != TD_WORD && next->id != TD_HERE_DOCUMENT
-		&& next->id != TD_SINGLE_QUOTE && next->id != TD_DOUBLE_QUOTE)
-		return ((syntax_error(next), false));
 	if (!previous)
 		return ((syntax_error(current), false));
-	if (previous->id != TD_WORD
-		&& previous->id != TD_SINGLE_QUOTE && previous->id != TD_DOUBLE_QUOTE)
-		return ((syntax_error(previous), false));
 	return (true);
 }
 
@@ -104,7 +98,10 @@ bool	tokens_validator(t_dlist *tokens)
 		current = tokens;
 		next = next_token(tokens);
 		if (!verify(previous, current, next))
+		{
+			((t_token *)current->content)->id = TD_UNKNOWN;
 			return (false);
+		}
 		tokens = tokens->next;
 	}
 	return (true);

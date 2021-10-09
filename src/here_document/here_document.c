@@ -6,11 +6,18 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 00:35:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:07:25 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handler_sigint(int signal)
+{
+	(void)signal;
+	ft_putchar_fd('\n', STDOUT_FILENO);
+	exit(2);
+}
 
 static void	doc_writer_error(char *value)
 {
@@ -25,7 +32,7 @@ static void	doc_writer(int fd, char *value)
 {
 	char	*line;
 
-	line = NULL;
+	signal(SIGINT, handler_sigint);
 	while (true)
 	{
 		line = readline("> ");
@@ -49,6 +56,7 @@ static char	*doc_reader(int fd)
 	char			*line;
 	t_str_builder	*builder;
 
+	g_minishell.heredoc_line++;
 	builder = str_builder_init();
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -58,6 +66,8 @@ static char	*doc_reader(int fd)
 		free(line);
 		line = NULL;
 	}
+	if (line)
+		free(line);
 	line = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (line);
@@ -81,7 +91,7 @@ char	*heredoc(char *value)
 	waitpid(pid, &exit_code, 0);
 	line = doc_reader(fd[0]);
 	close(fd[0]);
-	if (!WIFEXITED(exit_code) && WEXITSTATUS(exit_code) > 1)
+	if (WIFEXITED(exit_code) && WEXITSTATUS(exit_code) > 1)
 	{
 		g_minishell.error_status = 130;
 		free(line);

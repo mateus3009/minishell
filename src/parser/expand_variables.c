@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/07 13:39:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:40:49 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,19 +74,4 @@ char	*expand_all_variables(char *str)
 		temp = new;
 	}
 	return (new);
-}
-
-bool	expand_variables_parser(t_dlist **new, t_dlist **tokens)
-{
-	t_token	*token;
-	char	*value;
-
-	token = (*tokens)->content;
-	if (token->id != TD_WORD && token->id != TD_SINGLE_QUOTE
-		&& token->id != TD_DOUBLE_QUOTE)
-		return (false);
-	value = expand_all_variables(token->value);
-	ft_dlstadd_back(new, ft_dlstnew(token_init(TD_WORD, value)));
-	*tokens = (*tokens)->next;
-	return (true);
 }
