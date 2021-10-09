@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/08 17:55:38 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 00:20:42 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,18 @@ int	main(int argc, char **argv, char **env)
 	open_std_fd();
 	while (1)
 	{
+		line = heredoc("teste");
+		if (line)
+			printf("%s", line);
 		tokens = NULL;
+		/*
 		read_input_and_save_history(&line);
-		//token_recognition(&tokens, line);
+		tokens = token_recognition(line);
+		if (!tokens_validator(tokens))
+			ft_dlstclear(&tokens, token_free);
+		if (tokens)
+			show_tokens(&tokens);
+		*/
 		//parse(&tokens);
 		//create_and_run_pipeline(tokens);
 		ft_dlstclear(&tokens, token_free);

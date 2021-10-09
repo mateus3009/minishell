@@ -6,49 +6,116 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/27 21:40:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/08 19:44:44 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	token_recognition_handler(
-	t_dlist **tokens,
-	t_token_builder **token,
-	char *str,
-	int *index)
+static int	which_token(char *str, int *length)
 {
-	int	id;
+	t_token_definition	*tokens;
 
-	id = find_end_of_token(str, index, *token);
-	if (id != TD_WORD)
-	{
-		add_token_to_result(tokens, (*token)->id, (*token)->builder->str);
-		if (id != (*token)->id && id != TD_SINGLE_QUOTE
-			&& id != TD_DOUBLE_QUOTE)
-		{
-			add_token_to_result(tokens, id, NULL);
-			id = TD_WORD;
-		}
-		if (id == (*token)->id && (id == TD_SINGLE_QUOTE
-				|| id == TD_DOUBLE_QUOTE))
-			id = TD_WORD;
-		token_builder_free(*token);
-		(*token) = token_builder_init(id);
-	}
-	else
-		str_builder_add_char((*token)->builder, str[(*index)++]);
+	if (!str)
+		return (TD_UNKNOWN);
+	tokens = (t_token_definition[]){
+	{.id = TD_HERE_DOCUMENT, .value = "<<", .length = 2},
+	{.id = TD_AND, .value = "&&", .length = 2},
+	{.id = TD_OR, .value = "||", .length = 2},
+	{.id = TD_APPEND_MODE, .value = ">>", .length = 2},
+	{.id = TD_PIPE, .value = "|", .length = 1},
+	{.id = TD_OUTPUT, .value = ">", .length = 1},
+	{.id = TD_INPUT, .value = "<", .length = 1},
+	{.id = TD_DOUBLE_QUOTE, .value = "\"", .length = 1},
+	{.id = TD_SINGLE_QUOTE, .value = "'", .length = 1},
+	{.id = TD_SPACE, .value = " ", .length = 1},
+	{.id = TD_UNKNOWN, .value = NULL, .length = 0}};
+	while (tokens->id != TD_UNKNOWN
+		&& ft_strncmp(tokens->value, str, tokens->length) != 0)
+		tokens++;
+	if (tokens->id != TD_UNKNOWN && length)
+		*length = tokens->length;
+	return (tokens->id);
 }
 
-void	token_recognition(t_dlist **tokens, char *str)
+static bool	quote_recognition(t_dlist **tokens, char *str, int *index)
 {
-	int				index;
-	t_token_builder	*token;
+	int				id;
+	t_str_builder	*builder;
 
+	id = which_token(str + *index, NULL);
+	if (id != TD_SINGLE_QUOTE && id != TD_DOUBLE_QUOTE)
+		return (false);
+	(*index)++;
+	builder = str_builder_init();
+	while (str[*index] && which_token(str + *index, NULL) != id)
+		str_builder_add_char(builder, str[(*index)++]);
+	if (!str[*index])
+	{
+		error_handler("syntax error", "unexpected end of file", 2);
+		*index = -1;
+		return (true);
+	}
+	(*index)++;
+	add_token_to_result(tokens, id, builder->str);
+	str_builder_destroy(builder);
+	return (true);
+}
+
+static bool	symbol_recognition(t_dlist **tokens, char *str, int *index)
+{
+	int	id;
+	int	length;
+
+	id = which_token(str + *index, &length);
+	if (id == TD_UNKNOWN || id == TD_SINGLE_QUOTE || id == TD_DOUBLE_QUOTE)
+		return (false);
+	*index += length;
+	while (str[*index] && id == TD_SPACE
+		&& which_token(str + *index, NULL) == TD_SPACE)
+		(*index)++;
+	if (str[*index] || id != TD_SPACE)
+		add_token_to_result(tokens, id, NULL);
+	return (true);
+}
+
+static bool	word_recognition(t_dlist **tokens, char *str, int *index)
+{
+	t_str_builder	*builder;
+
+	if (!str[*index] || which_token(str + *index, NULL) != TD_UNKNOWN)
+		return (false);
+	builder = str_builder_init();
+	while (str[*index] && which_token(str + *index, NULL) == TD_UNKNOWN)
+		str_builder_add_char(builder, str[(*index)++]);
+	add_token_to_result(tokens, TD_WORD, builder->str);
+	str_builder_destroy(builder);
+	return (true);
+}
+
+typedef bool (*	t_recognitor)(t_dlist **tokens, char *str, int *index);
+
+t_dlist	*token_recognition(char *str)
+{
+	t_dlist			*tokens;
+	int				index;
+	int				position;
+	t_recognitor	*recognitors;
+
+	tokens = NULL;
 	index = 0;
-	token = token_builder_init(TD_WORD);
+	recognitors = (t_recognitor[]){
+		quote_recognition, symbol_recognition, word_recognition, NULL};
 	while (str[index])
-		token_recognition_handler(tokens, &token, str, &index);
-	add_token_to_result(tokens, token->id, token->builder->str);
-	token_builder_free(token);
+	{
+		position = -1;
+		while (recognitors[++position])
+		{
+			if (recognitors[position](&tokens, str, &index) && index != -1)
+				break ;
+			if (index == -1)
+				return ((ft_dlstclear(&tokens, token_free), NULL));
+		}
+	}
+	return (tokens);
 }

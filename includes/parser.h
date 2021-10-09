@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:25:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/07 13:46:38 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 00:09:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,7 @@ bool	redirects_parser(t_dlist **new, t_dlist **tokens);
 
 void	parse(t_dlist **ptr_tokens);
 void	show_tokens(t_dlist **ptr_tokens);
+
+char	*heredoc(char *value);
 
 #endif

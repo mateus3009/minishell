@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/07 21:30:49 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/08 23:30:51 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_minishell
 	pid_t	fd_in;
 	pid_t	fd_out;
 	pid_t	fd_err;
+	int		heredoc_line;
 }				t_minishell;
 
 /* GLOBAL VARIABLE */

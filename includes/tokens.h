@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/05 08:18:04 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/08 22:06:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "./../libs/libft/srcs/includes/libft.h"
 
+# define TD_UNKNOWN		   -1
 # define TD_WORD			0
 # define TD_HERE_DOCUMENT	1
 # define TD_AND				2
@@ -27,47 +28,27 @@
 # define TD_INPUT			9
 # define TD_OUTPUT			10
 # define TD_VARIABLE		11
+# define TD_NEWLINE			12
 
 typedef struct s_token_definition
 {
-	short	id;
-	char	*value;
-	size_t	length;
-}				t_token_definition;
-
-typedef struct s_token_builder
-{
-	short			id;
-	t_str_builder	*builder;
-}				t_token_builder;
+	int	id;
+	char		*value;
+	size_t		length;
+}			t_token_definition;
 
 typedef struct s_token
 {
-	short	id;
-	char	*value;
-}				t_token;
+	int	id;
+	char		*value;
+}			t_token;
 
-t_token_builder	*token_builder_init(int id);
-void			token_builder_free(t_token_builder *token_builder);
-t_token			*token_init(int id, char *str_to_copy);
-void			token_free(void *token);
-int				find_token(
-					char *str,
-					int *index);
-int				find_end_quote_token(
-					char *str,
-					int *index,
-					t_token_builder *token);
-int				find_end_of_token(
-					char *str,
-					int *index,
-					t_token_builder *token);
-void			add_token_to_result(
-					t_dlist **tokens,
-					int id,
-					char *str);
-void			add_the_curent_token_id_to_the_result(
-					t_dlist **tokens, int id);
-void			token_recognition(t_dlist **tokens, char *str);
+t_token		*token_init(int id, char *str_to_copy);
+void		token_free(void *token);
+t_dlist		*add_token_to_result(t_dlist **tokens, int id, char *str);
+t_dlist		*next_token(t_dlist *tokens);
+t_dlist		*previous_token(t_dlist *tokens);
+t_dlist		*token_recognition(char *str);
+bool		tokens_validator(t_dlist *tokens);
 
 #endif
