@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/08 22:11:24 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 17:54:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_dlist	*add_token_to_result(
 	return (node);
 }
 
-t_dlist	*next_token(t_dlist *tokens)
+t_dlist	*next_token_non_space(t_dlist *tokens)
 {
 	t_token	*token;
 

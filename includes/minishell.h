@@ -6,12 +6,14 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 12:22:22 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 18:05:51 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "./../libs/libft/srcs/includes/libft.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -26,23 +28,15 @@
 # include <readline/history.h>
 # include <fcntl.h>
 
-# include "./../libs/libft/srcs/includes/libft.h"
-
-# include "tokens.h"
-# include "parser.h"
-# include "here_document.h"
-# include "styles.h"
-# include "error.h"
-# include "constructor.h"
 # include "builtins.h"
-# include "redirects.h"
-# include "exec.h"
-
-typedef struct s_penv
-{
-	char			*key;
-	char			*value;
-}				t_penv;
+# include "env.h"
+# include "here_document.h"
+# include "parser.h"
+# include "signals.h"
+# include "styles.h"
+# include "tokens.h"
+# include "util.h"
+# include "commands.h"
 
 typedef struct s_minishell
 {
@@ -56,38 +50,5 @@ typedef struct s_minishell
 
 /* GLOBAL VARIABLE */
 t_minishell	g_minishell;
-
-/*
-*	ENV
-*/
-
-t_penv			*parse_env(char *const env[]);
-void			display_env(t_penv *penv);
-char			*find_env(t_penv *penv, char *key);
-void			free_env(t_penv *penv);
-char			**tpenv_to_array(t_penv	*env);
-char			*find_command_path(char *path, char *command);
-
-/*
-*	SYSTEM CALLS
-*/
-
-void			run_system_cmd(char **cmd_array);
-void			excute_command(char **cmd_array);
-
-/*
-*	SIGNALS
-*/
-void			set_input_signals(void);
-void			set_exec_signals(void);
-
-/**
- *	UTILS
- */
-char			*ft_strrstr(char const *big, const char *little);
-void			free_str_array(char **str_array);
-void			exit_minishell(void);
-char			**str_list_array(t_dlist *args);
-void			copy_buffer(int from_fd, int to_fd);
 
 #endif

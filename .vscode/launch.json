@@ -27,7 +27,7 @@
 					"ignoreFailures": false
 				},
 				{   "description":"In this mode GDB will be attached to both processes after a call to fork() or vfork().",
-					"text": "-gdb-set detach-on-fork off",
+					"text": "-gdb-set detach-on-fork on",
 					"ignoreFailures": false
 				},
 				{   "description": "The new process is debugged after a fork. The parent process runs unimpeded.",

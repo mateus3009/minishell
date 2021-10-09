@@ -6,11 +6,23 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:23:17 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/09 10:39:34 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 16:48:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	common_parser(t_dlist **new, t_dlist **tokens)
+{
+	t_token	*token;
+
+	token = (*tokens)->content;
+	if (token->id == TD_UNKNOWN)
+		return (-1);
+	add_token_to_result(new, token->id, token->value);
+	*tokens = (*tokens)->next;
+	return (1);
+}
 
 static void	clear_lists(t_dlist **old, t_dlist **new)
 {

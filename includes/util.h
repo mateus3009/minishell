@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_mode.c                                      :+:      :+:    :+:   */
+/*   util.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 19:04:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/03 17:48:00 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/09 14:21:09 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef UTIL_H
+# define UTIL_H
 
-void	append_mode_redirect(char *value)
-{
-	int	fd;
+# include "minishell.h"
 
-	fd = open(value, O_CREAT | O_APPEND | O_WRONLY, 644);
-	if (fd == -1)
-	{
-		error_handler(value, strerror(errno), 1);
-		exit_minishell();
-	}
-	copy_buffer(STDIN_FILENO, fd);
-	close(fd);
-}
+char	*ft_strrstr(char const *big, const char *little);
+void	free_str_array(char **str_array);
+void	exit_minishell(void);
+char	**str_list_array(t_dlist *args);
+void	copy_buffer(int from_fd, int to_fd);
+void	open_std_fd(void);
+void	restore_std_fd(void);
+void	close_std_fd(void);
+
+#endif

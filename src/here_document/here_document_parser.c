@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 08:38:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 11:02:11 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 17:54:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	here_document_parser_(t_dlist **new, t_dlist **tokens)
 	token = (*tokens)->content;
 	if (token->id != TD_HERE_DOCUMENT)
 		return (0);
-	temp = next_token(*tokens);
+	temp = next_token_non_space(*tokens);
 	value = join_words(&temp);
 	if (!value)
 		return (-1);

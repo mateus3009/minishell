@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 12:40:49 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 13:09:27 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static char	*expand_variable(char *str)
 	return (value);
 }
 
-char	*expand_all_variables(char *str)
+char	*expand_all_variables_(char *str)
 {
 	int		len;
 	char	*temp;
@@ -74,4 +74,37 @@ char	*expand_all_variables(char *str)
 		temp = new;
 	}
 	return (new);
+}
+
+char	*expand_and_join_words(t_dlist **tokens)
+{
+	t_token			*token;
+	t_str_builder	*builder;
+	char			*result;
+
+	if (!tokens || !*tokens)
+		return (NULL);
+	token = (*tokens)->content;
+	builder = NULL;
+	while (token->id == TD_WORD || token->id == TD_SINGLE_QUOTE
+		|| token->id == TD_DOUBLE_QUOTE)
+	{
+		if (!builder)
+			builder = str_builder_init();
+		if (token->id == TD_SINGLE_QUOTE)
+			str_builder_add_str(builder, token->value);
+		else
+			str_builder_add_str(builder, expand_all_variables_(token->value));
+		*tokens = (*tokens)->next;
+		if (!*tokens)
+			break ;
+		token = (*tokens)->content;
+	}
+	if (builder)
+	{
+		result = ft_strdup(builder->str);
+		str_builder_destroy(builder);
+		return (result);
+	}
+	return (NULL);
 }

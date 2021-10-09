@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 19:45:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 11:59:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 17:54:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ bool	tokens_validator(t_dlist *tokens)
 	{
 		previous = previous_token(tokens);
 		current = tokens;
-		next = next_token(tokens);
+		next = next_token_non_space(tokens);
 		if (!verify(previous, current, next))
 		{
 			((t_token *)current->content)->id = TD_UNKNOWN;

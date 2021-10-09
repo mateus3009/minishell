@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 18:48:54 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/04 19:42:44 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/09 14:28:04 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/09 18:31:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#ifndef COMMANDS_H
+# define COMMANDS_H
 
 # include "minishell.h"
 
-void	execute_command(t_command *command);
-void	execute_call(t_call	call);
+typedef struct s_command
+{
+	t_dlist	*words;
+	t_dlist	*variables;
+	t_dlist	*redirects;
+	t_token	*op;
+}				t_command;
+
+typedef bool (*	t_command_handler)(t_command *command, t_dlist **tokens);
+
+t_command		*command_init(void);
+void			command_free(t_command *command);
+t_command		*get_next_command(t_dlist **tokens);
+void			command_show(t_command *command);
 
 #endif
