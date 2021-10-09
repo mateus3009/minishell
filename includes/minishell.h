@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/03 18:55:26 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/09 20:07:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# include "./../libs/libft/srcs/includes/libft.h"
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,24 +26,18 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <fcntl.h>
 
-# include "./../libs/libft/srcs/includes/libft.h"
-
+# include "hashmap.h"
+# include "builtins.h"
+# include "env.h"
+# include "here_document.h"
+# include "parser.h"
+# include "signals.h"
 # include "styles.h"
 # include "tokens.h"
-# include "parser.h"
-# include "error.h"
-# include "pipeline.h"
-# include "builtins.h"
-# include "redirects.h"
-# include "exec.h"
-# include "hashmap.h"
-
-typedef struct s_penv
-{
-	char			*key;
-	char			*value;
-}				t_penv;
+# include "util.h"
+# include "commands.h"
 
 typedef struct s_minishell
 {
@@ -50,41 +46,10 @@ typedef struct s_minishell
 	pid_t	fd_in;
 	pid_t	fd_out;
 	pid_t	fd_err;
+	int		heredoc_line;
 }				t_minishell;
 
 /* GLOBAL VARIABLE */
 t_minishell	g_minishell;
-
-/*
-*	ENV
-*/
-
-t_penv			*parse_env(char *const env[]);
-void			display_env(t_penv *penv);
-char			*find_env(t_penv *penv, char *key);
-void			free_env(t_penv *penv);
-char			**tpenv_to_array(t_penv	*env);
-t_hashmap		*env_to_hashmap(char *const env[]);
-
-/*
-*	SYSTEM CALLS
-*/
-
-void			run_system_cmd(char **cmd_array);
-void			excute_command(char **cmd_array);
-
-/*
-*	SIGNALS
-*/
-void			set_input_signals(void);
-void			set_exec_signals(void);
-
-/**
- *	UTILS
- */
-char			*ft_strrstr(char const *big, const char *little);
-void			free_str_array(char **str_array);
-void			exit_minishell(void);
-char			**str_list_array(t_dlist *args);
 
 #endif

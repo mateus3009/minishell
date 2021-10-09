@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input.c                                            :+:      :+:    :+:   */
+/*   here_document.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 19:05:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:31:28 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/09 12:20:42 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/09 14:19:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef HERE_DOCUMENT_H
+# define HERE_DOCUMENT_H
 
-void	input_redirect(char *value)
-{
-	printf("Not implemented! %s\n", value);
-	exit(EXIT_FAILURE);
-}
+# include "minishell.h"
+
+typedef	int (* t_token_parser)(t_dlist **new, t_dlist **tokens);
+
+int		common_parser(t_dlist **new, t_dlist **tokens);
+void	parser_core(t_dlist **tokens, t_token_parser *parsers);
+
+char	*heredoc(char *value);
+void	here_document_parser(t_dlist **tokens);
+
+#endif

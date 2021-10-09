@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   commands.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/20 20:25:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/09 14:19:05 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/09 14:28:04 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/09 18:31:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef COMMANDS_H
+# define COMMANDS_H
 
 # include "minishell.h"
 
-char	*expand_all_variables(char *str);
-char	*expand_and_join_words(t_dlist **tokens);
+typedef struct s_command
+{
+	t_dlist	*words;
+	t_dlist	*variables;
+	t_dlist	*redirects;
+	t_token	*op;
+}				t_command;
 
-char	*join_words(t_dlist **tokens);
-bool	word_parser(t_dlist **new, t_dlist **tokens);
+typedef bool (*	t_command_handler)(t_command *command, t_dlist **tokens);
 
-void	show_tokens(t_dlist **ptr_tokens);
+t_command		*command_init(void);
+void			command_free(t_command *command);
+t_command		*get_next_command(t_dlist **tokens);
+void			command_show(t_command *command);
 
 #endif

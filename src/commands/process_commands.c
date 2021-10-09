@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_redirect.c                                 :+:      :+:    :+:   */
+/*   process_commands.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/16 21:50:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/09/30 19:16:22 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/09 19:10:22 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/09 19:39:23 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	execute_redirect(t_redirect redirect)
+void	process_commands(t_dlist *tokens)
 {
-	if (redirect.type == TD_INPUT)
-		input_redirect(redirect.value);
-	if (redirect.type == TD_HERE_DOCUMENT)
-		here_document_redirect(redirect.value);
-	if (redirect.type == TD_OUTPUT)
-		output_redirect(redirect.value);
-	if (redirect.type == TD_APPEND_MODE)
-		append_mode_redirect(redirect.value);
-	exit_minishell();
+	t_command	*command;
+
+	while (tokens)
+	{
+		command = get_next_command(&tokens);
+		command_show(command);
+		free(command);
+	}
 }

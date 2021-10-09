@@ -6,14 +6,14 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:03:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/02 10:46:47 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 14:14:10 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STYLES_H
 # define STYLES_H
 
-# include "./../libs/libft/srcs/includes/libft.h"
+# include "minishell.h"
 
 # define BLACK "\033[0;30m"
 # define BOLD_BLACK "\033[1;30m"

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:25:11 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 17:36:13 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/09 14:13:36 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 #define BUILTINS_H
 
 # include "minishell.h"
+
+# define ERR_NOT_FOUND "command not found"
+# define ERR_IS_DIR "Is a directory"
+# define TOO_MANY_ARGS "too many arguments"
+# define NUM_ARG_REQUIRED "numeric argument required"
+
+void	error_handler(char *cmd, char *err_msg, int err_number);
 
 void	exit_builtin(char **argv);
 void	cd_builtin(char **argv);
