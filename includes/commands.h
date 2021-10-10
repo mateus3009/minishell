@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:28:04 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 18:31:39 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/10 16:34:19 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,23 @@ typedef struct s_command
 	t_dlist	*words;
 	t_dlist	*variables;
 	t_dlist	*redirects;
-	t_token	*op;
+	int		op;
 }				t_command;
 
-typedef bool (*	t_command_handler)(t_command *command, t_dlist **tokens);
+typedef bool (*	t_command_handler) (t_command *command, t_dlist **tokens);
 
 t_command		*command_init(void);
 void			command_free(t_command *command);
+
+void			configure_redirect(t_command *command);
+
+bool			operator_pipe(int **input, t_command *command);
+bool			operator_conditional(int **input, t_command *command);
+
 t_command		*get_next_command(t_dlist **tokens);
+
 void			command_show(t_command *command);
+
+void			process_commands(t_dlist *tokens);
 
 #endif

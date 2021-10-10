@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler_word.c                                     :+:      :+:    :+:   */
+/*   get_next_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:43:11 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 18:17:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/10 18:23:45 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static bool	handler_op(t_command *command, t_dlist **tokens)
 	token = (*tokens)->content;
 	if (token->id != TD_PIPE && token->id != TD_AND && token->id != TD_OR)
 		return (false);
-	command->op = token;
+	command->op = token->id;
 	*tokens = (*tokens)->next;
 	return (true);
 }
@@ -98,4 +98,3 @@ t_command	*get_next_command(t_dlist **tokens)
 	}
 	return (command);
 }
-

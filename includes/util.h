@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 14:21:09 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/10 13:30:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,9 @@ void	copy_buffer(int from_fd, int to_fd);
 void	open_std_fd(void);
 void	restore_std_fd(void);
 void	close_std_fd(void);
+int		*pipe_create(void);
+void	pipe_free(int *p);
+void	pipe_set_writer(int *p);
+void	pipe_set_reader(int *p);
 
 #endif
