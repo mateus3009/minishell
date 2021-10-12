@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 13:09:27 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 10:02:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,31 @@ char	*expand_all_variables_(char *str)
 	char	*new;
 
 	temp = ft_strdup(str);
-	new = temp;
-	while (find_variable(temp, &len))
+	while (true)
 	{
 		new = expand_variable(temp);
 		free(temp);
 		temp = new;
+		if (!find_variable(temp, &len))
+			break ;
 	}
 	return (new);
+}
+
+static void	expand_and_add_to_builder(t_str_builder **builder, t_token *token)
+{
+	char	*temp;
+
+	if (!builder || !*builder)
+		*builder = str_builder_init();
+	if (token->id == TD_SINGLE_QUOTE)
+		str_builder_add_str(*builder, token->value);
+	else
+	{
+		temp = expand_all_variables_(token->value);
+		str_builder_add_str(*builder, temp);
+		free(temp);
+	}
 }
 
 char	*expand_and_join_words(t_dlist **tokens)
@@ -89,12 +106,7 @@ char	*expand_and_join_words(t_dlist **tokens)
 	while (token->id == TD_WORD || token->id == TD_SINGLE_QUOTE
 		|| token->id == TD_DOUBLE_QUOTE)
 	{
-		if (!builder)
-			builder = str_builder_init();
-		if (token->id == TD_SINGLE_QUOTE)
-			str_builder_add_str(builder, token->value);
-		else
-			str_builder_add_str(builder, expand_all_variables_(token->value));
+		expand_and_add_to_builder(&builder, token);
 		*tokens = (*tokens)->next;
 		if (!*tokens)
 			break ;

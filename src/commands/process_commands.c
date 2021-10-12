@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:10:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 08:18:59 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 09:53:09 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	process_commands(t_dlist *tokens)
 			operator_pipe(&the_pipe, command);
 		else
 			operator_conditional(&the_pipe, command);
-		free(command);
+		command_free(command);
 		command = NULL;
 	}
 	restore_std_fd();

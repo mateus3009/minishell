@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:29:28 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 14:19:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 09:50:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	command_free(t_command *command)
 {
 	if (!command)
 		return ;
-	ft_dlstclear(&command->words, free);
-	ft_dlstclear(&command->variables, free);
-	ft_dlstclear(&command->redirects, token_free);
+	ft_dlstclear(&(command->words), free);
+	ft_dlstclear(&(command->variables), free);
+	ft_dlstclear(&(command->redirects), token_free);
 	free(command);
 }
 

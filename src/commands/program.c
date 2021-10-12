@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 08:03:17 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 09:52:10 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ pid_t	execute_program(t_command *command)
 	pid = 0;
 	argv = str_list_array(command->words);
 	if (execute_builtin(argv))
-		return (pid);
+		return ((free_str_array(argv), pid));
 	if (command->op != TD_PIPE)
 		pid = fork();
 	if (pid == -1)

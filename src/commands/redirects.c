@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 07:44:00 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:02:41 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static bool	redirect_heredoc(char *content)
 	return (true);
 }
 
-static bool	redirect_file(char *file, int stdfd, int flag, bool input)
+static bool	redirect_file(char *file, int stdfd, int flag)
 {
 	int	fd;
 
@@ -33,9 +33,7 @@ static bool	redirect_file(char *file, int stdfd, int flag, bool input)
 		error_handler(file, "No such file or directory", 1);
 		return (false);
 	}
-	if (input && dup2(fd, stdfd) == -1)
-		exit_minishell();
-	if (!input && dup2(stdfd, fd) == -1)
+	if (dup2(fd, stdfd) == -1)
 		exit_minishell();
 	close(fd);
 	return (true);
@@ -46,13 +44,14 @@ static bool	configure_redirect_node(t_token *redirect)
 	if (redirect->id == TD_HERE_DOCUMENT)
 		return (redirect_heredoc(redirect->value));
 	if (redirect->id == TD_INPUT)
-		return (redirect_file(redirect->value, STDIN_FILENO, O_RDONLY, true));
-	if (redirect->id == TD_OUTPUT)
-		return (redirect_file(
-				redirect->value, STDOUT_FILENO, O_WRONLY | O_CREAT, false));
+		return (redirect_file(redirect->value, STDIN_FILENO, O_RDONLY));
 	if (redirect->id == TD_APPEND_MODE)
 		return (redirect_file(redirect->value,
-				STDOUT_FILENO, O_WRONLY | O_CREAT | O_TRUNC, false));
+				STDOUT_FILENO, O_WRONLY | O_CREAT));
+	if (redirect->id == TD_OUTPUT)
+		return (redirect_file(
+				redirect->value, STDOUT_FILENO,
+				O_WRONLY | O_CREAT | O_TRUNC));
 	return (false);
 }
 
