@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 11:02:41 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 11:20:07 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	redirect_file(char *file, int stdfd, int flag)
 {
 	int	fd;
 
-	fd = open(file, flag, 644);
+	fd = open(file, flag, 0644);
 	if (fd == -1)
 	{
 		error_handler(file, "No such file or directory", 1);
