@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 18:23:11 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 07:44:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	redirect_file(char *file, int stdfd, int flag, bool input)
 {
 	int	fd;
 
-	fd = open(file, flag);
+	fd = open(file, flag, 644);
 	if (fd == -1)
 	{
 		error_handler(file, "No such file or directory", 1);
@@ -56,7 +56,7 @@ static bool	configure_redirect_node(t_token *redirect)
 	return (false);
 }
 
-void	configure_redirect(t_command *command)
+pid_t	configure_redirect(t_command *command)
 {
 	t_dlist	*redirect;
 
@@ -67,9 +67,9 @@ void	configure_redirect(t_command *command)
 		{
 			if (command->op == TD_PIPE)
 				exit(g_minishell.error_status);
-			return ;
+			return (0);
 		}
 		redirect = redirect->next;
 	}
-	(void)command; // TODO executa o comando
+	return (execute_program(command));
 }

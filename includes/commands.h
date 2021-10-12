@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:28:04 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 16:34:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 07:39:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef bool (*	t_command_handler) (t_command *command, t_dlist **tokens);
 t_command		*command_init(void);
 void			command_free(t_command *command);
 
-void			configure_redirect(t_command *command);
+pid_t			configure_redirect(t_command *command);
+
+pid_t			execute_program(t_command *command);
 
 bool			operator_pipe(int **input, t_command *command);
 bool			operator_conditional(int **input, t_command *command);

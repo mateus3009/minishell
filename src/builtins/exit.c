@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/30 19:39:38 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/10 22:57:14 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,5 @@ void	exit_builtin(char **argv)
 		error_handler("exit", TOO_MANY_ARGS, 1);
 		return ;
 	}
-	exit_minishell(); // TODO o exit está matando o processo filho e não o minishell
+	exit_minishell();
 }

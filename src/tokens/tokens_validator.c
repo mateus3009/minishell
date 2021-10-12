@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 19:45:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 17:54:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/10 19:46:26 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,14 @@ static bool	operator_validator(
 		return (true);
 	if (!next)
 		return ((syntax_error(NULL), false));
+	if (next->id == TD_PIPE
+		|| next->id == TD_AND || next->id == TD_OR)
+		return ((syntax_error(next), false));
 	if (!previous)
 		return ((syntax_error(current), false));
+	if (previous->id == TD_PIPE
+		|| previous->id == TD_AND || previous->id == TD_OR)
+		return ((syntax_error(previous), false));
 	return (true);
 }
 
