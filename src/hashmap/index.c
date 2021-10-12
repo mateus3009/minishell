@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:59:35 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:46:50 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:24:37 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,16 @@ void	handle_hashmap_collision(
 
 	current = bucket->items[index];
 	while (current->next)
+	{
+		if (ft_strcmp(current->next->key, new_item->key) == 0)
+		{
+			free(current->next->value);
+			current->next->value = ft_strdup(new_item->value);
+			free_hashmap_item(new_item);
+			return ;
+		}
 		current = current->next;
+	}
 	current->next = new_item;
 	current->next->next = NULL;
 	(bucket->count)++;

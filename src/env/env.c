@@ -3,71 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:51:27 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:34:25 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_penv	*parse_env(char *const env[])
+void	display_env(t_hashmap *env)
 {
-	int		i;
-	t_penv	*parsed_env;
-	char	*equal;
-	char	*tmp;
+	unsigned int	index;
+	t_hashmap_item	*current;
 
-	i = 0;
-	while (env[i])
-		i++;
-	parsed_env = malloc(sizeof(t_penv) * (i + 1));
-	if (!parsed_env)
-		exit(1);
-	parsed_env[i] = (t_penv){.key = NULL, .value = NULL};
-	i = -1;
-	while (env[++i])
+	index = 0;
+	while (index < env->size)
 	{
-		tmp = ft_strdup(env[i]);
-		equal = ft_strchr(tmp, '=');
-		tmp[equal - tmp] = '\0';
-		parsed_env[i].key = tmp;
-		parsed_env[i].value = equal + 1;
+		current = env->items[index];
+		while (current)
+		{
+			ft_putstr_fd(current->key, 1);
+			ft_putstr_fd("=", 1);
+			ft_putendl_fd(current->value, 1);
+			current = current->next;
+		}
+		index++;
 	}
-	return (parsed_env);
 }
 
-void	display_env(t_penv *penv)
-{
-	int	i;
-
-	i = -1;
-	while (penv[++i].key)
-		printf("%s=%s\n", penv[i].key, penv[i].value);
-}
-
-char	*find_env(t_penv *penv, char *key)
+char	*find_env(char *key)
 {
 	if (*key == '?')
 		return (ft_itoa(g_minishell.error_status));
-	while (penv->key)
-	{
-		if (ft_strcmp(penv->key, key) == 0)
-			return (penv->value);
-		penv++;
-	}
-	return (NULL);
-}
-
-void	free_env(t_penv *penv)
-{
-	int	index;
-
-	index = -1;
-	while (penv[++index].key)
-		free(penv[index].key);
-	free(penv);
+	return (find_hashmap_value(g_minishell.env, key));
 }
 
 t_hashmap	*env_to_hashmap(char *const env[])
@@ -80,7 +49,7 @@ t_hashmap	*env_to_hashmap(char *const env[])
 	i = 0;
 	while (env[i])
 		i++;
-	parsed_env = create_hashmap_bucket(i + 20);
+	parsed_env = create_hashmap_bucket(i * 2);
 	i = -1;
 	while (env[++i])
 	{
@@ -91,4 +60,41 @@ t_hashmap	*env_to_hashmap(char *const env[])
 		free(tmp);
 	}
 	return (parsed_env);
+}
+
+static char	*item_to_env_entry(t_hashmap_item *item)
+{
+	char	*entry;
+	char	*temp;
+
+	temp = ft_strjoin(item->key, "=");
+	entry = ft_strjoin(temp, item->value);
+	free(temp);
+	return (entry);
+}
+
+char	**hashmap_env_to_array_env(t_hashmap *bucket)
+{
+	unsigned int	i;
+	unsigned int	j;
+	t_hashmap_item	*current;
+	t_hashmap_item	*temp;
+	char			**env;
+
+	i = 0;
+	j = 0;
+	env = (char **)ft_calloc(sizeof (char *), bucket->count + 1);
+	while (i < bucket->size && j < bucket->count)
+	{
+		current = bucket->items[i];
+		while (current != NULL)
+		{
+			temp = current->next;
+			env[j] = item_to_env_entry(current);
+			current = temp;
+			j++;
+		}
+		i++;
+	}
+	return (env);
 }

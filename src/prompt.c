@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/05 22:02:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:25:40 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ char	*create_prompt(void)
 
 	builder = str_builder_init();
 	str_builder_add_str(builder, BOLD_RED);
-	str_builder_add_str(builder, find_env(g_minishell.penv, "LOGNAME"));
+	str_builder_add_str(builder, find_env("LOGNAME"));
 	str_builder_add_char(builder, '@');
-	str_builder_add_str(builder, find_env(g_minishell.penv, "NAME"));
+	str_builder_add_str(builder, find_env("NAME"));
 	str_builder_add_char(builder, ':');
 	str_builder_add_str(builder, ESC_RESET_COLOR);
 	str_builder_add_str(builder, BOLD_PURPLE);
-	if (ft_strcmp(find_env(g_minishell.penv, "HOME"),
-			find_env(g_minishell.penv, "PWD")) == 0)
+	if (ft_strcmp(find_env("HOME"),
+			find_env("PWD")) == 0)
 		str_builder_add_char(builder, '~');
 	else
-		str_builder_add_str(builder, find_env(g_minishell.penv, "PWD"));
+		str_builder_add_str(builder, find_env("PWD"));
 	str_builder_add_str(builder, ESC_RESET_COLOR);
 	str_builder_add_str(builder, "$ ");
 	prompt = ft_strdup(builder->str);
@@ -64,4 +64,5 @@ void	read_input_and_save_history(char **input)
 	free(prompt);
 	save_history(*input);
 	check_eof(*input);
+	signal(SIGINT, SIG_IGN);
 }

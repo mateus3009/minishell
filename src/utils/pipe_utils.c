@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:29:43 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 16:09:36 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:27:09 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	pipe_set_writer(int *p)
 		return ;
 	if (dup2(p[1], STDOUT_FILENO) == -1)
 		exit_minishell();
+	pipe_free(p);
 }
 
 void	pipe_set_reader(int *p)
@@ -47,4 +48,5 @@ void	pipe_set_reader(int *p)
 		return ;
 	if (dup2(p[0], STDIN_FILENO) == -1)
 		exit_minishell();
+	pipe_free(p);
 }

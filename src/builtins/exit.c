@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/10 22:57:14 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:38:11 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	error_handler(char *cmd, char *err_msg, int err_number)
 void	exit_minishell(void)
 {
 	rl_clear_history();
-	free_env(g_minishell.penv);
+	free_hashmap_bucket(g_minishell.env);
 	exit(g_minishell.error_status);
 }
 

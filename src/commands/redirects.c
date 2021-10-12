@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 11:20:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:28:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static bool	redirect_heredoc(char *content)
 	fd = pipe_create();
 	ft_putstr_fd(content, fd[1]);
 	pipe_set_reader(fd);
-	pipe_free(fd);
 	return (true);
 }
 

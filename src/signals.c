@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:42:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 14:16:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:14:58 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ static void	handle_interrupt_process(int signal)
 {
 	(void)signal;
 	g_minishell.error_status = 130;
-	ft_putstr_fd("\n", 1);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	//exit(g_minishell.error_status);
 }
 
 static void	handle_quit_process(int signal)

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 12:01:33 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:27:31 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ bool	operator_conditional(int **input, t_command *command)
 
 	pipe_set_reader(*input);
 	pid = configure_redirect(command);
-	pipe_free(*input);
 	*input = NULL;
 	wait_pid_and_set_status(pid);
 	if (command->op == TD_OR)
@@ -49,9 +48,9 @@ bool	operator_pipe(int **input, t_command *command)
 	pid = fork();
 	if (pid == -1)
 		exit_minishell();
+	set_exec_signals();
 	if (pid == 0)
 	{
-		set_exec_signals();
 		pipe_set_reader(*input);
 		pipe_set_writer(ouput);
 		configure_redirect(command);

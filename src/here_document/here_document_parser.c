@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 08:38:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 17:54:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:06:21 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ void	here_document_parser(t_dlist **tokens)
 {
 	t_token_parser	*parsers;
 
-	signal(SIGINT, SIG_IGN);
 	parsers = (t_token_parser[]){here_document_parser_, common_parser, NULL};
 	parser_core(tokens, parsers);
-	set_input_signals();
 }
