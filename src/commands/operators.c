@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 08:18:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 12:01:33 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ bool	operator_pipe(int **input, t_command *command)
 		exit_minishell();
 	if (pid == 0)
 	{
+		set_exec_signals();
 		pipe_set_reader(*input);
 		pipe_set_writer(ouput);
 		configure_redirect(command);

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 09:52:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 12:02:28 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void	execute_external(char **argv)
 		find_env(g_minishell.penv, "PATH"), argv[0]);
 	if (execve(path, argv, env) == -1)
 	{
-		error_handler(argv[0], "command not found", 127);
+		if (!path)
+			error_handler(argv[0], "command not found", 127);
+		else
+			error_handler(argv[0], strerror(errno), errno);
 		free_str_array(env);
 		free(path);
 		exit(127);
@@ -62,7 +65,10 @@ pid_t	execute_program(t_command *command)
 	if (pid == -1)
 		exit_minishell();
 	if (pid == 0)
+	{
+		set_exec_signals();
 		execute_external(argv);
+	}
 	free_str_array(argv);
 	return (pid);
 }
