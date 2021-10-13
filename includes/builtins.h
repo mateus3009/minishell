@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:25:11 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 11:47:30 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:50:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	echo_builtin(char **argv);
 void	env_builtin(void);
 void	export_builtin(char	**args);
 void	pwd_builtin(void);
-void	unset_builtin(void);
+void	unset_builtin(char **args);
 
 #endif

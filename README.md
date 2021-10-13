@@ -9,8 +9,8 @@ last updated: 2021-10-05
 
 ### Builtin
 	- ~~cd (change old_pwd and pwd variables)~~
-	- unset
-	- export
+	- ~~unset~~
+	- ~~export~~
 	- ~~cd, unset, export e exit não podem funcionar na pipeline~~
 
 ### Parser

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 12:08:53 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:01:36 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool comparator(const void *max, const void *min)
 	return (ft_strcmp(foo, bar) > 0);
 }
 
-void	show_environment(void)
+static void	show_environment(void)
 {
 	int		index;
 	char	**env;
@@ -48,7 +48,7 @@ void	show_environment(void)
 	}
 }
 
-void	error_variable(char *var)
+static void	error_variable(char *var)
 {
 	g_minishell.error_status = 1;
 	ft_putstr_fd("minishell: export: `", STDERR_FILENO);

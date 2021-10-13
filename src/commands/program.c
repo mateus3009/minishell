@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 11:48:24 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:52:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	execute_builtin(char **argv)
 	if (ft_strcmp(argv[0], "export") == 0)
 		return ((export_builtin(argv), true));
 	if (ft_strcmp(argv[0], "unset") == 0)
-		return ((unset_builtin(), true));
+		return ((unset_builtin(argv), true));
 	if (ft_strcmp(argv[0], "env") == 0)
 		return ((env_builtin(), true));
 	if (ft_strcmp(argv[0], "exit") == 0)
