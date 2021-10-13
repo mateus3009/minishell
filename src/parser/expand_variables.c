@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 13:20:36 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:49:23 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,11 @@ static char	*expand_variable(char *str)
 	value = find_hashmap_value(g_minishell.local_var, key);
 	if (!value)
 		value = find_env(key);
-	if (!value)
-		return ((free(key), ft_strdup("")));
-	value = ft_strdup(value);
+	free(key);
 	builder = str_builder_init();
 	str_builder_add_str_len(builder, str, var - str - 1);
 	str_builder_add_str(builder, value);
 	str_builder_add_str(builder, var + len);
-	free(key);
 	free(value);
 	value = ft_strdup(builder->str);
 	str_builder_destroy(builder);
