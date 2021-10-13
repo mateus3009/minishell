@@ -6,13 +6,13 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 12:52:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:18:23 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	execute_builtin(char **argv)
+static bool	execute_builtin(char **argv)
 {
 	if (ft_strcmp(argv[0], "echo") == 0)
 		return ((echo_builtin(argv), true));
@@ -31,7 +31,7 @@ bool	execute_builtin(char **argv)
 	return (false);
 }
 
-void	execute_external(char **argv)
+static void	execute_external(char **argv)
 {
 	char	**env;
 	char	*path;
@@ -51,12 +51,30 @@ void	execute_external(char **argv)
 	}
 }
 
+static bool	set_variables(t_command *command)
+{
+	t_dlist	*var;
+
+	if (command->words)
+		return (false);
+	var = command->variables;
+	while (var)
+	{
+		set_variable(var->content, g_minishell.local_var);
+		var = var->next;
+	}
+	g_minishell.error_status = 0;
+	return (true);
+}
+
 pid_t	execute_program(t_command *command)
 {
 	pid_t	pid;
 	char	**argv;
 
 	pid = 0;
+	if (set_variables(command))
+		return (pid);
 	argv = str_list_array(command->words);
 	if (execute_builtin(argv))
 		return ((free_str_array(argv), pid));
