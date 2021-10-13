@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 15:59:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:24:18 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:32:22 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void				insert_on_hashmap(
 						t_hashmap *bucket);
 void				remove_from_hashmap(t_hashmap *bucket, char *key);
 char				*find_hashmap_value(t_hashmap *bucket, char *key);
+char				**get_keys(t_hashmap *bucket);
 
 /*
 **	DISPLAY

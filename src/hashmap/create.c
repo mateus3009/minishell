@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:33:20 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:19:29 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:00:32 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_hashmap_item	*create_hashmap_item(char *key, char *value)
 
 	new_item = ft_calloc(sizeof(t_hashmap_item), 1);
 	new_item->key = ft_strdup(key);
-	new_item->value = ft_strdup(value);
+	new_item->value = NULL;
+	if (value)
+		new_item->value = ft_strdup(value);
 	return (new_item);
 }

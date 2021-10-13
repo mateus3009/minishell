@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 13:30:39 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 20:26:23 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ int		*pipe_create(void);
 void	pipe_free(int *p);
 void	pipe_set_writer(int *p);
 void	pipe_set_reader(int *p);
+void	set_variable(char *keyvalue, t_hashmap *ht);
+size_t	array_size(void	**arr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 18:27:31 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:54:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static int	wait_pid_and_set_status(pid_t pid)
 	if (WIFEXITED(exit_status))
 		g_minishell.error_status = WEXITSTATUS(exit_status);
 	if (WIFSIGNALED(exit_status))
-		g_minishell.error_status = WTERMSIG(exit_status);
+	{
+		if (WTERMSIG(exit_status))
+			ft_putendl_fd("Segmentation fault", STDERR_FILENO);
+		g_minishell.error_status = 128 + WTERMSIG(exit_status);
+	}
 	return (g_minishell.error_status);
 }
 

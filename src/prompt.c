@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/12 17:25:40 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 20:07:03 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,22 @@ static void	save_history(char *input)
 char	*create_prompt(void)
 {
 	t_str_builder	*builder;
-	char			*prompt;
+	char			*temp;
 
 	builder = str_builder_init();
 	str_builder_add_str(builder, BOLD_RED);
-	str_builder_add_str(builder, find_env("LOGNAME"));
+	str_builder_add_str(builder, getenv("LOGNAME"));
 	str_builder_add_char(builder, '@');
-	str_builder_add_str(builder, find_env("NAME"));
+	str_builder_add_str(builder, getenv("NAME"));
 	str_builder_add_char(builder, ':');
 	str_builder_add_str(builder, ESC_RESET_COLOR);
 	str_builder_add_str(builder, BOLD_PURPLE);
-	if (ft_strcmp(find_env("HOME"),
-			find_env("PWD")) == 0)
-		str_builder_add_char(builder, '~');
-	else
-		str_builder_add_str(builder, find_env("PWD"));
+	str_builder_add_str(builder, getenv("PWD"));
 	str_builder_add_str(builder, ESC_RESET_COLOR);
 	str_builder_add_str(builder, "$ ");
-	prompt = ft_strdup(builder->str);
+	temp = ft_strdup(builder->str);
 	str_builder_destroy(builder);
-	return (prompt);
+	return (temp);
 }
 
 static void	check_eof(char *line)

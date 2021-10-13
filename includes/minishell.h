@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 17:23:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 19:27:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 typedef struct s_minishell
 {
 	t_hashmap	*env;
+	t_hashmap	*local_var;
 	int			error_status;
 	pid_t		fd_in;
 	pid_t		fd_out;

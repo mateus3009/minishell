@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 17:26:00 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/12 20:08:40 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	go_to_oldpwd(void)
 {
 	char *oldpwd;
 
-	oldpwd = ft_strdup(find_env("OLDPWD"));
+	oldpwd = find_env("OLDPWD");
 	if (!oldpwd)
 		error_handler("cd", "OLDPWD not set", 1);
 	else
@@ -50,7 +50,7 @@ static void	go_home(void)
 {
 	char *home;
 
-	home = ft_strdup(find_env("HOME"));
+	home = find_env("HOME");
 	if (!home)
 		error_handler("cd", "HOME not set", 1);
 	else

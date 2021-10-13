@@ -1,37 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   copy_buffer.c                                      :+:      :+:    :+:   */
+/*   set_variable.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 17:43:20 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/03 17:43:32 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/12 19:30:38 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/12 20:18:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define BUFFER_SIZE 100
-
-void	copy_buffer(int from_fd, int to_fd)
+void	set_variable(char *keyvalue, t_hashmap *ht)
 {
-	int	buffer[BUFFER_SIZE];
-	int	readed;
+	char	**parts;
 
-	readed = 1;
-	while (readed)
-	{
-		readed = read(from_fd, buffer, BUFFER_SIZE);
-		if (readed == -1)
-		{
-			perror(strerror(errno));
-			exit_minishell();
-		}
-		if (write(to_fd, buffer, readed) == -1)
-		{
-			perror(strerror(errno));
-			exit_minishell();
-		}
-	}
+	if (!keyvalue || !ht)
+		return ;
+	parts = ft_split(keyvalue, '=');
+	if (!parts)
+		exit_minishell();
+	insert_on_hashmap(parts[0], parts[1], ht);
+	free_str_array(parts);
 }

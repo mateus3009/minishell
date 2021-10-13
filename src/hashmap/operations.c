@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operations.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:35:14 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:23:32 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:11:02 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	insert_on_hashmap(char *key, char *value, t_hashmap *bucket)
 		if (ft_strcmp(current->key, key) == 0)
 		{
 			free(current->value);
-			current->value = ft_strdup(value);
+			current->value = NULL;
+			if (value)
+				current->value = ft_strdup(value);
 			free_hashmap_item(new_item);
 		}
 		else
@@ -103,7 +105,11 @@ char	*find_hashmap_value(t_hashmap *bucket, char *key)
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0)
-			return (current->value);
+		{
+			if (!current->value)
+				return (NULL);
+			return (ft_strdup(current->value));
+		}
 		current = current->next;
 	}
 	return (NULL);
