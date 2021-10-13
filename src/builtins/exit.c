@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/13 14:13:13 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:00:48 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	exit_builtin(char **argv)
 {
 	int	argc;
 
-	ft_putstr_fd("exit\n", 1);
+	if (isatty(STDOUT_FILENO))
+		ft_putendl_fd("exit", 1);
 	argc = get_argc(argv);
 	validate_first_arg(argv[1]);
 	if (argc > 1)

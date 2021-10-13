@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 14:02:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:22:51 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	go_to_oldpwd(void)
 		error_handler("cd", "OLDPWD not set", 1);
 	else
 	{
-		printf("%s\n", oldpwd);
+		ft_putendl_fd(oldpwd, STDOUT_FILENO);
 		change_to_path(oldpwd);
 	}
 	free(oldpwd);

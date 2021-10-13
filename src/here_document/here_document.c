@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 12:07:25 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 18:21:07 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ static void	doc_writer(int fd, char *value)
 	signal(SIGINT, handler_sigint);
 	while (true)
 	{
-		line = readline("> ");
+		if (isatty(STDIN_FILENO))
+			ft_putstr_fd("> ", STDOUT_FILENO);
+		line = readline(NULL);
 		if (!line)
 		{
 			doc_writer_error(value);

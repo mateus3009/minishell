@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/02 17:27:26 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:23:58 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	echo_builtin(char **argv)
 	}
 	while (argv[index])
 	{
-		printf("%s", argv[index]);
+		ft_putstr_fd(argv[index], STDOUT_FILENO);
 		if (argv[++index])
-			printf(" ");
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (new_line)
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_minishell.error_status = 0;
 }

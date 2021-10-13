@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/12 20:07:03 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:04:12 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ void	read_input_and_save_history(char **input)
 
 	prompt = create_prompt();
 	set_input_signals();
-	*input = readline(prompt);
+	if (isatty(STDIN_FILENO))
+		*input = readline(prompt);
+	else
+	{
+		if (get_next_line(STDIN_FILENO, input) <= 0)
+			exit_minishell();
+	}
 	free(prompt);
 	save_history(*input);
 	check_eof(*input);

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 14:04:17 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:27:52 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,17 @@ static void	show_environment(void)
 	{
 		if (*(env_ordened[index]) == '_')
 			continue ;
-		printf("declare -x %s", env_ordened[index]);
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putstr_fd(env_ordened[index], STDOUT_FILENO);
 		value = find_hashmap_value(g_minishell.env, env_ordened[index]);
 		if (value)
 		{
-			printf("=\"%s\"", value);
+			ft_putstr_fd("=\"", STDOUT_FILENO);
+			ft_putstr_fd(value, STDOUT_FILENO);
+			ft_putstr_fd("\"", STDOUT_FILENO);
 			free(value);
 		}
-		printf("\n");
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
 }
 

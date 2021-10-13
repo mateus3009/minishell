@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:12:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 14:13:26 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 15:01:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	error_handler(char *cmd, char *err_msg, int err_number)
 	str_builder_add_str(builder, err_msg);
 	prompt_error = ft_strdup(builder->str);
 	str_builder_destroy(builder);
-	ft_putendl_fd(prompt_error, 2);
+	ft_putendl_fd(prompt_error, STDERR_FILENO);
 	free(prompt_error);
 	g_minishell.error_status = err_number;
 }
