@@ -6,17 +6,27 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:42:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/07 13:41:34 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:12:02 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static char	*join_value(t_str_builder *builder)
+{
+	char	*result;
+
+	if (!builder)
+		return (NULL);
+	result = ft_strdup(builder->str);
+	str_builder_destroy(builder);
+	return (result);
+}
+
 char	*join_words(t_dlist **tokens)
 {
 	t_token			*token;
 	t_str_builder	*builder;
-	char			*result;
 
 	if (!tokens || !*tokens)
 		return (NULL);
@@ -33,13 +43,7 @@ char	*join_words(t_dlist **tokens)
 			break ;
 		token = (*tokens)->content;
 	}
-	if (builder)
-	{
-		result = ft_strdup(builder->str);
-		str_builder_destroy(builder);
-		return (result);
-	}
-	return (NULL);
+	return (join_value(builder));
 }
 
 bool	word_parser(t_dlist **new, t_dlist **tokens)

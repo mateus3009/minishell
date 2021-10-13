@@ -6,16 +6,16 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 13:01:36 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:04:17 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool comparator(const void *max, const void *min)
+static bool	comparator(const void *max, const void *min)
 {
-	const char *foo;
-	const char *bar;
+	const char	*foo;
+	const char	*bar;
 
 	foo = ((const char **)max)[0];
 	bar = ((const char **)min)[0];
@@ -32,7 +32,7 @@ static void	show_environment(void)
 	index = -1;
 	env = get_keys(g_minishell.env);
 	env_ordened = heapsort(
-		env, sizeof(char *), comparator, array_size((void **)env));
+			env, sizeof(char *), comparator, array_size((void **)env));
 	while (env_ordened[++index])
 	{
 		if (*(env_ordened[index]) == '_')

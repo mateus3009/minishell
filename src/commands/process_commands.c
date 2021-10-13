@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:10:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 17:06:05 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:00:29 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	process_commands(t_dlist *tokens)
 	while (tokens)
 	{
 		command = get_next_command(&tokens);
-		//command_show(command);
 		restore_std_fd();
 		if (command->op == TD_PIPE)
 			operator_pipe(&the_pipe, command);

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:02:57 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/09 18:05:32 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:59:11 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 
 typedef struct s_token_definition
 {
-	int	id;
+	int			id;
 	char		*value;
 	size_t		length;
 }			t_token_definition;

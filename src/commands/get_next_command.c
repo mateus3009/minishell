@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:43:11 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 08:45:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:59:49 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	handler_redirect(t_command *command, t_dlist **tokens)
 
 	token = (*tokens)->content;
 	if (token->id != TD_INPUT && token->id != TD_OUTPUT
-		&& token->id != TD_APPEND_MODE &&  token->id != TD_HERE_DOCUMENT)
+		&& token->id != TD_APPEND_MODE && token->id != TD_HERE_DOCUMENT)
 		return (false);
 	if (token->id == TD_HERE_DOCUMENT)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:33:58 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/03 18:19:31 by lniehues         ###   ########.fr       */
+/*   Updated: 2021/10/13 13:59:25 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_hashmap_item(t_hashmap_item *item)
 
 void	free_hashmap_bucket(t_hashmap *bucket)
 {
-	unsigned int	index;
+	unsigned int		index;
 	t_hashmap_item		*current;
 	t_hashmap_item		*temp;
 

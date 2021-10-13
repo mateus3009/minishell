@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 20:23:45 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 20:26:06 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:01:34 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	array_size(void	**arr)
 {
-	size_t index;
+	size_t	index;
 
 	if (!arr)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 12:20:42 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 14:19:15 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:00:18 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-typedef	int (* t_token_parser)(t_dlist **new, t_dlist **tokens);
+typedef int (*	t_token_parser)(t_dlist **new, t_dlist **tokens);
 
 int		common_parser(t_dlist **new, t_dlist **tokens);
 void	parser_core(t_dlist **tokens, t_token_parser *parsers);

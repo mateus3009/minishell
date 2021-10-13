@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 20:08:40 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:02:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	change_to_path(char *path)
 
 static void	go_to_oldpwd(void)
 {
-	char *oldpwd;
+	char	*oldpwd;
 
 	oldpwd = find_env("OLDPWD");
 	if (!oldpwd)
@@ -48,7 +48,7 @@ static void	go_to_oldpwd(void)
 
 static void	go_home(void)
 {
-	char *home;
+	char	*home;
 
 	home = find_env("HOME");
 	if (!home)
@@ -60,7 +60,7 @@ static void	go_home(void)
 
 void	cd_builtin(char **argv)
 {
-	char *current_dir;
+	char	*current_dir;
 
 	if (argv[1] && argv[2])
 		error_handler("cd", TOO_MANY_ARGS, 1);
