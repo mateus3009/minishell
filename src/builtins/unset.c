@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:02 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 13:01:21 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 20:37:25 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static bool	is_alnum(char *value)
 {
-	if (!value || !*value)
+	if (!value || !*value || (!ft_isalpha(*value) && *value != '_'))
 		return (false);
 	while (*value)
 	{
-		if (!ft_isalnum(*value))
+		if (!ft_isalnum(*value) && *value != '_')
 			return (false);
 		value++;
 	}

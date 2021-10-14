@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 18:28:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 21:51:19 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	redirect_heredoc(char *content)
 
 	fd = pipe_create();
 	ft_putstr_fd(content, fd[1]);
-	pipe_set_reader(fd);
+	pipe_set_reader(&fd);
 	return (true);
 }
 
@@ -46,7 +46,7 @@ static bool	configure_redirect_node(t_token *redirect)
 		return (redirect_file(redirect->value, STDIN_FILENO, O_RDONLY));
 	if (redirect->id == TD_APPEND_MODE)
 		return (redirect_file(redirect->value,
-				STDOUT_FILENO, O_WRONLY | O_CREAT));
+				STDOUT_FILENO, O_WRONLY | O_CREAT | O_APPEND));
 	if (redirect->id == TD_OUTPUT)
 		return (redirect_file(
 				redirect->value, STDOUT_FILENO,

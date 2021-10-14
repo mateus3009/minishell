@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 18:54:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 21:50:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	wait_pid_and_set_status(pid_t pid)
 		g_minishell.error_status = WEXITSTATUS(exit_status);
 	if (WIFSIGNALED(exit_status))
 	{
-		if (WTERMSIG(exit_status))
+		if (WTERMSIG(exit_status) == 11)
 			ft_putendl_fd("Segmentation fault", STDERR_FILENO);
 		g_minishell.error_status = 128 + WTERMSIG(exit_status);
 	}
@@ -34,7 +34,7 @@ bool	operator_conditional(int **input, t_command *command)
 {
 	pid_t	pid;
 
-	pipe_set_reader(*input);
+	pipe_set_reader(input);
 	pid = configure_redirect(command);
 	*input = NULL;
 	wait_pid_and_set_status(pid);
@@ -55,11 +55,11 @@ bool	operator_pipe(int **input, t_command *command)
 	set_exec_signals();
 	if (pid == 0)
 	{
-		pipe_set_reader(*input);
-		pipe_set_writer(ouput);
+		pipe_set_reader(input);
+		pipe_set_writer(&ouput);
 		configure_redirect(command);
 	}
-	pipe_free(*input);
+	pipe_free(input);
 	*input = ouput;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 14:13:43 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 21:49:37 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	open_std_fd(void);
 void	restore_std_fd(void);
 void	close_std_fd(void);
 int		*pipe_create(void);
-void	pipe_free(int *p);
-void	pipe_set_writer(int *p);
-void	pipe_set_reader(int *p);
+void	pipe_free(int **p);
+void	pipe_set_writer(int **p);
+void	pipe_set_reader(int **p);
 void	set_variable(char *keyvalue, t_hashmap *ht);
 size_t	array_size(void	**arr);
 void	error_handler(char *cmd, char *err_msg, int err_number);
+void	ignore_signals(void);
 
 #endif

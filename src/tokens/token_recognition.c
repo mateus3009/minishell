@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/09 17:01:43 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 18:33:14 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static bool	symbol_recognition(t_dlist **tokens, char *str, int *index)
 	if (id == TD_UNKNOWN || id == TD_SINGLE_QUOTE || id == TD_DOUBLE_QUOTE)
 		return (false);
 	*index += length;
-	while (str[*index] && id == TD_SPACE && *(str + *index) == ' ')
+	while (str[*index] && id == TD_SPACE && ft_isspace(*(str + *index)))
 		(*index)++;
 	if (str[*index] || id != TD_SPACE)
 		add_token_to_result(tokens, id, NULL);

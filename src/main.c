@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 14:58:38 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/13 19:47:07 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ int	main(int argc, char **argv, char **env)
 	g_minishell.local_var = create_hashmap_bucket(100);
 	g_minishell.env = env_to_hashmap(env);
 	open_std_fd();
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGTSTP, SIG_IGN);
-	signal(SIGTTIN, SIG_IGN);
-	signal(SIGTTOU, SIG_IGN);
+	ignore_signals();
 	while (1)
 	{
 		tokens = NULL;
