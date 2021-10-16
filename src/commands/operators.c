@@ -6,11 +6,35 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 21:50:01 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 19:10:37 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+pid_t	operator_pipe(int **input, t_command *command)
+{
+	int		*output;
+	pid_t	pid;
+
+	output = NULL;
+	if (command->op == TD_PIPE)
+		output = pipe_create();
+	pid = fork();
+	if (pid == -1)
+		exit_minishell();
+	set_exec_signals();
+	if (pid == 0)
+	{
+		pipe_set_reader(input);
+		pipe_set_writer(&output);
+		configure_redirect(command);
+		exit(g_minishell.error_status);
+	}
+	pipe_free(input);
+	*input = output;
+	return (pid);
+}
 
 static int	wait_pid_and_set_status(pid_t pid)
 {
@@ -34,32 +58,13 @@ bool	operator_conditional(int **input, t_command *command)
 {
 	pid_t	pid;
 
-	pipe_set_reader(input);
-	pid = configure_redirect(command);
+	if (input && *input)
+		pid = operator_pipe(input, command);
+	else
+		pid = configure_redirect(command);
 	*input = NULL;
 	wait_pid_and_set_status(pid);
 	if (command->op == TD_OR)
 		return (g_minishell.error_status);
 	return (g_minishell.error_status == 0);
-}
-
-bool	operator_pipe(int **input, t_command *command)
-{
-	int		*ouput;
-	pid_t	pid;
-
-	ouput = pipe_create();
-	pid = fork();
-	if (pid == -1)
-		exit_minishell();
-	set_exec_signals();
-	if (pid == 0)
-	{
-		pipe_set_reader(input);
-		pipe_set_writer(&ouput);
-		configure_redirect(command);
-	}
-	pipe_free(input);
-	*input = ouput;
-	return (true);
 }

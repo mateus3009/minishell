@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:12:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 10:13:05 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:32:13 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	error_handler_arg(char *cmd, char *arg, char *msg, int status)
 
 	g_minishell.error_status = status;
 	line = ft_itoa(g_minishell.general_line);
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 	{
 		ft_putstrs_fd((char *[]){"minishell: ", cmd, ": ", arg, ": ",
 			msg, "\n", NULL}, STDERR_FILENO);
@@ -37,7 +37,7 @@ void	error_handler(char *cmd, char *msg, int status)
 
 	g_minishell.error_status = status;
 	line = ft_itoa(g_minishell.general_line);
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 	{
 		ft_putstrs_fd((char *[]){
 			"minishell: ", cmd, ": ", msg, "\n", NULL}, STDERR_FILENO);
@@ -56,7 +56,7 @@ void	error_simple(char *msg, int status)
 
 	g_minishell.error_status = status;
 	line = ft_itoa(g_minishell.general_line);
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 	{
 		ft_putstrs_fd((char *[]){
 			"minishell: `", msg, "'\n", NULL}, STDERR_FILENO);
@@ -76,7 +76,7 @@ void	error_heredoc_eof(char *value)
 
 	gline = ft_itoa(g_minishell.general_line);
 	hline = ft_itoa(g_minishell.heredoc_line + 1);
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 	{
 		ft_putstrs_fd((char *[]){"minishell: warning: here-document at line ",
 			hline, " delimited by end-of-file (wanted `", value, "')\n", NULL},
@@ -108,7 +108,7 @@ void	syntax_error(t_token *token)
 	{.id = TD_NEWLINE, .value = "newline"}, {.id = TD_UNKNOWN}};
 	while (tokens->id != TD_NEWLINE && (!token || tokens->id != token->id))
 		tokens++;
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 		ft_putstrs_fd((char *[]){
 			"minishell: syntax error near unexpected token `", tokens->value,
 			"'\n", NULL}, STDERR_FILENO);

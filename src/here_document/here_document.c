@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 23:22:51 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:35:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static void	doc_writer(int fd, char *value)
 	signal(SIGINT, handler_sigint);
 	while (true)
 	{
-		if (isatty(STDIN_FILENO))
+		if (g_minishell.interactive)
 			ft_putstr_fd("> ", STDOUT_FILENO);
 		if (get_next_line(STDIN_FILENO, &line) <= 0)
 		{
 			error_heredoc_eof(value);
-			if (isatty(STDIN_FILENO))
+			if (g_minishell.interactive)
 				exit(1);
 			break ;
 		}
@@ -43,7 +43,7 @@ static void	doc_writer(int fd, char *value)
 	}
 	if (line)
 		free(line);
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 		exit(0);
 }
 
@@ -81,7 +81,7 @@ char	*heredoc(char *value)
 	if (pipe(fd) == -1)
 		return (NULL);
 	pid = 0;
-	if (isatty(STDIN_FILENO))
+	if (g_minishell.interactive)
 		pid = fork();
 	if (pid == -1)
 		return (NULL);
