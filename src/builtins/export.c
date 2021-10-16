@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 15:27:52 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/14 07:53:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ static void	show_environment(void)
 static void	error_variable(char *var)
 {
 	g_minishell.error_status = 1;
-	ft_putstr_fd("minishell: export: `", STDERR_FILENO);
-	ft_putstr_fd(var, STDERR_FILENO);
-	ft_putendl_fd("': not a valid identifier", STDERR_FILENO);
+	ft_putstrs_fd(
+		(char *[]){"minishell: export: `", var, "': not a valid identifier"},
+		STDERR_FILENO);
 }
 
 void	export_builtin(char	**args)

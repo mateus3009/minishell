@@ -1,25 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   is_directory.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 18:19:09 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/14 21:26:03 by msales-a         ###   ########.fr       */
+/*   Created: 2021/10/15 19:34:33 by msales-a          #+#    #+#             */
+/*   Updated: 2021/10/15 19:53:06 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	pwd_builtin(void)
+bool is_directory(const char *path)
 {
-	char	path[4096];
+	struct stat sb;
 
-	if (!getcwd(path, 4096))
-	{
-		error_handler("pwd", strerror(errno), 1);
-		exit_minishell();
-	}
-	ft_putendl_fd(path, STDOUT_FILENO);
+	if (!path)
+		return (false);
+	if (stat(path, &sb) != 0)
+		return (false);
+	return (S_ISDIR(sb.st_mode));
+}
+
+bool is_executable(const char *path)
+{
+	struct stat sb;
+
+	if (!path)
+		return (false);
+	if (stat(path, &sb) != 0)
+		return (false);
+	return (S_ISDIR(sb.st_mode));
 }

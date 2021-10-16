@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 13:59:34 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:28:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,22 @@ static void	execute_external(char **argv)
 			find_env("PATH"), argv[0]);
 	if (execve(path, argv, env) == -1)
 	{
-		if (!path)
+		if (ft_strchr(argv[0], '/'))
+		{
+			if (access(argv[0], F_OK ) != 0 )
+				error_handler(argv[0], "No such file or directory", 127);
+			else if (is_directory(argv[0]))
+				error_handler(argv[0], "Is a directory", 126);
+			else if (access(argv[0], W_OK ) != 0 )
+				error_handler(argv[0], "Permission denied", 126);
+		}
+		else if (!path)
 			error_handler(argv[0], "command not found", 127);
 		else
 			error_handler(argv[0], strerror(errno), errno);
 		free_str_array(env);
 		free(path);
-		exit(127);
+		exit(g_minishell.error_status);
 	}
 }
 

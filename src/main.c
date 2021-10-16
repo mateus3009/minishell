@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 19:47:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 19:11:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		tokens = NULL;
 		read_input_and_save_history(&line);
+		if (!line)
+			continue;
 		tokens = token_recognition(line);
-		tokens_validator(tokens);
+		if(!tokens_validator(tokens) && !isatty(STDIN_FILENO))
+		{
+			error_simple(line, 2);
+			break ;
+		}
 		here_document_parser(&tokens);
 		process_commands(tokens);
 		ft_dlstclear(&tokens, token_free);
@@ -38,5 +44,5 @@ int	main(int argc, char **argv, char **env)
 	free_hashmap_bucket(g_minishell.local_var);
 	free_hashmap_bucket(g_minishell.env);
 	close_std_fd();
-	return (0);
+	return (g_minishell.error_status);
 }

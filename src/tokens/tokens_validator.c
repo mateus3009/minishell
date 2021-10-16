@@ -6,31 +6,11 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 19:45:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/10 19:46:26 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:45:48 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	syntax_error(t_token *token)
-{
-	char				*line;
-	t_token_definition	*tokens;
-
-	line = "minishell: syntax error near unexpected token `";
-	tokens = (t_token_definition[]){
-	{.id = TD_HERE_DOCUMENT, .value = "<<"}, {.id = TD_AND, .value = "&&"},
-	{.id = TD_OR, .value = "||"}, {.id = TD_APPEND_MODE, .value = ">>"},
-	{.id = TD_PIPE, .value = "|"}, {.id = TD_OUTPUT, .value = ">"},
-	{.id = TD_INPUT, .value = "<"}, {.id = TD_DOUBLE_QUOTE, .value = "\""},
-	{.id = TD_SINGLE_QUOTE, .value = "'"}, {.id = TD_SPACE, .value = " "},
-	{.id = TD_NEWLINE, .value = "newline"}, {.id = TD_UNKNOWN}};
-	ft_putstr_fd(line, STDERR_FILENO);
-	while (tokens->id != TD_NEWLINE && (!token || tokens->id != token->id))
-		tokens++;
-	ft_putstr_fd(tokens->value, STDERR_FILENO);
-	ft_putstr_fd("'\n", STDERR_FILENO);
-}
 
 static bool	redirect_validator(
 	t_token *current,
@@ -60,7 +40,7 @@ static bool	operator_validator(
 		&& current->id != TD_AND && current->id != TD_OR)
 		return (true);
 	if (!next)
-		return ((syntax_error(NULL), false));
+		return ((syntax_error(current), false));
 	if (next->id == TD_PIPE
 		|| next->id == TD_AND || next->id == TD_OR)
 		return ((syntax_error(next), false));

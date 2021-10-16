@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 18:21:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 20:09:54 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@ static void	handler_sigint(int signal)
 	exit(2);
 }
 
-static void	doc_writer_error(char *value)
-{
-	ft_putstr_fd("minishell: warning: here-document at line ", STDERR_FILENO);
-	ft_putnbr_fd(g_minishell.heredoc_line + 1, STDERR_FILENO);
-	ft_putstr_fd(" delimited by end-of-file (wanted `", STDERR_FILENO);
-	ft_putstr_fd(value, STDERR_FILENO);
-	ft_putendl_fd("')", STDERR_FILENO);
-}
-
 static void	doc_writer(int fd, char *value)
 {
 	char	*line;
@@ -37,12 +28,14 @@ static void	doc_writer(int fd, char *value)
 	{
 		if (isatty(STDIN_FILENO))
 			ft_putstr_fd("> ", STDOUT_FILENO);
-		line = readline(NULL);
-		if (!line)
+		if (get_next_line(STDIN_FILENO, &line) <= 0)
 		{
-			doc_writer_error(value);
-			exit(1);
+			error_heredoc_eof(value);
+			if (isatty(STDIN_FILENO))
+				exit(1);
+			break ;
 		}
+		g_minishell.general_line++;
 		if (!line || ft_strcmp(value, line) == 0)
 			break ;
 		ft_putendl_fd(line, fd);
@@ -50,7 +43,8 @@ static void	doc_writer(int fd, char *value)
 	}
 	if (line)
 		free(line);
-	exit(0);
+	if (isatty(STDIN_FILENO))
+		exit(0);
 }
 
 static char	*doc_reader(int fd)
@@ -58,7 +52,6 @@ static char	*doc_reader(int fd)
 	char			*line;
 	t_str_builder	*builder;
 
-	g_minishell.heredoc_line++;
 	builder = str_builder_init();
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -69,7 +62,10 @@ static char	*doc_reader(int fd)
 		line = NULL;
 	}
 	if (line)
+	{
 		free(line);
+		g_minishell.heredoc_line++;
+	}
 	line = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (line);
@@ -84,7 +80,9 @@ char	*heredoc(char *value)
 
 	if (pipe(fd) == -1)
 		return (NULL);
-	pid = fork();
+	pid = 0;
+	if (isatty(STDIN_FILENO))
+		pid = fork();
 	if (pid == -1)
 		return (NULL);
 	if (pid == 0)

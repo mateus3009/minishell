@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/13 21:19:40 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 19:12:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*create_prompt(void)
 
 static void	check_eof(char *line)
 {
-	if (line)
+	if (line || !isatty(STDIN_FILENO))
 		return ;
 	free(line);
 	ft_putstr_fd("exit\n", 1);
@@ -57,12 +57,20 @@ void	read_input_and_save_history(char **input)
 	prompt = create_prompt();
 	set_input_signals();
 	if (isatty(STDIN_FILENO))
+	{
 		*input = readline(prompt);
+	}
 	else
 	{
 		if (get_next_line(STDIN_FILENO, input) <= 0)
 			exit_minishell();
+		if (!ft_strlen(*input))
+		{
+			free(*input);
+			*input = NULL;
+		}
 	}
+	g_minishell.general_line++;
 	free(prompt);
 	save_history(*input);
 	check_eof(*input);
