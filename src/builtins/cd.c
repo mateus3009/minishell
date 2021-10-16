@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 20:52:44 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 09:44:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	change_to_path(char *path)
 	}
 	current_dir = getcwd(buffer, 2048);
 	insert_on_hashmap("PWD", current_dir, g_minishell.env);
+	g_minishell.error_status = 0;
 }
 
 static void	go_to_oldpwd(void)
@@ -58,20 +59,35 @@ static void	go_home(void)
 	free(home);
 }
 
+static void	go_home_tilde(void)
+{
+	char			*home;
+	t_str_builder	*builder;
+
+	home = find_env("HOME");
+	if (home)
+	{
+		change_to_path(home);
+		free(home);
+		return ;
+	}
+	builder = str_builder_init();
+	str_builder_add_str(builder, "/home/");
+	str_builder_add_str(builder, getenv("USER"));
+	change_to_path(builder->str);
+	str_builder_destroy(builder);
+}
+
 void	cd_builtin(char **argv)
 {
-	char	*current_dir;
-
 	if (argv[1] && argv[2])
 		error_handler("cd", TOO_MANY_ARGS, 1);
 	else if (!argv[1])
 		go_home();
-	else if (argv[1] && *argv[1] == '-')
+	else if (argv[1] && !ft_strcmp("~", argv[1]))
+		go_home_tilde();
+	else if (argv[1] && !ft_strcmp("-", argv[1]))
 		go_to_oldpwd();
 	else
-	{
-		current_dir = ft_strdup(argv[1]);
-		change_to_path(current_dir);
-		free(current_dir);
-	}
+		change_to_path(argv[1]);
 }

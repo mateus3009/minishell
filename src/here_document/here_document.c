@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 20:09:54 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/15 23:22:51 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	doc_writer(int fd, char *value)
 				exit(1);
 			break ;
 		}
-		g_minishell.general_line++;
+		//g_minishell.general_line++;
 		if (!line || ft_strcmp(value, line) == 0)
 			break ;
 		ft_putendl_fd(line, fd);
