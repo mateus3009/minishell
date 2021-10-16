@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/14 21:26:03 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 10:14:06 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	validate_first_arg(char *arg)
 		g_minishell.error_status = ft_atoi(arg);
 		return ;
 	}
-	error_handler("exit", NUM_ARG_REQUIRED, 2);
+	error_handler_arg("exit", arg, NUM_ARG_REQUIRED, 2);
 	exit_minishell();
 }
 

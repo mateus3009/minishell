@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:02 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 20:37:38 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 10:53:31 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,25 @@ static bool	is_alnum(char *value)
 
 static void	error_variable(char *var)
 {
+	char	*line;
+
 	g_minishell.error_status = 1;
-	ft_putstrs_fd(
-		(char *[]){"minishell: unset: `", var, "': not a valid identifier"},
-		STDERR_FILENO);
+	if (isatty(STDIN_FILENO))
+	{
+		ft_putstrs_fd(
+			(char *[]){"minishell: unset: `", var,
+			"': not a valid identifier\n", NULL},
+			STDERR_FILENO);
+	}
+	else
+	{
+		line = ft_itoa(g_minishell.general_line);
+		ft_putstrs_fd(
+			(char *[]){"minishell: line ", line, ": unset: `", var,
+			"': not a valid identifier\n", NULL},
+			STDERR_FILENO);
+		free(line);
+	}
 }
 
 void	unset_builtin(char **args)

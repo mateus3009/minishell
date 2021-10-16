@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 19:42:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 10:13:31 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,6 @@ void	error_heredoc_eof(char *value);
 void	syntax_error(t_token *token);
 void	ignore_signals(void);
 bool	is_directory(const char *path);
+void	error_handler_arg(char *cmd, char *arg, char *msg, int status);
 
 #endif

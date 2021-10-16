@@ -6,11 +6,30 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:12:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 23:21:21 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 10:13:05 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	error_handler_arg(char *cmd, char *arg, char *msg, int status)
+{
+	char	*line;
+
+	g_minishell.error_status = status;
+	line = ft_itoa(g_minishell.general_line);
+	if (isatty(STDIN_FILENO))
+	{
+		ft_putstrs_fd((char *[]){"minishell: ", cmd, ": ", arg, ": ",
+			msg, "\n", NULL}, STDERR_FILENO);
+	}
+	else
+	{
+		ft_putstrs_fd((char *[]){"minishell: line ", line, ": ",
+			cmd, ": ", arg, ": ", msg, "\n", NULL}, STDERR_FILENO);
+	}
+	free(line);
+}
 
 void	error_handler(char *cmd, char *msg, int status)
 {

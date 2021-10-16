@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 09:44:46 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/16 10:20:27 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	change_to_path(char *path)
 	g_minishell.error_status = 0;
 }
 
-static void	go_to_oldpwd(void)
+static void	go_to_oldpwd(char *arg)
 {
 	char	*oldpwd;
 
@@ -41,7 +41,8 @@ static void	go_to_oldpwd(void)
 		error_handler("cd", "OLDPWD not set", 1);
 	else
 	{
-		ft_putendl_fd(oldpwd, STDOUT_FILENO);
+		if (!ft_strcmp("-", arg))
+			ft_putendl_fd(oldpwd, STDOUT_FILENO);
 		change_to_path(oldpwd);
 	}
 	free(oldpwd);
@@ -86,8 +87,13 @@ void	cd_builtin(char **argv)
 		go_home();
 	else if (argv[1] && !ft_strcmp("~", argv[1]))
 		go_home_tilde();
-	else if (argv[1] && !ft_strcmp("-", argv[1]))
-		go_to_oldpwd();
-	else
+	else if (argv[1] && (!ft_strcmp("-", argv[1]) || !ft_strcmp("--", argv[1])))
+		go_to_oldpwd(argv[1]);
+	else if (argv[1] && *argv[1] == '-')
+	{
+		error_handler_arg("cd", argv[1], "invalid option", 2);
+		ft_putstr_fd("cd: usage: cd [-L|[-P [-e]] [-@]] [dir]\n", STDERR_FILENO);
+	}
+	else if (argv[1])
 		change_to_path(argv[1]);
 }
