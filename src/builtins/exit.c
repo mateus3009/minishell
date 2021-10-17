@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/17 11:14:39 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 17:32:22 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	exit_builtin(char **argv)
 {
 	int	argc;
 
+	restore_std_fd();
 	if (g_minishell.interactive)
 		ft_putendl_fd("exit", 1);
 	argc = get_argc(argv);

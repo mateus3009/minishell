@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 16:03:50 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/09 14:14:10 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 16:57:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,5 @@
 # define ESC_WHITE "\001\033[0;37m\002"
 # define ESC_BOLD_WHITE "\001\033[1;37m\002"
 # define ESC_RESET_COLOR "\001\033[0m\002"
-
-char	*create_prompt(void);
-void	read_input_and_save_history(char **input);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 11:08:39 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 16:58:10 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ static void	doc_writer(int fd, char *value, int heredoc_line)
 	signal(SIGINT, handler_sigint);
 	while (true)
 	{
-		if (g_minishell.interactive)
-			ft_putstr_fd("> ", STDOUT_FILENO);
-		if (get_next_line(STDIN_FILENO, &line) <= 0)
+		read_input("> ", &line);
+		if (!line)
 		{
 			error_heredoc_eof(value, heredoc_line);
 			if (g_minishell.interactive)
@@ -36,7 +35,7 @@ static void	doc_writer(int fd, char *value, int heredoc_line)
 			break ;
 		}
 		g_minishell.general_line++;
-		if (!line || ft_strcmp(value, line) == 0)
+		if (ft_strcmp(value, line) == 0)
 			break ;
 		ft_putendl_fd(line, fd);
 		free(line);
@@ -75,16 +74,13 @@ static char	*doc_reader(int fd)
 	return (line);
 }
 
-char	*heredoc(char *value)
+int	*haredoc_(char *value, int *exit_code)
 {
-	int		fd[2];
 	pid_t	pid;
-	int		exit_code;
-	char	*line;
+	int		*fd;
 
-	if (pipe(fd) == -1)
-		return (NULL);
 	pid = 0;
+	fd = pipe_create();
 	if (g_minishell.interactive)
 		pid = fork();
 	if (pid == -1)
@@ -92,15 +88,27 @@ char	*heredoc(char *value)
 	if (pid == 0)
 		doc_writer(fd[1], value, g_minishell.heredoc_line);
 	close(fd[1]);
-	waitpid(pid, &exit_code, 0);
+	waitpid(pid, exit_code, 0);
+	return (fd);
+}
+
+char	*heredoc(char *value)
+{
+	int		*fd;
+	int		exit_code;
+	char	*line;
+
+	fd = haredoc_(value, &exit_code);
 	line = doc_reader(fd[0]);
 	close(fd[0]);
 	if (WIFEXITED(exit_code) && WEXITSTATUS(exit_code) > 1)
 	{
 		g_minishell.error_status = 130;
+		pipe_free(&fd);
 		free(line);
 		return (NULL);
 	}
+	pipe_free(&fd);
 	g_minishell.error_status = 0;
 	return (line);
 }

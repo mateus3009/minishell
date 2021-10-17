@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 13:59:19 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 16:34:53 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,59 +32,42 @@ static char	*find_variable(char *str, int *len)
 	return (str + i + 1);
 }
 
-char	*expand_variabledasdsa(char *str)
+static bool	expand_all_variables_node(char **str, t_str_builder **builder)
 {
 	int				len;
-	char			*var;
 	char			*key;
-	char			*value;
-	t_str_builder	*builder;
+	char			*temp;
 
-	var = find_variable(str, &len);
-	if (!var)
-		return (ft_strdup(str));
-	key = ft_strndup(var, len);
-	value = find_hashmap_value(g_minishell.local_var, key);
-	if (!value)
-		value = find_env(key);
+	temp = find_variable(*str, &len);
+	if (!temp)
+	{
+		str_builder_add_str(*builder, *str);
+		return (false);
+	}
+	str_builder_add_str_len(*builder, *str, temp - *str - 1);
+	key = ft_strndup(temp, len);
+	*str = temp + len;
+	temp = find_hashmap_value(g_minishell.local_var, key);
+	if (!temp)
+		temp = find_hashmap_value(g_minishell.env, key);
+	str_builder_add_str(*builder, temp);
+	free(temp);
 	free(key);
-	builder = str_builder_init();
-	str_builder_add_str_len(builder, str, var - str - 1);
-	str_builder_add_str(builder, value);
-	str_builder_add_str(builder, var + len);
-	free(value);
-	value = ft_strdup(builder->str);
-	str_builder_destroy(builder);
-	return (value);
+	return (true);
 }
 
-char	*expand_all_variables_(char *str)
+char	*expand_all_variables(char *str)
 {
-	int				len;
 	t_str_builder	*builder;
 	char			*temp;
-	char			*key;
 
 	if (!str)
 		return (NULL);
 	builder = str_builder_init();
 	while (true)
 	{
-		temp = find_variable(str, &len);
-		if (!temp)
-		{
-			str_builder_add_str(builder, str);
+		if (!expand_all_variables_node(&str, &builder))
 			break ;
-		}
-		str_builder_add_str_len(builder, str, temp - str - 1);
-		key = ft_strndup(temp, len);
-		str = temp + len;
-		temp = find_hashmap_value(g_minishell.local_var, key);
-		if (!temp)
-			temp = find_hashmap_value(g_minishell.env, key);
-		str_builder_add_str(builder, temp);
-		free(temp);
-		free(key);
 	}
 	temp = ft_strdup(builder->str);
 	str_builder_destroy(builder);
@@ -101,7 +84,7 @@ static void	expand_and_add_to_builder(t_str_builder **builder, t_token *token)
 		str_builder_add_str(*builder, token->value);
 	else
 	{
-		temp = expand_all_variables_(token->value);
+		temp = expand_all_variables(token->value);
 		str_builder_add_str(*builder, temp);
 		free(temp);
 	}

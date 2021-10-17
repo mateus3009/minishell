@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 21:27:00 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 12:34:05 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 16:58:12 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include "parser.h"
 # include "signals.h"
 # include "styles.h"
+# include "input.h"
 # include "tokens.h"
 # include "util.h"
 # include "commands.h"

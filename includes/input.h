@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   is_directory.c                                     :+:      :+:    :+:   */
+/*   input.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 19:34:33 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 16:23:10 by msales-a         ###   ########.fr       */
+/*   Created: 2021/09/19 16:03:50 by lniehues          #+#    #+#             */
+/*   Updated: 2021/10/17 16:58:46 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef INPUT_H
+# define INPUT_H
 
-bool	is_directory(const char *path)
-{
-	struct stat	sb;
+# include "minishell.h"
 
-	if (!path)
-		return (false);
-	if (stat(path, &sb) != 0)
-		return (false);
-	return (S_ISDIR(sb.st_mode));
-}
+char	*create_prompt(void);
+void	read_input_and_save_history(char **input);
+void	read_input(char *prompt, char **input);
 
-bool	is_executable(const char *path)
-{
-	struct stat	sb;
-
-	if (!path)
-		return (false);
-	if (stat(path, &sb) != 0)
-		return (false);
-	return (S_ISDIR(sb.st_mode));
-}
+#endif
