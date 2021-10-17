@@ -1,6 +1,5 @@
 .vscode
 **.o
-*test*
 minishell
 tests
 

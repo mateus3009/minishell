@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 13:39:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:45:55 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	execute_external(char **argv)
 				error_handler(argv[0], "No such file or directory", 127);
 			else if (is_directory(argv[0]))
 				error_handler(argv[0], "Is a directory", 126);
-			else if (access(argv[0], X_OK ) != 0 )
+			else if (access(argv[0], X_OK) != 0 )
 				error_handler(argv[0], "Permission denied", 126);
 		}
 		else if (!path)
