@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 14:45:10 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 10:24:12 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 13:18:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ static bool	redirect_file(char *file, int stdfd, int flag)
 	fd = open(file, flag, 0644);
 	if (fd == -1)
 	{
-		if (access(file, F_OK ) != 0 )
+		error_handler(file, strerror(errno), 1);
+		/*if (access(file, F_OK ) != 0 )
 			error_handler(file, "No such file or directory", 1);
 		else if (is_directory(file))
 			error_handler(file, "Is a directory", 1);
 		else if (access(file, W_OK | R_OK ))
-			error_handler(file, "Permission denied", 1);
+			error_handler(file, "Permission denied", 1);*/
 		return (false);
 	}
 	if (dup2(fd, stdfd) == -1)

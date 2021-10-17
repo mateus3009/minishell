@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 10:14:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 13:39:35 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ static void	execute_external(char **argv)
 		}
 		else if (!path)
 			error_handler(argv[0], "command not found", 127);
-		else
-			error_handler(argv[0], strerror(errno), errno);
 		free_str_array(env);
 		free(temp);
 		free(path);

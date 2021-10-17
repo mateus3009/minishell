@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 10:20:27 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 13:16:12 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	change_to_path(char *path)
 	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
 	{
 		err_msg = ft_strjoin("cd: ", path);
-		error_handler(err_msg, strerror(errno), 1);
+		error_handler_arg("cd", path, strerror(errno), 1);
 		free(err_msg);
 		return ;
 	}

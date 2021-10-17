@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 22:04:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 13:59:19 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*find_variable(char *str, int *len)
 	return (str + i + 1);
 }
 
-static char	*expand_variable(char *str)
+char	*expand_variabledasdsa(char *str)
 {
 	int				len;
 	char			*var;
@@ -60,20 +60,35 @@ static char	*expand_variable(char *str)
 
 char	*expand_all_variables_(char *str)
 {
-	int		len;
-	char	*temp;
-	char	*new;
+	int				len;
+	t_str_builder	*builder;
+	char			*temp;
+	char			*key;
 
-	temp = ft_strdup(str);
+	if (!str)
+		return (NULL);
+	builder = str_builder_init();
 	while (true)
 	{
-		new = expand_variable(temp);
-		free(temp);
-		temp = new;
-		if (!find_variable(temp, &len))
+		temp = find_variable(str, &len);
+		if (!temp)
+		{
+			str_builder_add_str(builder, str);
 			break ;
+		}
+		str_builder_add_str_len(builder, str, temp - str - 1);
+		key = ft_strndup(temp, len);
+		str = temp + len;
+		temp = find_hashmap_value(g_minishell.local_var, key);
+		if (!temp)
+			temp = find_hashmap_value(g_minishell.env, key);
+		str_builder_add_str(builder, temp);
+		free(temp);
+		free(key);
 	}
-	return (new);
+	temp = ft_strdup(builder->str);
+	str_builder_destroy(builder);
+	return (temp);
 }
 
 static void	expand_and_add_to_builder(t_str_builder **builder, t_token *token)
