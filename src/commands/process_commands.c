@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 19:10:22 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 16:07:13 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 12:46:08 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	process_commands(t_dlist *tokens)
 	the_pipe = NULL;
 	while (tokens)
 	{
+		null_std_fd();
 		command = get_next_command(&tokens);
-		restore_std_fd();
 		if (command->op == TD_PIPE)
 			operator_pipe(&the_pipe, command);
 		else if (!operator_conditional(&the_pipe, command))
@@ -33,7 +33,7 @@ void	process_commands(t_dlist *tokens)
 	}
 	command_free(command);
 	command = NULL;
-	restore_std_fd();
 	while (wait(NULL) != -1)
 		;
+	restore_std_fd();
 }

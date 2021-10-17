@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:42:31 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 19:46:33 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 12:47:08 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	handle_prompt_redisplay(int signal)
 {
 	(void)signal;
 	g_minishell.error_status = 130;
+	restore_std_fd();
 	ft_putstr_fd("\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -74,6 +75,7 @@ static void	handle_interrupt_process(int signal)
 {
 	(void)signal;
 	g_minishell.error_status = 130;
+	restore_std_fd();
 	ft_putstr_fd("\n", STDERR_FILENO);
 }
 
@@ -81,6 +83,7 @@ static void	handle_quit_process(int signal)
 {
 	(void)signal;
 	g_minishell.error_status = 131;
+	restore_std_fd();
 	ft_putstr_fd("Quit (core dumped)\n", 1);
 }
 

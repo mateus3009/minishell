@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/16 20:31:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 11:14:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ static int	get_argc(char **argv)
 
 static bool	arg_only_digit(char *arg)
 {
-	int	i;
+	int		i;
+	bool	valid;
 
 	i = 0;
+	valid = false;
 	if (arg[i] == '-' || arg[i] == '+')
 		i++;
 	while (arg[i])
@@ -50,8 +52,9 @@ static bool	arg_only_digit(char *arg)
 		if (!ft_isdigit((int)arg[i]))
 			return (false);
 		i++;
+		valid = true;
 	}
-	return (true);
+	return (valid);
 }
 
 static void	validate_first_arg(char *arg)

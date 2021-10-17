@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 13:33:37 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 19:10:37 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 12:45:56 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ pid_t	operator_pipe(int **input, t_command *command)
 	set_exec_signals();
 	if (pid == 0)
 	{
+		restore_std_fd();
 		pipe_set_reader(input);
 		pipe_set_writer(&output);
 		configure_redirect(command);
@@ -58,6 +59,7 @@ bool	operator_conditional(int **input, t_command *command)
 {
 	pid_t	pid;
 
+	restore_std_fd();
 	if (input && *input)
 		pid = operator_pipe(input, command);
 	else

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/16 20:35:05 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 11:26:57 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,13 @@ char	*create_prompt(void)
 
 static void	check_eof(char *line)
 {
-	if (line || !g_minishell.interactive)
+	if (line)
+	{
+		g_minishell.general_line++;
 		return ;
-	free(line);
-	ft_putstr_fd("exit\n", 1);
+	}
+	if (g_minishell.interactive)
+		ft_putstr_fd("exit\n", 1);
 	exit_minishell();
 }
 
@@ -57,22 +60,19 @@ void	read_input_and_save_history(char **input)
 	prompt = create_prompt();
 	set_input_signals();
 	if (g_minishell.interactive)
-	{
 		*input = readline(prompt);
-	}
-	else
+	else if (get_next_line(STDIN_FILENO, input) <= 0)
 	{
-		if (get_next_line(STDIN_FILENO, input) <= 0)
-			exit_minishell();
-		if (!ft_strlen(*input))
-		{
-			free(*input);
-			*input = NULL;
-		}
+		free(*input);
+		*input = NULL;
 	}
-	g_minishell.general_line++;
 	free(prompt);
 	save_history(*input);
 	check_eof(*input);
+	if (input && *input && **input == '\0' && !g_minishell.interactive)
+	{
+		free(*input);
+		*input = NULL;
+	}
 	signal(SIGINT, SIG_IGN);
 }

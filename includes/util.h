@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 10:13:31 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 12:41:37 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	**str_list_array(t_dlist *args);
 void	copy_buffer(int from_fd, int to_fd);
 void	open_std_fd(void);
 void	restore_std_fd(void);
+void	null_std_fd(void);
 void	close_std_fd(void);
 int		*pipe_create(void);
 void	pipe_free(int **p);
@@ -31,7 +32,7 @@ void	set_variable(char *keyvalue, t_hashmap *ht);
 size_t	array_size(void	**arr);
 void	error_handler(char *cmd, char *msg, int status);
 void	error_simple(char *msg, int status);
-void	error_heredoc_eof(char *value);
+void	error_heredoc_eof(char *value, int heredoc_line);
 void	syntax_error(t_token *token);
 void	ignore_signals(void);
 bool	is_directory(const char *path);

@@ -1,9 +1,0 @@
-29
-err 2,4c2,4 < terminal: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `b') < terminal: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `c') < terminal: line 1: warning: here-document at line 1 delimited by end-of-file (wanted `d') --- > terminal: line 1: warning: here-document at line 2 delimited by end-of-file (wanted `b') > terminal: line 1: warning: here-document at line 3 delimited by end-of-file (wanted `c') > terminal: line 1: warning: here-document at line 4 delimited by end-of-file (wanted `d') out
-
-46
-a err out
-
-65
-err out 28a29 > declare -x _
-

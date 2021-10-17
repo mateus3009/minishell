@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 10:46:07 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 20:35:01 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 11:08:39 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	handler_sigint(int signal)
 	exit(2);
 }
 
-static void	doc_writer(int fd, char *value)
+static void	doc_writer(int fd, char *value, int heredoc_line)
 {
 	char	*line;
 
@@ -30,12 +30,12 @@ static void	doc_writer(int fd, char *value)
 			ft_putstr_fd("> ", STDOUT_FILENO);
 		if (get_next_line(STDIN_FILENO, &line) <= 0)
 		{
-			error_heredoc_eof(value);
+			error_heredoc_eof(value, heredoc_line);
 			if (g_minishell.interactive)
 				exit(1);
 			break ;
 		}
-		//g_minishell.general_line++;
+		g_minishell.general_line++;
 		if (!line || ft_strcmp(value, line) == 0)
 			break ;
 		ft_putendl_fd(line, fd);
@@ -49,23 +49,27 @@ static void	doc_writer(int fd, char *value)
 
 static char	*doc_reader(int fd)
 {
+	bool			read_something;
 	char			*line;
 	t_str_builder	*builder;
 
 	builder = str_builder_init();
-	while (get_next_line(fd, &line) > 0)
+	read_something = false;
+	while (true)
 	{
+		if (get_next_line(fd, &line) <= 0)
+		{
+			free(line);
+			break ;
+		}
 		g_minishell.heredoc_line++;
 		str_builder_add_str(builder, line);
 		str_builder_add_char(builder, '\n');
 		free(line);
-		line = NULL;
+		read_something = true;
 	}
-	if (line)
-	{
-		free(line);
+	if (!read_something)
 		g_minishell.heredoc_line++;
-	}
 	line = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (line);
@@ -86,7 +90,7 @@ char	*heredoc(char *value)
 	if (pid == -1)
 		return (NULL);
 	if (pid == 0)
-		doc_writer(fd[1], value);
+		doc_writer(fd[1], value, g_minishell.heredoc_line);
 	close(fd[1]);
 	waitpid(pid, &exit_code, 0);
 	line = doc_reader(fd[0]);

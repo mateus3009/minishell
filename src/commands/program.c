@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/15 20:28:00 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 10:14:07 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,21 @@ static bool	execute_builtin(char **argv)
 static void	execute_external(char **argv)
 {
 	char	**env;
+	char	*temp;
 	char	*path;
 
 	env = hashmap_env_to_array_env(g_minishell.env);
-	path = find_command_path(
-			find_env("PATH"), argv[0]);
+	temp = find_env("PATH");
+	path = find_command_path(temp, argv[0]);
 	if (execve(path, argv, env) == -1)
 	{
-		if (ft_strchr(argv[0], '/'))
+		if (ft_strchr(argv[0], '/') || !temp)
 		{
 			if (access(argv[0], F_OK ) != 0 )
 				error_handler(argv[0], "No such file or directory", 127);
 			else if (is_directory(argv[0]))
 				error_handler(argv[0], "Is a directory", 126);
-			else if (access(argv[0], W_OK ) != 0 )
+			else if (access(argv[0], X_OK ) != 0 )
 				error_handler(argv[0], "Permission denied", 126);
 		}
 		else if (!path)
@@ -55,6 +56,7 @@ static void	execute_external(char **argv)
 		else
 			error_handler(argv[0], strerror(errno), errno);
 		free_str_array(env);
+		free(temp);
 		free(path);
 		exit(g_minishell.error_status);
 	}

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:12:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 20:32:13 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 10:49:04 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ void	error_simple(char *msg, int status)
 	free(line);
 }
 
-void	error_heredoc_eof(char *value)
+void	error_heredoc_eof(char *value, int heredoc_line)
 {
 	char	*gline;
 	char	*hline;
 
 	gline = ft_itoa(g_minishell.general_line);
-	hline = ft_itoa(g_minishell.heredoc_line + 1);
+	hline = ft_itoa(heredoc_line + 1);
 	if (g_minishell.interactive)
 	{
 		ft_putstrs_fd((char *[]){"minishell: warning: here-document at line ",
