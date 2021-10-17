@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/12 19:57:49 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 18:29:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,23 +62,25 @@ t_hashmap	*env_to_hashmap(char *const env[])
 	return (parsed_env);
 }
 
-static char	*item_to_env_entry(t_hashmap_item *item)
+static char	*item_to_env_entry(t_hashmap_item *item, char *path)
 {
 	char	*entry;
 	char	*temp;
 
 	temp = ft_strjoin(item->key, "=");
-	entry = ft_strjoin(temp, item->value);
+	if (!ft_strcmp("_", item->key))
+		entry = ft_strjoin(temp, path);
+	else
+		entry = ft_strjoin(temp, item->value);
 	free(temp);
 	return (entry);
 }
 
-char	**hashmap_env_to_array_env(t_hashmap *bucket)
+char	**hashmap_env_to_array_env(t_hashmap *bucket, char *path)
 {
 	unsigned int	i;
 	unsigned int	j;
 	t_hashmap_item	*current;
-	t_hashmap_item	*temp;
 	char			**env;
 
 	i = 0;
@@ -89,9 +91,8 @@ char	**hashmap_env_to_array_env(t_hashmap *bucket)
 		current = bucket->items[i];
 		while (current != NULL)
 		{
-			temp = current->next;
-			env[j] = item_to_env_entry(current);
-			current = temp;
+			env[j] = item_to_env_entry(current, path);
+			current = current->next;
 			j++;
 		}
 		i++;
