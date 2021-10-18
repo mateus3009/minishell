@@ -13,8 +13,10 @@ last updated: 2021-10-05
 	- ~~unset~~
 	- ~~export~~
 	- ~~cd, unset, export e exit não podem funcionar na pipeline~~
+	- ~~ ~ tilde expansion~~
 	- cd /bin
-	- $_ (export)
+	- ~~$_ (export)~~
+	- escape
 
 ### Parser
 	- ~~Melhorar lógica~~
@@ -24,3 +26,9 @@ last updated: 2021-10-05
 ### Redirect
 	- ~~Executar Heredoc como um processo filho (escutando sinais)~~
 	- ~~Não usar fork para executar os redirects (usar apenas dup2)~~
+
+
+### CD e PWD
+
+no startup:
+verifica se a variável PWD é válida
