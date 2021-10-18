@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 12:41:37 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 22:45:59 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	syntax_error(t_token *token);
 void	ignore_signals(void);
 bool	is_directory(const char *path);
 void	error_handler_arg(char *cmd, char *arg, char *msg, int status);
+char	*resolve_tilde(char *path);
 
 #endif

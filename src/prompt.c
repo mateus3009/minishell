@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 20:31:27 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/17 16:56:20 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:26:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ char	*create_prompt(void)
 	str_builder_add_str(builder, getenv("NAME"));
 	str_builder_add_char(builder, ':');
 	str_builder_add_str(builder, ESC_BOLD_PURPLE);
-	str_builder_add_str(builder, find_env("PWD"));
+	temp = find_env("PWD");
+	str_builder_add_str(builder, temp);
+	free(temp);
 	str_builder_add_str(builder, "$ ");
 	str_builder_add_str(builder, ESC_RESET_COLOR);
 	temp = ft_strdup(builder->str);

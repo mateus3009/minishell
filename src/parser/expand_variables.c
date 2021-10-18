@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 16:34:53 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/17 23:24:40 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	expand_all_variables_node(char **str, t_str_builder **builder)
 	*str = temp + len;
 	temp = find_hashmap_value(g_minishell.local_var, key);
 	if (!temp)
-		temp = find_hashmap_value(g_minishell.env, key);
+		temp = find_env(key);
 	str_builder_add_str(*builder, temp);
 	free(temp);
 	free(key);
@@ -63,12 +63,15 @@ char	*expand_all_variables(char *str)
 
 	if (!str)
 		return (NULL);
+	str = resolve_tilde(str);
+	temp = str;
 	builder = str_builder_init();
 	while (true)
 	{
 		if (!expand_all_variables_node(&str, &builder))
 			break ;
 	}
+	free(temp);
 	temp = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (temp);
