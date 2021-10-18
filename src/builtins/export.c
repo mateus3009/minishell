@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 12:58:01 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 18:26:07 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	show_environment(void)
 			env, sizeof(char *), comparator, array_size((void **)env));
 	while (env_ordened[++index])
 	{
-		if (!ft_strcmp("_", env_ordened[index]) && g_minishell.interactive)
+		if (!ft_strcmp("_", env_ordened[index]))
 			continue ;
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putstr_fd(env_ordened[index], STDOUT_FILENO);
