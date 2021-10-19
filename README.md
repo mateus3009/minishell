@@ -16,10 +16,10 @@ last updated: 2021-10-05
 	- ~~ ~ tilde expansion~~
 	- cd /bin
 	- ~~$_ (export)~~
-	- escape
+	- ~~escape~~
 	- ~~echo -n repetido~~
 	- ~~find_path deveria procurar nas variáveis locais primeiro~~
-	- unset
+	- ~~unset deve excluir local variable também~~
 	- ~~export exclui variávl local~~
 	- ~~export promove variável a environment~~
 

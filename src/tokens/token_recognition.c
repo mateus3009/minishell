@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 17:33:24 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/14 21:26:03 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:46:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static bool	quote_recognition(t_dlist **tokens, char *str, int *index)
 	(*index)++;
 	builder = str_builder_init();
 	while (str[*index] && which_token(str + *index, NULL) != id)
-		str_builder_add_char(builder, str[(*index)++]);
+		if (!escaper_and_add(&builder, str, index, id))
+			return (true);
 	if (!str[*index])
 	{
 		error_handler("syntax error", "unexpected end of file", 2);
@@ -86,7 +87,8 @@ static bool	word_recognition(t_dlist **tokens, char *str, int *index)
 		return (false);
 	builder = str_builder_init();
 	while (str[*index] && which_token(str + *index, NULL) == TD_UNKNOWN)
-		str_builder_add_char(builder, str[(*index)++]);
+		if (!escaper_and_add(&builder, str, index, TD_WORD))
+			return (true);
 	add_token_to_result(tokens, TD_WORD, builder->str);
 	str_builder_destroy(builder);
 	return (true);

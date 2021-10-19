@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 14:12:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 10:49:04 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:29:26 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	syntax_error(t_token *token)
 	{.id = TD_PIPE, .value = "|"}, {.id = TD_OUTPUT, .value = ">"},
 	{.id = TD_INPUT, .value = "<"}, {.id = TD_DOUBLE_QUOTE, .value = "\""},
 	{.id = TD_SINGLE_QUOTE, .value = "'"}, {.id = TD_SPACE, .value = " "},
+	{.id = TD_ESCAPE, .value = "\\"},
 	{.id = TD_NEWLINE, .value = "newline"}, {.id = TD_UNKNOWN}};
 	while (tokens->id != TD_NEWLINE && (!token || tokens->id != token->id))
 		tokens++;

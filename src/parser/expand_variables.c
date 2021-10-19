@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 18:19:35 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 21:03:05 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 00:12:42 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static char	*find_variable(char *str, int *len)
 	i = 0;
 	while (str[i] && str[i] != '$')
 		i++;
+	if (str[i] && str[i] == '$' && str[i - 1] == '\\')
+	{
+		*len = -1;
+		return (str + i + 1);
+	}
 	if (!str[i] || !str[i + 1] || (i && str[i - 1] == '\\')
 		|| (!ft_isalnum(str[i + 1]) && str[i + 1] != '?' && str[i + 1] != '_'))
 		return (NULL);
@@ -39,6 +44,9 @@ static bool	expand_all_variables_node(char **str, t_str_builder **builder)
 	char			*temp;
 
 	temp = find_variable(*str, &len);
+	if (len == -1)
+		return ((str_builder_add_str_len(*builder, *str, temp - *str),
+				*str = temp, true));
 	if (!temp)
 	{
 		str_builder_add_str(*builder, *str);
