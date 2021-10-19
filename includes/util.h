@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:14:59 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 21:51:20 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 07:55:00 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ignore_signals(void);
 bool	is_directory(const char *path);
 void	error_handler_arg(char *cmd, char *arg, char *msg, int status);
 char	*resolve_tilde(char *path);
+void	cwd_setup(void);
+char	*join_path(char *a, char *b);
 
 #endif

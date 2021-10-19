@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 22:37:56 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 09:03:29 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,20 @@
 
 static void	change_to_path(char *path)
 {
-	char	*current_dir;
-	char	*err_msg;
-	char	buffer[2048];
+	char	*temp;
 
-	current_dir = getcwd(buffer, 2048);
-	insert_on_hashmap("OLDPWD", current_dir, g_minishell.env);
-	if (chdir(path) != 0 && ft_strchr(path, '>') == NULL)
+	temp = join_path(g_minishell.pwd, path);
+	if (chdir(temp) != 0 && ft_strchr(path, '>') == NULL)
 	{
-		err_msg = ft_strjoin("cd: ", path);
 		error_handler_arg("cd", path, strerror(errno), 1);
-		free(err_msg);
 		return ;
 	}
-	current_dir = getcwd(buffer, 2048);
-	insert_on_hashmap("PWD", current_dir, g_minishell.env);
+	path = find_hashmap_value(g_minishell.env, "PWD");
+	insert_on_hashmap("OLDPWD", path, g_minishell.env);
+	free(path);
+	insert_on_hashmap("PWD", temp, g_minishell.env);
+	free(g_minishell.pwd);
+	g_minishell.pwd = temp;
 	g_minishell.error_status = 0;
 }
 

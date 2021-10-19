@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 20:35:06 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 07:44:51 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char **argv, char **env)
 	g_minishell.local_var = create_hashmap_bucket(100);
 	g_minishell.env = env_to_hashmap(env);
 	g_minishell.interactive = isatty(STDIN_FILENO);
+	cwd_setup();
 	open_std_fd();
 	ignore_signals();
 	minishell_loop();

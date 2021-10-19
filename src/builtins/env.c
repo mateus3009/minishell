@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:17:54 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/12 17:36:35 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 09:11:32 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,5 @@
 void	env_builtin(void)
 {
 	display_env(g_minishell.env);
+	g_minishell.error_status = 0;
 }

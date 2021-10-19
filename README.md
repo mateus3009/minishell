@@ -14,7 +14,7 @@ last updated: 2021-10-05
 	- ~~export~~
 	- ~~cd, unset, export e exit não podem funcionar na pipeline~~
 	- ~~ ~ tilde expansion~~
-	- cd /bin
+	- ~~cd /bin~~
 	- ~~$_ (export)~~
 	- ~~escape~~
 	- ~~echo -n repetido~~

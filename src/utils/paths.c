@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 19:47:09 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 23:11:45 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 08:57:01 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,18 @@ char	*resolve_tilde(char *path)
 	temp = ft_strdup(builder->str);
 	str_builder_destroy(builder);
 	return (temp);
+}
+
+void	cwd_setup(void)
+{
+	char	*path;
+
+	path = find_env("PATH");
+	if (!path || !is_directory(path) || access(path, F_OK | X_OK))
+	{
+		free(path);
+		path = getcwd(NULL, 0);
+		insert_on_hashmap("PWD", path, g_minishell.env);
+		g_minishell.pwd = path;
+	}
 }

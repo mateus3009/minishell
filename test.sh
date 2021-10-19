@@ -191,12 +191,12 @@ test "env | grep foo" "export foo=bar" "env | grep foo" "export foo" "env | grep
 test "env | grep foo" "export foo=bar" "env | grep foo" "export foo=" "env | grep foo" # env está esquisito
 test "cd" "pwd" "cd .." "pwd"
 test "cd" "pwd" "cd .." "pwd"
-# test "cd /bin" "pwd" "cd /tmp" "pwd" # dificil
+test "cd /bin" "pwd" "cd /tmp" "pwd" # dificil
 test "cd \$HOME" "pwd"
 test "cd " "cd ~" "cd ~/" # dificil
-# test "cd /bin" "pwd" "cd /tmp" "pwd" "unset HOME" "cd" "cd ~" # dificil ~
-# test "cd /bin" "pwd" "cd /tmp" "pwd" "unset OLDPWD" "cd - " # CD /BIN ESTÁ ESTRANHO...
-# test "cd /bin" "pwd" "cd /tmp" "pwd" "unset PWD" "pwd" "cd" "pwd" "cd -" "pwd" # CD /BIN ESTÁ ESTRANHO...
+test "cd /bin" "pwd" "cd /tmp" "pwd" "unset HOME" "cd" "cd ~" # dificil ~
+test "cd /bin" "pwd" "cd /tmp" "pwd" "unset OLDPWD" "cd - " # CD /BIN ESTÁ ESTRANHO...
+test "cd /bin" "pwd" "cd /tmp" "pwd" "unset PWD" "pwd" "cd" "pwd" "cd -" "pwd" # CD /BIN ESTÁ ESTRANHO...
 test "cd ]2" "cd @" "cd 21edsaa" "cd cd cd cd cd"
 test "echo /bin > e" "cd < e" "pwd"
 # test "pwd" "mkdir -p a/b/c" "cd a/b/c" "pwd" "rm -rf ../../" "cd .." "pwd" # exit code errado
