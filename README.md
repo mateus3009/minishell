@@ -17,6 +17,11 @@ last updated: 2021-10-05
 	- cd /bin
 	- ~~$_ (export)~~
 	- escape
+	- ~~echo -n repetido~~
+	- ~~find_path deveria procurar nas variáveis locais primeiro~~
+	- unset
+	- ~~export exclui variávl local~~
+	- ~~export promove variável a environment~~
 
 ### Parser
 	- ~~Melhorar lógica~~

@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:18 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/13 15:23:58 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 22:41:04 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	echo_builtin(char **argv)
 
 	index = 1;
 	new_line = true;
-	if (argv[1] && ft_strcmp("-n", argv[1]) == 0)
+	while (argv[index] && ft_strcmp("-n", argv[index]) == 0)
 	{
 		new_line = false;
 		index++;

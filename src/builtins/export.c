@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:05 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 18:26:07 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:04:23 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,12 @@ static void	show_environment(void)
 		value = find_hashmap_value(g_minishell.env, env_ordened[index]);
 		if (value)
 		{
-			ft_putstr_fd("=\"", STDOUT_FILENO);
-			ft_putstr_fd(value, STDOUT_FILENO);
-			ft_putstr_fd("\"", STDOUT_FILENO);
+			ft_putstrs_fd((char *[]){"=\"", value, "\"", NULL}, STDOUT_FILENO);
 			free(value);
 		}
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	}
+	free_str_array(env);
 }
 
 static void	error_variable(char *var)
@@ -74,6 +73,32 @@ static void	error_variable(char *var)
 	}
 }
 
+static void	set_variable_export(char *keyvalue)
+{
+	char	**parts;
+	char	*env;
+	char	*local;
+
+	if (!keyvalue)
+		return ;
+	parts = ft_split(keyvalue, '=');
+	if (!parts)
+		exit_minishell();
+	env = find_hashmap_value(g_minishell.env, parts[0]);
+	local = find_hashmap_value(g_minishell.local_var, parts[0]);
+	if (!env || (ft_strchr(keyvalue, '=') && env))
+	{
+		if (!parts[1])
+			insert_on_hashmap(parts[0], local, g_minishell.env);
+		else
+			insert_on_hashmap(parts[0], parts[1], g_minishell.env);
+		insert_on_hashmap(parts[0], NULL, g_minishell.local_var);
+	}
+	free(env);
+	free(local);
+	free_str_array(parts);
+}
+
 void	export_builtin(char	**args)
 {
 	size_t	index;
@@ -93,7 +118,7 @@ void	export_builtin(char	**args)
 			g_minishell.error_status = 1;
 			return ;
 		}
-		set_variable(args[index], g_minishell.env);
+		set_variable_export(args[index]);
 	}
 	g_minishell.error_status = 0;
 }

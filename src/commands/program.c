@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 19:32:52 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/18 18:24:03 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 21:48:48 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static void	execute_external(char **argv)
 	char	*temp;
 	char	*path;
 
-	temp = find_env("PATH");
-	path = find_command_path(temp, argv[0]);
+	temp = NULL;
+	path = find_command_path(&temp, argv[0]);
 	env = hashmap_env_to_array_env(g_minishell.env, path);
 	if (!path || !env || execve(path, argv, env) == -1)
 	{
@@ -69,7 +69,7 @@ static bool	set_variables(t_command *command)
 	var = command->variables;
 	while (var)
 	{
-		set_variable(var->content, g_minishell.local_var);
+		set_variable(var->content);
 		var = var->next;
 	}
 	g_minishell.error_status = 0;

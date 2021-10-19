@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/17 16:50:39 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 20:35:06 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	minishell_loop(void)
 		if (!tokens_validator(tokens) && !g_minishell.interactive)
 		{
 			error_simple(line, 2);
+			free(line);
 			break ;
 		}
 		here_document_parser(&tokens);

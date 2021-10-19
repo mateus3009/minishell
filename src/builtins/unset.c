@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:02 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/16 20:25:12 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 23:03:50 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	unset_builtin(char **args)
 			return ;
 		}
 		remove_from_hashmap(g_minishell.env, args[index]);
+		remove_from_hashmap(g_minishell.local_var, args[index]);
 	}
 	g_minishell.error_status = 0;
 }

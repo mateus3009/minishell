@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 21:17:10 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/17 17:32:22 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 22:08:03 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 void	exit_minishell(void)
 {
 	rl_clear_history();
+	free_hashmap_bucket(g_minishell.local_var);
 	free_hashmap_bucket(g_minishell.env);
+	close_std_fd();
 	exit(g_minishell.error_status);
 }
 

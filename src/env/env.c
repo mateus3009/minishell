@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:32 by lniehues          #+#    #+#             */
-/*   Updated: 2021/10/18 18:13:43 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 19:50:08 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	display_env(t_hashmap *env)
 		{
 			ft_putstr_fd(current->key, STDOUT_FILENO);
 			ft_putstr_fd("=", STDOUT_FILENO);
-			if (ft_strcmp("_", current->key))
+			if (!ft_strcmp("_", current->key))
 			{
 				temp = getcwd(NULL, 0);
 				ft_putstr_fd(temp, STDOUT_FILENO);

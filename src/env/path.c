@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/26 16:24:41 by lniehues          #+#    #+#             */
-/*   Updated: 2021/09/30 18:45:50 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/18 21:44:13 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,14 @@ static char	*cmd_path_constructor(char *command, char *path)
 	return (temp);
 }
 
-char	*find_command_path(char *path, char *command)
+static char	*find_command_path_node(char *path, char *command)
 {
-	char			**paths;
-	char			*temp;
-	int				i;
+	int		i;
+	char	**paths;
+	char	*temp;
 
-	if (!path || !command)
+	if (!path)
 		return (NULL);
-	if (ft_strchr(command, '/'))
-	{
-		if (cmd_is_executable(command))
-			return (ft_strdup(command));
-		return (NULL);
-	}
 	i = -1;
 	paths = ft_split(path, ':');
 	while (paths[++i])
@@ -64,4 +58,23 @@ char	*find_command_path(char *path, char *command)
 	}
 	free_str_array(paths);
 	return (NULL);
+}
+
+char	*find_command_path(char **path, char *command)
+{
+	char	*temp;
+
+	if (!command)
+		return (NULL);
+	if (ft_strchr(command, '/'))
+	{
+		if (cmd_is_executable(command))
+			return (ft_strdup(command));
+		return (NULL);
+	}
+	*path = find_hashmap_value(g_minishell.local_var, "PATH");
+	if (!*path)
+		*path = find_hashmap_value(g_minishell.env, "PATH");
+	temp = find_command_path_node(*path, command);
+	return (temp);
 }
