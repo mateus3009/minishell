@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 20:50:27 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/19 07:44:51 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 09:28:15 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ int	main(int argc, char **argv, char **env)
 	free_hashmap_bucket(g_minishell.local_var);
 	free_hashmap_bucket(g_minishell.env);
 	close_std_fd();
+	free(g_minishell.pwd);
 	return (g_minishell.error_status);
 }

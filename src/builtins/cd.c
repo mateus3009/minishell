@@ -6,7 +6,7 @@
 /*   By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 18:19:13 by msales-a          #+#    #+#             */
-/*   Updated: 2021/10/19 09:03:29 by msales-a         ###   ########.fr       */
+/*   Updated: 2021/10/19 09:41:16 by msales-a         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	change_to_path(char *path)
 	temp = join_path(g_minishell.pwd, path);
 	if (chdir(temp) != 0 && ft_strchr(path, '>') == NULL)
 	{
+		free(temp);
 		error_handler_arg("cd", path, strerror(errno), 1);
 		return ;
 	}
