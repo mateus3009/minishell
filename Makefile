@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+         #
+#    By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/14 20:40:30 by msales-a          #+#    #+#              #
-#    Updated: 2021/09/14 21:46:18 by msales-a         ###   ########.fr        #
+#    Updated: 2021/10/19 21:10:58 by lniehues         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,49 @@ LIBRARIES_FLAGS_UTIL		= -L$(dir $(library)) -l$(patsubst lib%.a,%, $(notdir $(li
 LIBRARIES_COMPILED_FLAGS	:= $(foreach library, $(LIBRARIES_COMPILED), $(LIBRARIES_FLAGS_UTIL))
 LIBRARIES_FLAGS				:= $(LIBRARIES_COMPILED_FLAGS) $(LIBRARIES_SYSTEM)
 
-FILE_SOURCE	:= $(filter %.c, $(shell find $(DIRECTORY_SOURCE) -type f))
+# FILE_SOURCE	:= $(filter %.c, $(shell find $(DIRECTORY_SOURCE) -type f))
+FILE_SOURCE	:= src/signals.c \
+	src/builtins/cd.c \
+	src/builtins/exit.c \
+	src/builtins/unset.c \
+	src/builtins/echo.c \
+	src/builtins/export.c \
+	src/builtins/pwd.c \
+	src/builtins/env.c \
+	src/prompt.c \
+	src/tokens/tokens_validator.c \
+	src/tokens/token_recognition.c \
+	src/tokens/token_util.c \
+	src/utils/ignore_signal.c \
+	src/utils/free.c \
+	src/utils/error_handler.c \
+	src/utils/set_variable.c \
+	src/utils/pipe_util.c \
+	src/utils/is_directory.c \
+	src/utils/str_list_to_array.c \
+	src/utils/pipe_minishell.c \
+	src/utils/array_size.c \
+	src/utils/ft_strrstr.c \
+	src/here_document/parser_core.c \
+	src/here_document/here_document_parser.c \
+	src/here_document/here_document.c \
+	src/parser/expand_variables.c \
+	src/parser/join_words.c \
+	src/parser/show.c \
+	src/env/path.c \
+	src/env/env.c \
+	src/commands/get_next_command.c \
+	src/commands/command.c \
+	src/commands/redirects.c \
+	src/commands/operators.c \
+	src/commands/program.c \
+	src/commands/process_commands.c \
+	src/hashmap/free.c \
+	src/hashmap/index.c \
+	src/hashmap/get_keys.c \
+	src/hashmap/create.c \
+	src/hashmap/operations.c \
+	src/main.c \
 
 OBJECTS_SOURCE	:= $(addprefix $(DIRECTORY_TARGET)/, $(FILE_SOURCE:.c=.o))
 
