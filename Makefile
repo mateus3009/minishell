@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lniehues <lniehues@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/14 20:40:30 by msales-a          #+#    #+#              #
-#    Updated: 2021/10/19 21:10:58 by lniehues         ###   ########.fr        #
+#    Updated: 2021/10/19 21:19:15 by msales-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,15 +37,18 @@ FILE_SOURCE	:= src/signals.c \
 	src/builtins/pwd.c \
 	src/builtins/env.c \
 	src/prompt.c \
+	src/tokens/token_escaper.c \
 	src/tokens/tokens_validator.c \
 	src/tokens/token_recognition.c \
 	src/tokens/token_util.c \
 	src/utils/ignore_signal.c \
 	src/utils/free.c \
+	src/utils/path_formater.c \
 	src/utils/error_handler.c \
 	src/utils/set_variable.c \
 	src/utils/pipe_util.c \
 	src/utils/is_directory.c \
+	src/utils/paths.c \
 	src/utils/str_list_to_array.c \
 	src/utils/pipe_minishell.c \
 	src/utils/array_size.c \
