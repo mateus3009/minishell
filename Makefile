@@ -6,7 +6,7 @@
 #    By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/14 20:40:30 by msales-a          #+#    #+#              #
-#    Updated: 2021/10/19 21:19:15 by msales-a         ###   ########.fr        #
+#    Updated: 2021/10/20 08:44:45 by msales-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -97,9 +97,11 @@ all : $(NAME)
 
 clean :
 	@rm -rf $(DIRECTORY_TARGET)
+	@$(foreach library, $(LIBRARIES_COMPILED), make -C $(dir $(library)) clean)
 
-fclean : cleanlib
+fclean : clean
 	@rm -f $(NAME)
+	@$(foreach library, $(LIBRARIES_COMPILED), make -C $(dir $(library)) fclean)
 
 re : all clean
 
@@ -115,6 +117,3 @@ $(DIRECTORY_TARGET)/%.o : %.c Makefile
 
 $(LIBRARIES_COMPILED) :
 	@$(MAKE) -C $(dir $@)
-
-cleanlib : $(LIBRARIES_COMPILED)
-	@$(MAKE) clean fclean -C $(dir $<)
