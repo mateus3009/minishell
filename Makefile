@@ -6,7 +6,7 @@
 #    By: msales-a <msales-a@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/14 20:40:30 by msales-a          #+#    #+#              #
-#    Updated: 2021/10/20 08:44:45 by msales-a         ###   ########.fr        #
+#    Updated: 2021/10/20 08:48:38 by msales-a         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -103,7 +103,7 @@ fclean : clean
 	@rm -f $(NAME)
 	@$(foreach library, $(LIBRARIES_COMPILED), make -C $(dir $(library)) fclean)
 
-re : all clean
+re : clean all
 
 $(NAME) : $(OBJECTS_SOURCE) $(LIBRARIES_COMPILED)
 	@$(COMPILER) $(COMPILER_FLAGS) $(OBJECTS_SOURCE) $(LIBRARIES_FLAGS) -o $(NAME)
